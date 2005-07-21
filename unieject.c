@@ -243,4 +243,3 @@ int do_eject(CdIo_t *p_cdio)
 int set_speed(CdIo_t *p_cdio)
 {
 }
-
