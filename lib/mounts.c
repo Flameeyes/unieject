@@ -20,9 +20,15 @@
 #include <unieject.h>
 #include <unieject_internal.h>
 
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+
+#ifdef HAVE_LIBGEN_H
+#	include <libgen.h>
+#endif
 
 char *libunieject_defaultdevice(const char *progname, struct unieject_opts opts)
 {
@@ -67,7 +73,38 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
 	
 	unieject_verbose(stdout, "%s: expanded name is '%s'\n", progname, normalized);
 	
-	// TODO: check for links, mountpoints, devices
+#if defined(HAVE_READLINK) && defined(HAVE_DIRNAME)
+	tmp = (char*)malloc(sizeof(char)*1024);
+	int c = readlink(normalized, tmp, 1023);
+	if ( c != -1)
+	{
+		tmp[c] = '\0';
+		if ( tmp[0] != '/' ) // relative link
+		{
+			char *copynorm = sstrdup(normalized);
+			char *origdir = sstrdup(dirname(copynorm));
+			char *newname = NULL;
+			asprintf(&newname, "%s/%s", origdir, tmp);
+			free(tmp);
+			
+			tmp = newname;
+			
+			free(copynorm);
+			free(origdir);
+		}
+		
+		unieject_verbose(stdout, "%s: '%s' is a link to '%s'\n", progname, normalized, tmp);
+		free(normalized);
+		normalized = sstrdup(tmp);
+	} else if ( errno != EINVAL ) {
+		// EINVAL is returned when the path is not a link
+		perror(progname);
+	}
+	
+	free(tmp);
+#endif
+	
+	// TODO: check for mountpoints, devices
 	
 	return normalized;
 }

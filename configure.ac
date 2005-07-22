@@ -15,8 +15,12 @@ AC_SUBST(LIBPOPT_CFLAGS)
 AC_SUBST(LIBPOPT_LDFLAGS)
 
 dnl Mandatory functions and headers
-AC_CHECK_FUNCS([getenv])
-AC_CHECK_HEADERS([stdlib.h unistd.h stdio.h string.h])
+AC_CHECK_HEADERS([stdlib.h unistd.h stdio.h string.h unistd.h])
+AC_CHECK_FUNCS([perror])
+
+dnl Optional functions
+AC_CHECK_HEADERS([libgen.h])
+AC_CHECK_FUNCS([getenv readlink dirname])
 
 AC_OUTPUT([Makefile
 	lib/Makefile])
