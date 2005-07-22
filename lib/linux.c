@@ -30,26 +30,36 @@ char *checkmount(const char *progname, struct unieject_opts opts, const char **d
 	char *mnt = (char*)malloc(1024);
 	char *dev = (char*)malloc(1024);
 	
-	while ( fscanf(fp, "%s %s %s* %s* %d* %d*\n", dev, mnt) != EOF )
+	while ( fscanf(fp, "%s %s %*s %*s %*d %*d\n", dev, mnt) != EOF )
 	{
+		if ( dev[0] != '/' ) continue;
+		
+		char *newdev = simplifylink(progname, dev);
+		char *newmnt = simplifylink(progname, mnt);
+		
 		// symlinks?
-		if ( strcmp(dev, *device) == 0 )
+		if ( strcmp(newdev, *device) == 0 )
 		{
-			unieject_verbose(stdout, "%s: '%s' is mounted as '%s'", progname, *device, mnt);
-			ret = sstrdup(mnt);
+			unieject_verbose(stdout, "%s: '%s' is mounted as '%s'\n", progname, *device, newmnt);
+			ret = newmnt == mnt ? sstrdup(mnt) : newmnt;
+			
+			if ( newdev != dev ) free(newdev);
 			break;
 		}
 		
 		// traling / ?
-		if ( strcmp(mnt, *device) == 0 )
+		if ( strcmp(newmnt, *device) == 0 )
 		{
-			unieject_verbose(stdout, "%s: '%s' is the mount point of '%s'\n", progname, *device, dev);
+			unieject_verbose(stdout, "%s: '%s' is the mount point of '%s'\n", progname, *device, newdev);
 			ret = *device;
-			*device = sstrdup(dev);
+			*device = newdev == dev ? sstrdup(dev) : newdev;
 			
+			if ( newmnt != mnt ) free(newmnt);
 			break;
 		}
-	
+		
+		if ( newdev != dev ) free(newdev);
+		if ( newmnt != mnt ) free(newmnt);
 	}
 	free(mnt);
 	free(dev);
