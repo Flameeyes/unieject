@@ -69,4 +69,15 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
  */
 int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
 
+/**
+ * @brief Unmount a device (platform dependant)
+ * @param progname Name of the program to output for messages.
+ * @param opts Options to apply.
+ * @param device Normalized name of the device to unmount.
+ *
+ * @retval true Unmount completed successfully (or opts.fake enabled).
+ * @retval false Error unmounting the device.
+ */
+bool libunieject_umountdev(char *progname, struct unieject_opts opts, const char *device);
+
 #endif

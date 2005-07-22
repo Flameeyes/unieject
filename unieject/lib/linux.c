@@ -22,7 +22,7 @@
 
 #include <stdio.h>
 
-char *checkmount(const char *progname, struct unieject_opts opts, const char **device)
+char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 {
 	char *ret = NULL;
 	FILE *fp = fopen("/proc/mounts", "r");
@@ -41,18 +41,17 @@ char *checkmount(const char *progname, struct unieject_opts opts, const char **d
 		if ( strcmp(newdev, *device) == 0 )
 		{
 			unieject_verbose(stdout, "%s: '%s' is mounted as '%s'\n", progname, *device, newmnt);
-			ret = newmnt == mnt ? sstrdup(mnt) : newmnt;
+			ret = (newmnt == mnt) ? sstrdup(mnt) : newmnt;
 			
 			if ( newdev != dev ) free(newdev);
 			break;
 		}
-		
-		// traling / ?
+
 		if ( strcmp(newmnt, *device) == 0 )
 		{
 			unieject_verbose(stdout, "%s: '%s' is the mount point of '%s'\n", progname, *device, newdev);
 			ret = *device;
-			*device = newdev == dev ? sstrdup(dev) : newdev;
+			*device = (newdev == dev) ? sstrdup(dev) : newdev;
 			
 			if ( newmnt != mnt ) free(newmnt);
 			break;
@@ -66,4 +65,28 @@ char *checkmount(const char *progname, struct unieject_opts opts, const char **d
 	
 	fclose(fp);
 	return ret;
+}
+
+bool libunieject_umountdev(char *progname, struct unieject_opts opts, const char *device)
+{
+	if ( opts.fake ) return true;
+
+	struct unieject_opts nonverbose_opts = opts;
+	nonverbose_opts.verbose = 0;
+	
+	char *mnt = NULL;
+	
+	while ( ( mnt = checkmount(progname, opts, &device) ) )
+	{
+		if ( umount(mnt) == -1 )
+		{
+			unieject_error(stderr, "%s: unable to unmount '%s'\n", progname, mnt);
+			perror(progname);
+			return false;
+		}
+		
+		unieject_verbose(stdout, "%s: '%s' unmounted from '%s'\n", progname, device, mnt);
+	}
+
+	return true;
 }
