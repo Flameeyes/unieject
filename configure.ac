@@ -22,5 +22,7 @@ dnl Optional functions
 AC_CHECK_HEADERS([libgen.h])
 AC_CHECK_FUNCS([getenv readlink dirname])
 
+AM_CONDITIONAL([LINUX], test "x$host_os" = "xlinux" || test "x$host_os" = "xlinux-gnu")
+
 AC_OUTPUT([Makefile
 	lib/Makefile])

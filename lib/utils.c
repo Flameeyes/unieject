@@ -17,30 +17,41 @@
 
    */
 
-#ifndef __UNIEJECT_INTERNAL_H__
-#define __UNIEJECT_INTERNAL_H__
+#include <unieject_internal.h>
 
-// We need this for asprintf
-#define _GNU_SOURCE
+#include <errno.h>
 
-#define unieject_error \
-	if ( opts.verbose != -1 ) fprintf
-
-#define unieject_verbose \
-	if ( opts.verbose == 1 ) fprintf
-
-#include <config.h>
-#include <string.h>
-
-#include <unieject.h>
-
-// safe strdup
-static char *sstrdup(const char *str)
-{
-	return str ? strdup(str) : NULL;
-}
-
-char *simplifylink(const char *progname, const char *link);
-char *checkmount(const char *progname, struct unieject_opts opts, const char **device);
-
+#ifdef HAVE_LIBGEN_H
+#	include <libgen.h>
 #endif
+
+char *simplifylink(const char *progname, const char *orig)
+{
+#if defined(HAVE_READLINK) && defined(HAVE_DIRNAME)
+	char *tmp = (char*)malloc(sizeof(char)*1024);
+	int c = readlink(orig, tmp, 1023);
+	if ( c != -1)
+	{
+		tmp[c] = '\0';
+		if ( tmp[0] != '/' ) // relative link
+		{
+			char *copylink = sstrdup(orig);
+			char *origdir = sstrdup(dirname(copylink));
+			char *newname = NULL;
+			asprintf(&newname, "%s/%s", origdir, tmp);
+			free(tmp);
+			
+			tmp = newname;
+			
+			free(copylink);
+			free(origdir);
+		}
+		
+		return tmp;
+	} else if ( errno != EINVAL ) {
+		// EINVAL is returned when the path is not a link
+		perror(progname);
+	}
+#endif
+	return orig;
+}

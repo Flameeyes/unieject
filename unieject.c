@@ -171,13 +171,6 @@ int main(int argc, const char *argv[])
 		return -1;
 	}
 	
-	if ( opts.fake )
-	{
-		char *default_device = cdio_get_default_device(cdio);
-		printf("%s: device is: `%s'\n", progname, default_device);
-		free(default_device);
-	}
-	
 	int ret;
 	if ( opts.speed == 0 )
 		ret = libunieject_eject(progname, opts, cdio);
