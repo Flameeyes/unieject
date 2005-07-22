@@ -5,7 +5,7 @@ noinst_HEADERS = unieject_internal.h
 
 if LINUX
 platformsrcs = linux.c
-elif FREEBSD
+elseif FREEBSD
 platformsrcs = freebsd.c
 endif
 
