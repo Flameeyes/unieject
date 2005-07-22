@@ -5,6 +5,8 @@ noinst_HEADERS = unieject_internal.h
 
 if LINUX
 platformsrcs = linux.c
+elif FREEBSD
+platformsrcs = freebsd.c
 endif
 
 lib_LTLIBRARIES = libunieject.la
