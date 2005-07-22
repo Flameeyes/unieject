@@ -60,7 +60,7 @@ If omitted, name defaults to `cdrom'.
 By default tries -r, -s, -f, and -q in order until success.
 */
 
-struct opt_s opts;
+struct unieject_opts opts;
 
 enum {
 	OP_IGNORE,
@@ -95,7 +95,9 @@ static bool parse_options (int argc, const char *argv[])
 		{ "verbose",		'v', POPT_ARG_VAL, &opts.verbose, 1,
 		  "Enable verbose output." },
 		{ "no-unmount",		'm', POPT_ARG_VAL, &opts.unmount, 0,
-		  "Do not umount device even if it is mounted" },
+		  "Do not umount device even if it is mounted." },
+		{ "quiet",		"Q", POPT_ARG_VAL, &opts.verbose, -1,
+		  "Disable output of error messages." },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  "Ignored (classic eject compatibility)." },
@@ -189,48 +191,13 @@ int main(int argc, const char *argv[])
 	
 	int ret;
 	if ( opts.speed == 0 )
-		ret = do_eject(&p_cdio);
+		ret = libunieject_eject(progname, opts, &p_cdio);
 	else
 		ret = set_speed(&p_cdio);
 	
 	cleanup();
 
 	return ret;
-}
-
-int do_eject(CdIo_t *p_cdio)
-{
-	// TODO: tell libcdio author about this
-	cdio_drive_misc_cap_t unused, i_misc_cap;
-	cdio_get_drive_cap(p_cdio, &unused, &unused, &i_misc_cap);
-	
-	if ( opts.eject )
-	{
-		if ( ! (i_misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
-		{
-			fprintf(stderr, "%s: the selected device doesn't have eject capabilities.\n", progname);
-			cleanup();
-			return -2;
-		}
-	} else {
-		if ( ! (i_misc_cap & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
-		{
-			fprintf(stderr, "%s: the selected device doesn't have tray close capabilities.\n", progname);
-			cleanup();
-			return -2;
-		}
-	}
-	
-	if ( ! opts.fake )
-	{
-		driver_return_code_t r_action = mmc_start_stop_media(p_cdio, opts.eject, 0, 0);
-		if ( r_action != DRIVER_OP_SUCCESS )
-		{
-			fprintf(stderr, "%s: unable to execute command (CDIO returned: %d)\n", progname, r_action);
-			cleanup();
-			return -3;
-		}
-	}
 }
 
 int set_speed(CdIo_t *p_cdio)

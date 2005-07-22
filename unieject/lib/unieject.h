@@ -28,14 +28,14 @@
 /**
  * @brief Defines the options to 
  */
-struct opt_s {
-	int eject;		// Will eject or close the tray?
-	int fake;		// Don't eject, just show device found.
-	int verbose;		// Enable verbose output.
-	int unmount;		// Unmount device if occupied
-	int speed;		// Maximum speed to set the device to
+struct unieject_opts {
+	int eject;		///< Will eject or close the tray?
+	int fake;		///< Don't eject, just show device found.
+	int verbose;		///< Enable verbose output.
+	int unmount;		///< Unmount device if occupied
+	int speed;		///< Maximum speed to set the device to
 	
-	char *device;		// Device to open
+	char *device;		///< Device to open
 };
 
 #endif
