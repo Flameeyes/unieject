@@ -22,6 +22,7 @@
 
 #include <stdio.h>
 #include <sys/mount.h>
+#include <errno.h>
 
 char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 {
