@@ -20,6 +20,8 @@
 #ifndef __UNIEJECT_H__
 #define __UNIEJECT_H__
 
+#include <cdio/cdio.h>
+
 /**
  * @file
  * @brief Base interface to unieject functions
@@ -39,9 +41,26 @@ struct unieject_opts {
 };
 
 /**
+ * @brief Gets the default CDIO device name.
+ * @param progname Name of the program to output for messages.
+ * @param opts Options to apply.
+ *
+ * @note This should be internal only
+ */
+char *libunieject_defaultdevice(const char *progname, struct unieject_opts opts);
+
+/**
+ * @brief Gets the device name, resolving the argument or finding the default.
+ * @param progname Name of the program to output for messages.
+ * @param opts Options to apply.
+ * @param basename Name of the device to canonicalize or NULL to find the default.
+ */
+char *libunieject_getdevice(const char *progname, struct unieject_opts opts, const char *basename);
+
+/**
  * @brief Eject the media in the passed cdio descriptor.
  * @param progname Name of the program to output for messages.
- * @param opts Options to apply to the eject command.
+ * @param opts Options to apply
  * @param cdio libcdio descriptor for opened device.
  */
 int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
