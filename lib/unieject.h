@@ -26,16 +26,24 @@
  */
 
 /**
- * @brief Defines the options to 
+ * @brief Defines the options used to influence libunieject functions
  */
 struct unieject_opts {
 	int eject;		///< Will eject or close the tray?
 	int fake;		///< Don't eject, just show device found.
 	int verbose;		///< Enable verbose output.
-	int unmount;		///< Unmount device if occupied
-	int speed;		///< Maximum speed to set the device to
+	int unmount;		///< Unmount device if occupied.
+	int speed;		///< Maximum speed to set the device to.
 	
-	char *device;		///< Device to open
+	char *device;		///< Path of the device to open.
 };
+
+/**
+ * @brief Eject the media in the passed cdio descriptor.
+ * @param progname Name of the program to output for messages.
+ * @param opts Options to apply to the eject command.
+ * @param cdio libcdio descriptor for opened device.
+ */
+int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
 
 #endif

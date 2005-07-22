@@ -24,22 +24,22 @@
 
 #include <stdio.h>
 
-int libunieject_eject(char *progname, struct unieject_opts opts, CdIo_t *p_cdio)
+int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio)
 {
 	// TODO: tell libcdio author about this
-	cdio_drive_misc_cap_t unused, i_misc_cap;
-	cdio_get_drive_cap(p_cdio, &unused, &unused, &i_misc_cap);
+	cdio_drive_misc_cap_t unused, misc_cap;
+	cdio_get_drive_cap(cdio, &unused, &unused, &misc_cap);
 	
 	if ( opts.eject )
 	{
-		if ( ! (i_misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
+		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
 		{
 			if ( opts.verbose != -1 )
 				fprintf(stderr, "%s: the selected device doesn't have eject capabilities.\n", progname);
 			return -2;
 		}
 	} else {
-		if ( ! (i_misc_cap & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
+		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
 		{
 			if ( opts.verbose != -1 )
 				fprintf(stderr, "%s: the selected device doesn't have tray close capabilities.\n", progname);
@@ -47,14 +47,14 @@ int libunieject_eject(char *progname, struct unieject_opts opts, CdIo_t *p_cdio)
 		}
 	}
 	
-	if ( ! opts.fake )
+	if ( opts.fake )
+		return 0;
+	
+	driver_return_code_t sts = mmc_start_stop_media(cdio, opts.eject, 0, 0);
+	if ( sts != DRIVER_OP_SUCCESS )
 	{
-		driver_return_code_t r_action = mmc_start_stop_media(p_cdio, opts.eject, 0, 0);
-		if ( r_action != DRIVER_OP_SUCCESS )
-		{
-			if ( opts.verbose != -1 )
-				fprintf(stderr, "%s: unable to execute command (CDIO returned: %d)\n", progname, r_action);
-			return -3;
-		}
+		if ( opts.verbose != -1 )
+			fprintf(stderr, "%s: unable to execute command (CDIO returned: %d)\n", progname, sts);
+		return -3;
 	}
 }
