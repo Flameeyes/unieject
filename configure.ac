@@ -22,8 +22,18 @@ dnl Optional functions
 AC_CHECK_HEADERS([libgen.h])
 AC_CHECK_FUNCS([getenv readlink dirname])
 
-AM_CONDITIONAL([LINUX], [test '"x$host_os" = xlinux*'])
-AM_CONDITIONAL([FREEBSD], [test '"x$host_os" = xfreebsd*'])
+case $host_os in
+	linux* ) os="Linux"
+		;;
+	freebsd* ) os="FreeBSD"
+		;;
+	
+	* ) os="Unsupported"
+		;;
+esac
+
+AM_CONDITIONAL([LINUX], [test "x$os" = "xLinux"])
+AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
 
 AC_OUTPUT([Makefile
 	lib/Makefile])
