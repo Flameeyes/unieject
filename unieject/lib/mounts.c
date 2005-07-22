@@ -49,6 +49,14 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
 	}
 #endif
 
+#ifdef __FreeBSD__
+	if ( ! normalized )
+	{
+		normalized = strdup("cd0");
+		unieject_verbose(stdout, "%s: using FreeBSD default: 'cd0'\n", progname);
+	}
+#endif
+
 	if ( ! normalized )
 	{
 		normalized = libunieject_defaultdevice(progname, opts);
