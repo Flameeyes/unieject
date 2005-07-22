@@ -80,6 +80,7 @@ static bool parse_options (int argc, const char *argv[])
 	opts.verbose = 0;
 	opts.unmount = 1;
 	opts.speed = 0;
+	opts.force = 0;
 	opts.device = NULL;
   
 	struct poptOption optionsTable[] = {
@@ -95,6 +96,8 @@ static bool parse_options (int argc, const char *argv[])
 		  "Do not umount device even if it is mounted." },
 		{ "quiet",		'Q', POPT_ARG_VAL, &opts.verbose, -1,
 		  "Disable output of error messages." },
+		{ "force",		'f', POPT_ARG_VAL, &opts.force, 1,
+		  "Force unmount of device." },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  "Ignored (classic eject compatibility)." },
@@ -111,14 +114,11 @@ static bool parse_options (int argc, const char *argv[])
 		switch(opt)
 		{
 		case OP_DEFAULT: {
-				CdIo_t *p_cdio = cdio_open (NULL, DRIVER_UNKNOWN);
-
-				char *default_device = cdio_get_default_device(p_cdio);
+				char *default_device = libunieject_defaultdevice(progname, opts);
 				printf("%s: default device: `%s'\n", progname, default_device);
 				retval = true;
 				
 				free(default_device);
-				cdio_destroy(p_cdio);
 			}
 		}
 	}

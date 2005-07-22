@@ -16,11 +16,11 @@ AC_SUBST(LIBPOPT_LDFLAGS)
 
 dnl Mandatory functions and headers
 AC_CHECK_HEADERS([stdlib.h unistd.h stdio.h string.h unistd.h])
-AC_CHECK_FUNCS([perror])
+AC_CHECK_FUNCS([perror strerror readlink dirname])
 
 dnl Optional functions
 AC_CHECK_HEADERS([libgen.h])
-AC_CHECK_FUNCS([getenv readlink dirname])
+AC_CHECK_FUNCS([getenv umount2])
 
 case $host_os in
 	linux* ) os="Linux"
