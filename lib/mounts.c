@@ -79,18 +79,11 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
 		tmp = NULL;
 	}
 	
-	char *mnt = checkmount(progname, opts, &normalized);
+	int len = strlen(normalized);
+	if ( normalized[len-1] == '/' )
+		normalized[len-1] = '\0';
 	
-	if ( mnt && ! opts.fake )
-	{
-		unieject_verbose(stdout, "%s: unmounting '%s'\n", progname, mnt);
-		if ( umount(mnt) == -1 )
-		{
-			perror(progname);
-		} else {
-			unieject_verbose(stdout, "%s: '%s' unmounted\n", progname, mnt);
-		}
-	}
+	char *mnt = checkmount(progname, opts, &normalized);
 	
 	// TODO: check for mountpoints, devices
 	
