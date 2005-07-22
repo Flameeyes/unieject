@@ -36,4 +36,5 @@ AM_CONDITIONAL([LINUX], [test "x$os" = "xLinux"])
 AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
 
 AC_OUTPUT([Makefile
-	lib/Makefile])
+	lib/Makefile
+	manpages/Makefile])
