@@ -1,17 +1,24 @@
 NAME
   unieject - Universal eject commandline tool
 SYNOPSIS
-  unieject [options] [device or mountpoint]
-  unieject [options] --trayclose [device or mountpoint]
+  unieject [-nvQmf] [device or mountpoint]
+  unieject [-nvQ] --trayclose [device or mountpoint]
 DESCRIPTION
   unieject is an universal eject command which works on Linux and FreeBSD,
-  using libcdio low-level access
+  using libcdio low-level access.
 
 OPTIONS
   -t, --trayclose        Close the tray of the CD-Rom instead of eject it.
   -n, --noop             Doesn't actually do nothing, just print what it
                          would have done.
   -d, --default          Show the default device that will be ejected.
+  -v, --verbose          Show more information while executing the command.
+  -Q, --quiet            Show less information while executing the command.
+  -m, --no-unmount       Don't unmount the device if it's mounted (the eject
+                         will probably fail if the device is mounted, this
+                         way).
+  -f, --force            Force unmounting of device if it's mounted. This
+                         works only if OS supports it.
 
 AUTHOR
   unieject is wrote by Diego Pettenò <flameeyes@gentoo.org>, partially using
