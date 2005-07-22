@@ -32,6 +32,8 @@
 
 #include <popt.h>
 
+#include <unieject.h>
+
 static char *progname;
 
 /*
@@ -58,16 +60,7 @@ If omitted, name defaults to `cdrom'.
 By default tries -r, -s, -f, and -q in order until success.
 */
 
-/* Options */
-struct opt_s {
-	int eject;		// Will eject or close the tray?
-	int fake;		// Don't eject, just show device found.
-	int verbose;		// Enable verbose output.
-	int unmount;		// Unmount device if occupied
-	int speed;		// Maximum speed to set the device to
-	
-	char *device;		// Device to open
-} opts;
+opt_s opts;
 
 enum {
 	OP_IGNORE,
