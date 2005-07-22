@@ -56,20 +56,23 @@ int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *c
 		return 0;
 
 #ifdef __FreeBSD__
-	int devfd = open(opts.device, O_RDONLY);
-	if ( devfd == -1 )
+	if ( opts.eject )
 	{
-		unieject_error(stderr, "%s: unable to open device descriptor [%s].\n", progname, strerror(errno));
-		return -4;
+		int devfd = open(opts.device, O_RDONLY);
+		if ( devfd == -1 )
+		{
+			unieject_error(stderr, "%s: unable to open device descriptor [%s].\n", progname, strerror(errno));
+			return -4;
+		}
+		
+		if ( ioctl(devfd, CDIOCALLOW) == -1 )
+		{
+			unieject_error(stderr, "%s: error in ioctl [%s].\n", progname, strerror(errno));
+			return -5;
+		}
+		
+		close(devfd);
 	}
-	
-	if ( ioctl(devfd, CDIOCALLOW) == -1 )
-	{
-		unieject_error(stderr, "%s: error in ioctl [%s].\n", progname, strerror(errno));
-		return -5;
-	}
-	
-	close(devfd);
 #endif
 	
 	driver_return_code_t sts = mmc_start_stop_media(cdio, opts.eject, 0, 0);
