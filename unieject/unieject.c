@@ -17,22 +17,19 @@
 
    */
 
-#define _GNU_SOURCE
+#include <unieject.h>
+#include <unieject_internal.h>
 
 #include <unistd.h>
 
-#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include <cdio/cdio.h>
 #include <cdio/mmc.h>
 #include <cdio/logging.h>
 
 #include <popt.h>
-
-#include <unieject.h>
 
 static char *progname;
 
@@ -96,7 +93,7 @@ static bool parse_options (int argc, const char *argv[])
 		  "Enable verbose output." },
 		{ "no-unmount",		'm', POPT_ARG_VAL, &opts.unmount, 0,
 		  "Do not umount device even if it is mounted." },
-		{ "quiet",		"Q", POPT_ARG_VAL, &opts.verbose, -1,
+		{ "quiet",		'Q', POPT_ARG_VAL, &opts.verbose, -1,
 		  "Disable output of error messages." },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
@@ -137,25 +134,17 @@ static bool parse_options (int argc, const char *argv[])
 	}
 	
 	const char *arg_device = poptGetArg(optCon);
-	if ( arg_device )
-	{
-		if ( strncmp(arg_device, "/dev/", 5) != 0 )
-		{
-			if ( arg_device[0] != '/' ) // consider it a devicename without /dev/ prefix
-				asprintf(&opts.device, "/dev/%s", arg_device);
-		} else {
-			opts.device = strdup(arg_device);
-		}
-	}
 	
-	if ( opts.verbose && poptGetArg(optCon) )
-		printf("%s: further non-option arguments ignored.\n", progname);
+	if ( poptGetArg(optCon) )
+		unieject_verbose(stdout, "%s: further non-option arguments ignored.\n", progname);
+	
+	opts.device = libunieject_getdevice(progname, opts, arg_device);
 	
 	return retval;
 }
 
 #define cleanup() \
-	if ( p_cdio ) cdio_destroy(p_cdio); \
+	if ( cdio ) cdio_destroy(cdio); \
 	pre_cleanup()
 
 int do_eject();
@@ -173,27 +162,27 @@ int main(int argc, const char *argv[])
 		return 0;
 	}
 	
-	CdIo_t *p_cdio = cdio_open (opts.device, DRIVER_UNKNOWN);
+	CdIo_t *cdio = cdio_open (opts.device, DRIVER_UNKNOWN);
 
-	if (p_cdio == NULL)
+	if (cdio == NULL)
 	{
 		fprintf(stderr, "%s: cannot find CD-Rom driver.\n", progname);
 		cleanup();
 		return -1;
 	}
 	
-	if ( opts.fake || opts.verbose )
+	if ( opts.fake )
 	{
-		char *default_device = cdio_get_default_device(p_cdio);
+		char *default_device = cdio_get_default_device(cdio);
 		printf("%s: device is: `%s'\n", progname, default_device);
 		free(default_device);
 	}
 	
 	int ret;
 	if ( opts.speed == 0 )
-		ret = libunieject_eject(progname, opts, &p_cdio);
+		ret = libunieject_eject(progname, opts, cdio);
 	else
-		ret = set_speed(&p_cdio);
+		ret = set_speed(&cdio);
 	
 	cleanup();
 

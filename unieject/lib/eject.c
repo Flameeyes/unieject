@@ -18,8 +18,8 @@
    */
 
 #include <unieject.h>
+#include <unieject_internal.h>
 
-#include <cdio/cdio.h>
 #include <cdio/mmc.h>
 
 #include <stdio.h>
@@ -34,8 +34,7 @@ int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *c
 	{
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
 		{
-			if ( opts.verbose != -1 )
-				fprintf(stderr, "%s: the selected device doesn't have eject capabilities.\n", progname);
+			unieject_error(stderr, "%s: the selected device doesn't have eject capabilities.\n", progname);
 			return -2;
 		}
 	} else {
