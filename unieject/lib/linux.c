@@ -69,7 +69,7 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 
 bool libunieject_umountdev(char *progname, struct unieject_opts opts, const char *device)
 {
-	if ( opts.fake ) return true;
+	if ( opts.fake || ! opts.umount ) return true;
 
 	struct unieject_opts nonverbose_opts = opts;
 	nonverbose_opts.verbose = 0;
