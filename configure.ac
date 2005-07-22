@@ -8,4 +8,7 @@ AC_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([LIBCDIO], [libcdio >= 0.74])
 
-AC_OUTPUT([Makefile])
+AM_PATH_LIBPOPT
+
+AC_OUTPUT([Makefile
+	lib/Makefile])
