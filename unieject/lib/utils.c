@@ -28,7 +28,8 @@
 char *simplifylink(const char *progname, const char *orig)
 {
 #if defined(HAVE_READLINK) && defined(HAVE_DIRNAME)
-	char *tmp = (char*)malloc(sizeof(char)*1024);
+	char *tmp = (char*)malloc(1024);
+	
 	int c = readlink(orig, tmp, 1023);
 	if ( c != -1)
 	{
@@ -37,21 +38,19 @@ char *simplifylink(const char *progname, const char *orig)
 		{
 			char *copylink = sstrdup(orig);
 			char *origdir = sstrdup(dirname(copylink));
+			free(copylink);
+			
 			char *newname = NULL;
 			asprintf(&newname, "%s/%s", origdir, tmp);
-			free(tmp);
+			free(tmp); free(origdir);
 			
 			tmp = newname;
-			
-			free(copylink);
-			free(origdir);
 		}
 		
 		return tmp;
-	} else if ( errno != EINVAL ) {
-		// EINVAL is returned when the path is not a link
-		perror(progname);
 	}
+	
+	free(tmp);
 #endif
 	return orig;
 }

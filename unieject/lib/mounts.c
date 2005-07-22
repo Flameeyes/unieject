@@ -25,6 +25,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <sys/mount.h>
+
 char *libunieject_defaultdevice(const char *progname, struct unieject_opts opts)
 {
 	CdIo_t *cdio = cdio_open(NULL, DRIVER_UNKNOWN);
@@ -78,6 +80,17 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
 	}
 	
 	char *mnt = checkmount(progname, opts, &normalized);
+	
+	if ( mnt && ! opts.fake )
+	{
+		unieject_verbose(stdout, "%s: unmounting '%s'\n", progname, mnt);
+		if ( umount(mnt) == -1 )
+		{
+			perror(progname);
+		} else {
+			unieject_verbose(stdout, "%s: '%s' unmounted\n", progname, mnt);
+		}
+	}
 	
 	// TODO: check for mountpoints, devices
 	
