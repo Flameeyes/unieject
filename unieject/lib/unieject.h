@@ -62,6 +62,10 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
  * @param progname Name of the program to output for messages.
  * @param opts Options to apply
  * @param cdio libcdio descriptor for opened device.
+ *
+ * @retval 0 Eject successful
+ * @retval -2 Drive doesn't has the capabilities required
+ * @retval -3 Error during ejection
  */
 int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
 
