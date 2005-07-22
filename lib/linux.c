@@ -77,10 +77,13 @@ bool internal_umountdev(char *progname, struct unieject_opts opts, const char *d
 	
 	while ( ( mnt = checkmount(progname, opts, &device) ) )
 	{
+#ifdef HAVE_UMOUNT2
+		if ( umount2(mnt, opts.force ? MNT_FORCE : 0) == -1 )
+#else
 		if ( umount(mnt) == -1 )
+#endif
 		{
-			unieject_error(stderr, "%s: unable to unmount '%s'\n", progname, mnt);
-			perror(progname);
+			unieject_error(stderr, "%s: unable to unmount '%s' [%s]\n", progname, mnt, strerror(errno));
 			return false;
 		}
 		

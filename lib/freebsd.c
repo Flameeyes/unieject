@@ -75,5 +75,21 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 
 bool internal_umountdev(char *progname, struct unieject_opts opts, const char *device)
 {
+	struct unieject_opts nonverbose_opts = opts;
+	nonverbose_opts.verbose = 0;
+	
+	char *mnt = NULL;
+	
+	while ( ( mnt = checkmount(progname, opts, &device) ) )
+	{
+		if ( unmount(mnt, opts.force ? MNT_FORCE : 0) == -1 )
+		{
+			unieject_error(stderr, "%s: unable to unmount '%s' [%s]\n", progname, mnt, strerror(errno));
+			return false;
+		}
+		
+		unieject_verbose(stdout, "%s: '%s' unmounted from '%s'\n", progname, device, mnt);
+	}
+
 	return true;
 }

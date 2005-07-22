@@ -36,6 +36,7 @@ struct unieject_opts {
 	int verbose;		///< Enable verbose output.
 	int unmount;		///< Unmount device if occupied.
 	int speed;		///< Maximum speed to set the device to.
+	int force;		///< Force device unmount.
 	
 	char *device;		///< Path of the device to open.
 };
