@@ -1,8 +1,8 @@
 #!/bin/bash
 
-libtoolize
 touch ChangeLog README INSTALL NEWS
-
-ACLOCAL="aclocal -I m4" \
-autoreconf -i
-
+libtoolize --copy --force
+aclocal -I m4 --force
+autoconf --force
+autoheader --force
+automake --add-missing --force-missing  --copy
