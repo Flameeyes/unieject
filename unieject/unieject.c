@@ -60,7 +60,7 @@ If omitted, name defaults to `cdrom'.
 By default tries -r, -s, -f, and -q in order until success.
 */
 
-opt_s opts;
+struct opt_s opts;
 
 enum {
 	OP_IGNORE,

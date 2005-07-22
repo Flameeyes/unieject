@@ -3,5 +3,6 @@
 libtoolize
 touch ChangeLog README INSTALL NEWS
 
-autoreconf -I m4 -i
+ACLOCAL="aclocal -I m4" \
+autoreconf -i
 
