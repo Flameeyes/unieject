@@ -1,6 +1,6 @@
 #!/bin/bash
 
-touch ChangeLog README INSTALL NEWS
+touch ChangeLog NEWS
 libtoolize --copy --force
 aclocal -I m4 --force
 autoconf --force
