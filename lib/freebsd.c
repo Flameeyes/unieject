@@ -24,6 +24,8 @@
 
 #include <sys/param.h>
 #include <sys/mount.h>
+#include <stdio.h>
+#include <errno.h>
 
 char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 {
@@ -36,20 +38,21 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 		return *device;
 	}
 	
-	for (int n = 0; n < mnts; n++)
+	int n;
+	for (n = 0; n < mnts; n++)
 	{
 		// ignore special devices
 		if ( mntbuf[n].f_mntfromname[0] != '/' ) continue;
 		
-		char *newdev = simplifylink(progname, mntfbuf[n].f_mntfromname);
-		char *newmnt = simplifylink(progname, mntfbuf[n].f_mntonname);
+		char *newdev = simplifylink(progname, mntbuf[n].f_mntfromname);
+		char *newmnt = simplifylink(progname, mntbuf[n].f_mntonname);
 		
 		if ( strcmp(newdev, *device) == 0 )
 		{
 			unieject_verbose(stdout, "%s: '%s' is mounted as '%s'\n", progname, *device, newmnt);
-			ret = (newmnt == mntfbuf[n].f_mntonname) ? sstrdup(mntfbuf[n].f_mntonname) : newmnt;
+			ret = (newmnt == mntbuf[n].f_mntonname) ? sstrdup(mntbuf[n].f_mntonname) : newmnt;
 			
-			if ( newdev != mntfbuf[n].f_mntfromname ) free(newdev);
+			if ( newdev != mntbuf[n].f_mntfromname ) free(newdev);
 			break;
 		}
 
@@ -57,14 +60,14 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 		{
 			unieject_verbose(stdout, "%s: '%s' is the mount point of '%s'\n", progname, *device, newdev);
 			ret = *device;
-			*device = (newdev == mntfbuf[n].f_mntfromname) ? sstrdup(mntfbuf[n].f_mntfromname) : newdev;
+			*device = (newdev == mntbuf[n].f_mntfromname) ? sstrdup(mntbuf[n].f_mntfromname) : newdev;
 			
-			if ( newmnt != mntfbuf[n].f_mntonname ) free(newmnt);
+			if ( newmnt != mntbuf[n].f_mntonname ) free(newmnt);
 			break;
 		}
 		
-		if ( newdev != mntfbuf[n].f_mntfromname ) free(newdev);
-		if ( newmnt != mntfbuf[n].f_mntonname ) free(newmnt);
+		if ( newdev != mntbuf[n].f_mntfromname ) free(newdev);
+		if ( newmnt != mntbuf[n].f_mntonname ) free(newmnt);
 	}
 	
 	return ret;
