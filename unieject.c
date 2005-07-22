@@ -171,7 +171,7 @@ int main(int argc, const char *argv[])
 		return -1;
 	}
 	
-	if ( ! libunieject_unmount(progname, opts, opts.device) )
+	if ( ! libunieject_umountdev(progname, opts, opts.device) )
 	{
 		unieject_error(stderr, "%s: unable to unmount device '%s'.\n", progname, opts.device);
 		return -4;
