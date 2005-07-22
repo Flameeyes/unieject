@@ -24,6 +24,13 @@
 
 #include <stdio.h>
 
+#ifdef __FreeBSD__
+#	include <fcntl.h>
+#	include <errno.h>
+#	include <sys/ioctl.h>
+#	include <sys/cdio.h>
+#endif
+
 int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio)
 {
 	// TODO: tell libcdio author about this
