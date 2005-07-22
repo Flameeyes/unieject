@@ -21,6 +21,7 @@
 #include <unieject.h>
 
 #include <stdio.h>
+#include <sys/mount.h>
 
 char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 {
@@ -67,10 +68,8 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 	return ret;
 }
 
-bool libunieject_umountdev(char *progname, struct unieject_opts opts, const char *device)
+bool internal_umountdev(char *progname, struct unieject_opts opts, const char *device)
 {
-	if ( opts.fake || ! opts.umount ) return true;
-
 	struct unieject_opts nonverbose_opts = opts;
 	nonverbose_opts.verbose = 0;
 	

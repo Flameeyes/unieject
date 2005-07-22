@@ -70,7 +70,7 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
 int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
 
 /**
- * @brief Unmount a device (platform dependant)
+ * @brief Unmount a device
  * @param progname Name of the program to output for messages.
  * @param opts Options to apply.
  * @param device Normalized name of the device to unmount.
