@@ -1,0 +1,24 @@
+unieject: Universal Eject command
+---------------------------------
+
+This package consists of a library and a command line tool which uses that lib.
+
+libunieject is a library which allows the linked software to perform
+automatical ejects and unmounting the filesystems for the device you want to
+eject.
+At the time of writing (pre-1 release), this is still not API-stable nor well
+documented, but this is going to improve in next versions.
+
+The command line tool instead is a mimic of classic eject command for Linux
+( http://eject.sourceforge.net/ ), which supports also the features of
+FreeBSD's eject command ( http://www.freshports.org/sysutils/eject/ ).
+
+It hasn't a complete syntax compatibility with either Linux's or FreeBSD's
+ejects as they have conflicts between them, but the main options are the
+same.
+
+It can fully replace FreeBSD's eject (in atapicam mode), and already mime
+the main options of Linux's eject.
+
+To be compiled and executed it requires libcdio (tested with 0.74 and above)
+and libpopt.
