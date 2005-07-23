@@ -168,7 +168,7 @@ int main(int argc, const char *argv[])
 		}
 	}
 	
-	CdIo_t *cdio = libunieject_opendevice(progname, opts);
+	CdIo_t *cdio = libunieject_open(progname, opts);
 	if ( ! cdio )
 	{
 		cleanup();
