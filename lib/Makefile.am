@@ -24,3 +24,7 @@ libunieject_la_SOURCES = \
 libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
 libunieject_la_LDFLAGS = $(AM_LDFLAGS) $(LIBCDIO_LDFLAGS) --no-undefined
 libunieject_la_LIBADD = $(AM_LDADD) $(LIBCDIO_LIBS)
+
+libunieject_la_CURRENT := 2
+libunieject_la_REVISION := 0
+libunieject_la_AGE := 0
