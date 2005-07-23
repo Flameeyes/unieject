@@ -89,7 +89,10 @@ int libunieject_eject(struct unieject_opts opts)
 		if ( opts.eject )
 			sts = cdio_eject_media((CdIo_t**)&opts.cdio);
 		else
+		{
+			cdio_destroy(opts.cdio);
 			sts = cdio_close_tray(opts.device, NULL);
+		}
 	} else
 		sts = mmc_start_stop_media((CdIo_t*)opts.cdio, opts.eject, 0, 0);
 #endif
