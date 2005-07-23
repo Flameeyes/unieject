@@ -60,37 +60,34 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename);
 
 /**
  * @brief Open a given device
- * @param opts Options to apply.
- * @return the CdIo_t pointer to use for all the operations
+ * @param opts Structure to get the options from and set the open pointer to.
+ * @retval true Open executed successfully, opts->cdio has the right pointer.
+ * @retval false Open has not executed.
  *
  * This is just a wrap-on function for cdio_open, which does a bit of tricks
  * for known-broken operating systems (like FreeBSD).
- *
- * @note The device name is passed with the @b opts struct.
  */
-CdIo_t *libunieject_open(struct unieject_opts opts);
+bool libunieject_open(struct unieject_opts *opts);
 
 /**
  * @brief Eject the media in the passed cdio descriptor.
  * @param opts Options to apply
- * @param cdio libcdio descriptor for opened device.
  *
  * @retval 0 Eject successful
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error during ejection
  */
-int libunieject_eject(struct unieject_opts opts, CdIo_t *cdio);
+int libunieject_eject(struct unieject_opts opts);
 
 /**
  * @brief Sets the speed of the given CD-ROM device
  * @param opts Options to apply
- * @param cdio libcdio descriptor for opened device.
  *
  * @retval 0 Speed set successfully.
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error suring speed setting
  */
-int libunieject_setspeed(struct unieject_opts opts, CdIo_t *cdio);
+int libunieject_setspeed(struct unieject_opts opts);
 
 /**
  * @brief Unmount a device

@@ -24,11 +24,11 @@
 
 #include <stdio.h>
 
-int libunieject_setspeed(struct unieject_opts opts, CdIo_t *cdio)
+int libunieject_setspeed(struct unieject_opts opts)
 {
 	// TODO: tell libcdio author about this
 	cdio_drive_misc_cap_t unused, misc_cap;
-	cdio_get_drive_cap(cdio, &unused, &unused, &misc_cap);
+	cdio_get_drive_cap((CdIo_t*)opts.cdio, &unused, &unused, &misc_cap);
 	
 	if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_SELECT_SPEED) )
 	{
@@ -37,7 +37,7 @@ int libunieject_setspeed(struct unieject_opts opts, CdIo_t *cdio)
 	}
 	
 	unieject_verbose(stdout, "%s: setting CD-ROM speed to %dX\n", opts.progname, opts.speed);
-	driver_return_code_t sts = cdio_set_speed(cdio, opts.speed);
+	driver_return_code_t sts = cdio_set_speed((CdIo_t*)opts.cdio, opts.speed);
 	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{

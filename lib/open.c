@@ -24,24 +24,23 @@
 
 #include <stdio.h>
 
-CdIo_t *libunieject_open(struct unieject_opts opts)
+bool libunieject_open(struct unieject_opts *opts)
 {
-	CdIo_t *retptr;
-	
 #ifdef __FreeBSD__
-	if ( strcmp("/dev/cd", opts.device) == 0 )
-		retptr = cdio_open(opts.device, DRIVER_FREEBSD);
+	if ( strcmp("/dev/cd", opts->device) == 0 )
+		opts->cdio = cdio_open(opts->device, DRIVER_FREEBSD);
 	else
-		retptr = cdio_open_am(opts.device, DRIVER_FREEBSD, "ioctl");
+		opts->cdio = cdio_open_am(opts->device, DRIVER_FREEBSD, "ioctl");
 #else
-	retptr = cdio_open(opts.device, cdio_os_driver);
+	opts->cdio = cdio_open(opts->device, cdio_os_driver);
 #endif
 
-	if ( ! retptr )
+	if ( ! opts->cdio )
 	{
-		unieject_error(stderr, "%s: cannot find CD-Rom driver.\n", opts.progname);
+		unieject_error_p(stderr, "%s: cannot find CD-Rom driver.\n", opts->progname);
+		return false;
 	}
 
-	return retptr;
+	return true;
 }
 
