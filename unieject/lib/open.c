@@ -24,16 +24,21 @@
 
 #include <stdio.h>
 
+#ifdef __linux__
+#	define DEFAULT_ACCESS "READ_CD"
+#else
+#	define DEFAULT_ACCESS NULL
+#endif
+
 bool libunieject_open(struct unieject_opts *opts)
 {
+
 #ifdef __FreeBSD__
-	if ( strncmp("/dev/cd", opts->device, 7) == 0 )
-		opts->cdio = cdio_open(opts->device, DRIVER_FREEBSD);
-	else
+	if ( strncmp("/dev/cd", opts->device, 7) )
 		opts->cdio = cdio_open_am(opts->device, DRIVER_FREEBSD, "ioctl");
-#else
-	opts->cdio = cdio_open(opts->device, cdio_os_driver);
+	else
 #endif
+	opts->cdio = cdio_open_am(opts->device, cdio_os_driver, opts->accessmethod ? opts->accessmethod : DEFAULT_ACCESS);
 
 	if ( ! opts->cdio )
 	{

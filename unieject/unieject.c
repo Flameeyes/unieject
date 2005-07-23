@@ -76,6 +76,7 @@ static int parse_options (int argc, const char *argv[])
 	opts.speed = 0;
 	opts.force = 0;
 	opts.device = NULL;
+	opts.accessmethod = NULL;
   
 	struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
@@ -96,6 +97,8 @@ static int parse_options (int argc, const char *argv[])
 		  "Set CD-Rom max speed." },
 		{ "changerslot",	'c', POPT_ARG_NONE, NULL, OP_CHANGER,
 		  "Switch discs on a CD-ROM changer." },
+		{ "accessmethod", 	'A', POPT_ARG_STRING, &opts.accessmethod, OP_IGNORE,
+		  "Select the access method for libcdio." },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  "Ignored (classic eject compatibility)." },
