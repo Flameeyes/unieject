@@ -191,7 +191,7 @@ int main(int argc, const char *argv[])
 			retval = libunieject_slotchange(opts);
 			break;
 		default:
-			retval = libunieject_eject(opts);
+			retval = libunieject_eject(&opts);
 	}
 	
 	cleanup();
