@@ -36,7 +36,12 @@ int libunieject_eject(struct unieject_opts opts)
 	// TODO: tell libcdio author about this
 	cdio_drive_misc_cap_t unused, misc_cap;
 	cdio_get_drive_cap((CdIo_t*)opts.cdio, &unused, &unused, &misc_cap);
-	
+
+#ifdef __FreeBSD__
+	if ( strncmp("/dev/cd", opts->device, 7) != 0 )
+		misc_cap = 0xFFFFFFFF;
+#endif
+
 	if ( opts.eject )
 	{
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
