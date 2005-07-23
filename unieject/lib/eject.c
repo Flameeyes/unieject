@@ -80,9 +80,7 @@ int libunieject_eject(struct unieject_opts *opts)
 	}
 #endif
 	
-#ifndef __FreeBSD__
-	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts->cdio, opts->eject, 0, 0);
-#else
+#ifdef __FreeBSD__
 	driver_return_code_t sts;
 	if ( strncmp("/dev/cd", opts->device, 7) != 0 )
 	{
@@ -96,6 +94,18 @@ int libunieject_eject(struct unieject_opts *opts)
 		}
 	} else
 		sts = mmc_start_stop_media((CdIo_t*)opts->cdio, opts->eject, 0, 0);
+#elif defined(__APPLE__)
+	driver_return_code_t sts;
+	if ( opts->eject )
+		sts = cdio_eject_media((CdIo_t**)&opts->cdio);
+	else
+	{
+		cdio_destroy(opts->cdio);
+		opts->cdio = NULL;
+		sts = cdio_close_tray(opts->device, NULL);
+	}
+#else
+	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts->cdio, opts->eject, 0, 0);
 #endif
 	
 	if ( sts != DRIVER_OP_SUCCESS )
