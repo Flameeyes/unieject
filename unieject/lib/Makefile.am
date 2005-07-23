@@ -16,6 +16,7 @@ libunieject_la_SOURCES = \
 	eject.c \
 	mounts.c \
 	utils.c \
+	speed.c \
 	$(platformsrcs)
 
 libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
