@@ -17,9 +17,11 @@ It hasn't a complete syntax compatibility with either Linux's or FreeBSD's
 ejects as they have conflicts between them, but the main options are the
 same.
 
-It can fully replace FreeBSD's eject (in atapicam mode), and already mime
-the main options of Linux's eject.
+It can fully replace FreeBSD's eject (in both atapi and atapicam mode), and
+already mime the main options of Linux's eject.
 
 To be compiled and executed it requires libcdio (tested with 0.74 and above)
 and libpopt. It also requires txt2man ( http://mvertes.free.fr/ ) to compile
 the manpages.
+For FreeBSD support you'll also need an extra patch for libcdio-0.75 to be
+able to manage ATAPI cdroms (/dev/acd*).

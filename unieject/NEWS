@@ -1,0 +1,9 @@
+23 June 2005: Release 2
+-----------------------
+This is the second public "working" version, the first hitting Gentoo's Portage.
+Respect to the first release it features a complete manpage for the unieject
+tool, a "wannabe stable" API interface, and a complete FreeBSD support for both
+direct ATAPI mode and CAM mode.
+
+Mac OSX support is still pre-alpha, and needs quite a few changes as for the
+moment it doesn't seems to be able to open the device (libcdio problems?).

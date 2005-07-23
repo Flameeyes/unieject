@@ -27,6 +27,8 @@ OPTIONS
                          (if applicable).
   -c <slot>, --changerslot <slot>    Change the slot of a CD-ROM changer,
                          it needs to unmount a mounted volume to work.
+                         (Note: libcdio misses support for this, so for now
+                         is just disabled)
 
 AUTHOR
   unieject is wrote by Diego Petteno` <flameeyes@gentoo.org>, partially using

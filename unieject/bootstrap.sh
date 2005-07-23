@@ -5,7 +5,7 @@ export WANT_AUTOMAKE_1_9="yes"
 export WANT_AUTOCONF="2.5"
 export WANT_AUTOMAKE="1.9"
 
-touch ChangeLog NEWS
+touch ChangeLog
 libtoolize --copy --force
 aclocal -I m4
 autoconf --force
