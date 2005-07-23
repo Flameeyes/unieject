@@ -31,7 +31,7 @@ int libunieject_slotchange(struct unieject_opts opts)
 	cdio_get_drive_cap((CdIo_t*)opts.cdio, &unused, &unused, &misc_cap);
 	
 #ifdef __FreeBSD__
-	if ( strncmp("/dev/cd", opts->device, 7) != 0 )
+	if ( strncmp("/dev/cd", opts.device, 7) != 0 )
 		misc_cap = 0xFFFFFFFF;
 #endif
 	
