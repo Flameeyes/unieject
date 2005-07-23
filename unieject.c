@@ -37,21 +37,16 @@ static char *progname;
   eject -V                              -- display program version and exit
   eject [-vn] -a on|off|1|0 [<name>]    -- turn auto-eject feature on or off
   eject [-vn] -c <slot> [<name>]        -- switch discs on a CD-ROM changer
-  eject [-vn] -x <speed> [<name>]       -- set CD-ROM max speed
 Options:
 *  -r    -- eject CD-ROM
 *  -s    -- eject SCSI device
 *  -f    -- eject floppy
 *  -q    -- eject tape
-  -m    -- do not unmount device even if it is mounted
 Long options:
-  -h --help   -v --verbose       -d --default
-  -a --auto   -c --changerslot  -x --cdspeed
+  -a --auto   -c --changerslot
   -r --cdrom  -s --scsi  -f --floppy
-  -q --tape   -n --noop  -V --version
-  -m --no-unmount
-Parameter <name> can be a device file or a mount point.
-If omitted, name defaults to `cdrom'.
+  -q --tape   -V --version
+
 By default tries -r, -s, -f, and -q in order until success.
 */
 
@@ -60,6 +55,9 @@ struct unieject_opts opts;
 enum {
 	OP_IGNORE,
 	OP_DEFAULT, // --default
+	OP_SPEED,
+	OP_CHANGER,
+	OP_ERROR
 };
 
 #define pre_cleanup() \
@@ -67,10 +65,10 @@ enum {
 	if ( opts.device ) free(opts.device);
 
 /* Parse a all options. */
-static bool parse_options (int argc, const char *argv[])
+static int parse_options (int argc, const char *argv[])
 {
-	bool retval = false;
-	char opt; /* used for argument parsing */
+	char tmpopt;
+	char opt = OP_IGNORE; /* used for argument parsing */
 	char *psz_my_source;
 	
 	opts.eject = 1;
@@ -96,8 +94,10 @@ static bool parse_options (int argc, const char *argv[])
 		  "Disable output of error messages." },
 		{ "force",		'f', POPT_ARG_VAL, &opts.force, 1,
 		  "Force unmount of device." },
-		{ "speed",		'x', POPT_ARG_INT, &opts.speed, 0,
+		{ "speed",		'x', POPT_ARG_INT, &opts.speed, OP_SPEED,
 		  "Set CD-Rom max speed." },
+		{ "changerslot",	'c', POPT_ARG_NONE, NULL, OP_CHANGER,
+		  "Switch discs on a CD-ROM changer." },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  "Ignored (classic eject compatibility)." },
@@ -109,18 +109,16 @@ static bool parse_options (int argc, const char *argv[])
 	progname = strrchr(argv[0],'/');
 	progname = progname ? strdup(progname+1) : strdup(argv[0]);
 	
-	while ((opt = poptGetNextOpt (optCon)) >= 0)
+	while ((tmpopt = poptGetNextOpt (optCon)) >= 0)
 	{
-		switch(opt)
+		if ( tmpopt == OP_IGNORE ) continue;
+		
+		if ( opt != OP_IGNORE )
 		{
-		case OP_DEFAULT: {
-				char *default_device = libunieject_defaultdevice(progname, opts);
-				printf("%s: default device: `%s'\n", progname, default_device);
-				retval = true;
-				
-				free(default_device);
-			}
-		}
+			unieject_error(stderr, "%s: you can use just one of -x, -c and -d options\n", progname);
+			return OP_ERROR;
+		} else
+			opt = tmpopt;
 	}
 	
 	if (opt < -1)
@@ -129,8 +127,7 @@ static bool parse_options (int argc, const char *argv[])
 		fprintf(stderr, "%s: %s\n",
 			poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
 			poptStrerror(opt));
-		pre_cleanup();
-		exit (EXIT_FAILURE);
+		return OP_ERROR;
 	}
 	
 	const char *arg_device = poptGetArg(optCon);
@@ -140,7 +137,7 @@ static bool parse_options (int argc, const char *argv[])
 	
 	opts.device = libunieject_getdevice(progname, opts, arg_device);
 	
-	return retval;
+	return opt;
 }
 
 #define cleanup() \
@@ -155,11 +152,20 @@ int main(int argc, const char *argv[])
 	cdio_loglevel_default = 0;
 #endif
 
-	// if options completes the close, exit
-	if ( parse_options(argc, argv) )
+	int what = parse_options(argc, argv);
+	
+	// First switch, non-device options
+	switch(what)
 	{
-		free(progname);
-		return 0;
+	case OP_ERROR:
+		return -1;
+	case OP_DEFAULT: {
+			char *default_device = libunieject_defaultdevice(progname, opts);
+			printf("%s: default device: `%s'\n", progname, default_device);
+			
+			free(default_device);
+			return 0;
+		}
 	}
 	
 	CdIo_t *cdio = cdio_open (opts.device, DRIVER_UNKNOWN);
@@ -171,19 +177,21 @@ int main(int argc, const char *argv[])
 		return -1;
 	}
 	
-	int ret;
-	if ( opts.speed == 0 )
+	int retval;
+	switch(what)
 	{
-		if ( ! libunieject_umountdev(progname, opts, opts.device) )
-		{
-			unieject_error(stderr, "%s: unable to unmount device '%s'.\n", progname, opts.device);
-			return -4;
-		}
-		ret = libunieject_eject(progname, opts, cdio);
-	} else
-		ret = libunieject_setspeed(progname, opts, cdio);
+		case OP_SPEED:
+			retval = libunieject_setspeed(progname, opts, cdio);
+			break;
+		default:
+			if ( ! libunieject_umountdev(progname, opts, opts.device) )
+			{
+				unieject_error(stderr, "%s: unable to unmount device '%s'.\n", progname, opts.device);
+				retval = -4;
+			} else
+				retval = libunieject_eject(progname, opts, cdio);
+	}
 	
 	cleanup();
-
-	return ret;
+	return retval;
 }
