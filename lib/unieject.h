@@ -59,6 +59,19 @@ char *libunieject_defaultdevice(const char *progname, struct unieject_opts opts)
 char *libunieject_getdevice(const char *progname, struct unieject_opts opts, const char *basename);
 
 /**
+ * @brief Open a given device
+ * @param progname Name of the program to output for messages.
+ * @param opts Options to apply.
+ * @return the CdIo_t pointer to use for all the operations
+ *
+ * This is just a wrap-on function for cdio_open, which does a bit of tricks
+ * for known-broken operating systems (like FreeBSD).
+ *
+ * @note The device name is passed with the @b opts struct.
+ */
+CdIo_t *libunieject_open(const char *progname, struct unieject_opts opts);
+
+/**
  * @brief Eject the media in the passed cdio descriptor.
  * @param progname Name of the program to output for messages.
  * @param opts Options to apply

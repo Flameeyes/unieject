@@ -168,15 +168,13 @@ int main(int argc, const char *argv[])
 		}
 	}
 	
-	CdIo_t *cdio = cdio_open (opts.device, DRIVER_UNKNOWN);
-
-	if (cdio == NULL)
+	CdIo_t *cdio = libunieject_opendevice(progname, opts);
+	if ( ! cdio )
 	{
-		fprintf(stderr, "%s: cannot find CD-Rom driver.\n", progname);
 		cleanup();
 		return -1;
 	}
-	
+
 	int retval;
 	switch(what)
 	{
