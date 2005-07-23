@@ -80,7 +80,7 @@ int libunieject_eject(struct unieject_opts opts)
 	} else {
 		if ( strncmp("/dev/cd", opts.device, 7) != 0 )
 		{
-			unieject_error(stderr, "%s: unable to close a tray of a CD-ROM controlled via ioctl.", opts.progname);
+			unieject_error(stderr, "%s: unable to close a tray of a CD-ROM controlled via ioctl.\n", opts.progname);
 			return -2;
 		}
 	}
