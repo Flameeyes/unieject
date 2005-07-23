@@ -86,7 +86,7 @@ int libunieject_eject(struct unieject_opts opts)
 	driver_return_code_t sts;
 	if ( strncmp("/dev/cd", opts.device, 7) != 0 )
 	{
-		if ( eject )
+		if ( opts.eject )
 			sts = cdio_eject_media((CdIo_t**)&opts.cdio);
 		else
 			sts = cdio_close_tray(opts.device, NULL);
@@ -96,8 +96,7 @@ int libunieject_eject(struct unieject_opts opts)
 	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
-		if ( opts.verbose != -1 )
-			fprintf(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts.progname, sts);
+		unieject_error(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts.progname, sts);
 		return -3;
 	}
 }
