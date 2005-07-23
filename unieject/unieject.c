@@ -162,7 +162,16 @@ int main(int argc, const char *argv[])
 			printf("%s: default device: `%s'\n", opts.progname, default_device);
 			
 			free(default_device);
+			free(opts.progname);
 			return 0;
+		}
+	case OP_CHANGER:
+	case OP_IGNORE:
+		if ( ! libunieject_umountdev(opts, opts.device) )
+		{
+			unieject_error(stderr, "%s: unable to unmount device '%s'.\n", opts.progname, opts.device);
+			free(opts.progname);
+			return -4;
 		}
 	}
 	
@@ -179,20 +188,10 @@ int main(int argc, const char *argv[])
 			retval = libunieject_setspeed(opts);
 			break;
 		case OP_CHANGER:
-			if ( ! libunieject_umountdev(opts, opts.device) )
-			{
-				unieject_error(stderr, "%s: unable to unmount device '%s'.\n", opts.progname, opts.device);
-				retval = -4;
-			} else
-				retval = libunieject_slotchange(opts);
+			retval = libunieject_slotchange(opts);
 			break;
 		default:
-			if ( ! libunieject_umountdev(opts, opts.device) )
-			{
-				unieject_error(stderr, "%s: unable to unmount device '%s'.\n", opts.progname, opts.device);
-				retval = -4;
-			} else
-				retval = libunieject_eject(opts);
+			retval = libunieject_eject(opts);
 	}
 	
 	cleanup();
