@@ -24,7 +24,7 @@
 
 #include <stdio.h>
 
-CdIo_t *libunieject_open(const char *progname, struct unieject_opts opts)
+CdIo_t *libunieject_open(struct unieject_opts opts)
 {
 	CdIo_t *retptr;
 	
@@ -39,7 +39,7 @@ CdIo_t *libunieject_open(const char *progname, struct unieject_opts opts)
 
 	if ( ! retptr )
 	{
-		unieject_error(stderr, "%s: cannot find CD-Rom driver.\n", progname);
+		unieject_error(stderr, "%s: cannot find CD-Rom driver.\n", opts.progname);
 	}
 
 	return retptr;
