@@ -71,6 +71,18 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
 int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
 
 /**
+ * @brief Sets the speed of the given CD-ROM device
+ * @param progname Name of the program to output for messages.
+ * @param opts Options to apply
+ * @param cdio libcdio descriptor for opened device.
+ *
+ * @retval 0 Speed set successfully.
+ * @retval -2 Drive doesn't has the capabilities required
+ * @retval -3 Error suring speed setting
+ */
+int libunieject_setspeed(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
+
+/**
  * @brief Unmount a device
  * @param progname Name of the program to output for messages.
  * @param opts Options to apply.

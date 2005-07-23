@@ -3,6 +3,8 @@ NAME
 SYNOPSIS
   unieject [-nvQmf] [device or mountpoint]
   unieject [-nvQ] --trayclose [device or mountpoint]
+  unieject [-nvQ] --speed <speed> [device or mountpoint]
+  unieject [-nvQ] -d
 DESCRIPTION
   unieject is an universal eject command which works on Linux and FreeBSD,
   using libcdio low-level access.
@@ -19,6 +21,9 @@ OPTIONS
                          way).
   -f, --force            Force unmounting of device if it's mounted. This
                          works only if OS supports it.
+  
+  -x <speed>, --speed <speed>   Set the maximum speed for the CD-ROM drive
+                         (if applicable).
 
 AUTHOR
   unieject is wrote by Diego Pettenò <flameeyes@gentoo.org>, partially using

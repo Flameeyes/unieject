@@ -35,8 +35,6 @@ static char *progname;
 
 /*
   eject -V                              -- display program version and exit
-  eject [-vnrsfq] [<name>]              -- eject device
-  eject [-vn] -d                        -- display default device
   eject [-vn] -a on|off|1|0 [<name>]    -- turn auto-eject feature on or off
   eject [-vn] -c <slot> [<name>]        -- switch discs on a CD-ROM changer
   eject [-vn] -x <speed> [<name>]       -- set CD-ROM max speed
@@ -98,6 +96,8 @@ static bool parse_options (int argc, const char *argv[])
 		  "Disable output of error messages." },
 		{ "force",		'f', POPT_ARG_VAL, &opts.force, 1,
 		  "Force unmount of device." },
+		{ "speed",		'x', POPT_ARG_INT, &opts.speed, 0,
+		  "Set CD-Rom max speed." },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  "Ignored (classic eject compatibility)." },
@@ -171,23 +171,19 @@ int main(int argc, const char *argv[])
 		return -1;
 	}
 	
-	if ( ! libunieject_umountdev(progname, opts, opts.device) )
-	{
-		unieject_error(stderr, "%s: unable to unmount device '%s'.\n", progname, opts.device);
-		return -4;
-	}
-	
 	int ret;
 	if ( opts.speed == 0 )
+	{
+		if ( ! libunieject_umountdev(progname, opts, opts.device) )
+		{
+			unieject_error(stderr, "%s: unable to unmount device '%s'.\n", progname, opts.device);
+			return -4;
+		}
 		ret = libunieject_eject(progname, opts, cdio);
-	else
-		ret = set_speed(&cdio);
+	} else
+		ret = libunieject_setspeed(progname, opts, cdio);
 	
 	cleanup();
 
 	return ret;
-}
-
-int set_speed(CdIo_t *p_cdio)
-{
 }
