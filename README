@@ -21,4 +21,5 @@ It can fully replace FreeBSD's eject (in atapicam mode), and already mime
 the main options of Linux's eject.
 
 To be compiled and executed it requires libcdio (tested with 0.74 and above)
-and libpopt.
+and libpopt. It also requires txt2man ( http://mvertes.free.fr/ ) to compile
+the manpages.
