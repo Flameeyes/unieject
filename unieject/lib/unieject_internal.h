@@ -29,6 +29,12 @@
 #define unieject_verbose \
 	if ( opts.verbose == 1 ) fprintf
 
+#define unieject_error_p \
+	if ( opts->verbose != -1 ) fprintf
+
+#define unieject_verbose_p \
+	if ( opts->verbose == 1 ) fprintf
+
 #include <config.h>
 #include <string.h>
 

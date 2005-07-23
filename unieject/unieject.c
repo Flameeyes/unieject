@@ -139,7 +139,7 @@ static int parse_options (int argc, const char *argv[])
 }
 
 #define cleanup() \
-	if ( cdio ) cdio_destroy(cdio); \
+	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio); \
 	pre_cleanup()
 
 int do_eject();
@@ -166,8 +166,7 @@ int main(int argc, const char *argv[])
 		}
 	}
 	
-	CdIo_t *cdio = libunieject_open(opts);
-	if ( ! cdio )
+	if ( ! libunieject_open(&opts) )
 	{
 		cleanup();
 		return -1;
@@ -177,7 +176,7 @@ int main(int argc, const char *argv[])
 	switch(what)
 	{
 		case OP_SPEED:
-			retval = libunieject_setspeed(opts, cdio);
+			retval = libunieject_setspeed(opts);
 			break;
 		default:
 			if ( ! libunieject_umountdev(opts, opts.device) )
@@ -185,7 +184,7 @@ int main(int argc, const char *argv[])
 				unieject_error(stderr, "%s: unable to unmount device '%s'.\n", opts.progname, opts.device);
 				retval = -4;
 			} else
-				retval = libunieject_eject(opts, cdio);
+				retval = libunieject_eject(opts);
 	}
 	
 	cleanup();

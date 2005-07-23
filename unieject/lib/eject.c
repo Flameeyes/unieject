@@ -31,11 +31,11 @@
 #	include <sys/cdio.h>
 #endif
 
-int libunieject_eject(struct unieject_opts opts, CdIo_t *cdio)
+int libunieject_eject(struct unieject_opts opts)
 {
 	// TODO: tell libcdio author about this
 	cdio_drive_misc_cap_t unused, misc_cap;
-	cdio_get_drive_cap(cdio, &unused, &unused, &misc_cap);
+	cdio_get_drive_cap((CdIo_t*)opts.cdio, &unused, &unused, &misc_cap);
 	
 	if ( opts.eject )
 	{
@@ -75,7 +75,7 @@ int libunieject_eject(struct unieject_opts opts, CdIo_t *cdio)
 	}
 #endif
 	
-	driver_return_code_t sts = mmc_start_stop_media(cdio, opts.eject, 0, 0);
+	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts.cdio, opts.eject, 0, 0);
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
 		if ( opts.verbose != -1 )
