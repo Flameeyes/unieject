@@ -77,10 +77,25 @@ int libunieject_eject(struct unieject_opts opts)
 		}
 		
 		close(devfd);
+	} else {
+		if ( strncmp("/dev/cd", opts.device, 7) != 0 )
+		{
+			unieject_error(stderr, "%s: unable to close a tray of a CD-ROM controlled via ioctl.", opts.progname);
+			return -2;
+		}
 	}
 #endif
 	
+#ifndef __FreeBSD__
 	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts.cdio, opts.eject, 0, 0);
+#else
+	driver_return_code_t sts;
+	if ( strncmp("/dev/cd", opts.device, 7) != 0 )
+		sts = cdio_eject_media((CdIo_t*)opts.cdio);
+	else
+		sts = mmc_start_stop_media((CdIo_t*)opts.cdio, opts.eject, 0, 0);
+#endif
+	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
 		if ( opts.verbose != -1 )
