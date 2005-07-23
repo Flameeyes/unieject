@@ -4,6 +4,7 @@ SYNOPSIS
   unieject [-nvQmf] [device or mountpoint]
   unieject [-nvQ] --trayclose [device or mountpoint]
   unieject [-nvQ] --speed <speed> [device or mountpoint]
+  unieject [-nvQmf] --changerslot <slot> [device or mountpoint]
   unieject [-nvQ] -d
 DESCRIPTION
   unieject is an universal eject command which works on Linux and FreeBSD,
@@ -24,6 +25,8 @@ OPTIONS
   
   -x <speed>, --speed <speed>   Set the maximum speed for the CD-ROM drive
                          (if applicable).
+  -c <slot>, --changerslot <slot>    Change the slot of a CD-ROM changer,
+                         it needs to unmount a mounted volume to work.
 
 AUTHOR
   unieject is wrote by Diego Petteno` <flameeyes@gentoo.org>, partially using

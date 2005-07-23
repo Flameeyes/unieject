@@ -178,6 +178,14 @@ int main(int argc, const char *argv[])
 		case OP_SPEED:
 			retval = libunieject_setspeed(opts);
 			break;
+		case OP_CHANGER:
+			if ( ! libunieject_umountdev(opts, opts.device) )
+			{
+				unieject_error(stderr, "%s: unable to unmount device '%s'.\n", opts.progname, opts.device);
+				retval = -4;
+			} else
+				retval = libunieject_slotchange(opts);
+			break;
 		default:
 			if ( ! libunieject_umountdev(opts, opts.device) )
 			{

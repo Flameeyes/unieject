@@ -37,6 +37,7 @@ struct unieject_opts {
 	int unmount;		///< Unmount device if occupied.
 	int speed;		///< Maximum speed to set the device to.
 	int force;		///< Force device unmount.
+	int slot;		///< Slot to set the changer to.
 	
 	char *device;		///< Path of the device to open.
 	char *progname;		///< Name of the program to use for outputs
@@ -88,6 +89,15 @@ int libunieject_eject(struct unieject_opts opts);
  * @retval -3 Error suring speed setting
  */
 int libunieject_setspeed(struct unieject_opts opts);
+
+/**
+ * @brief Change the slot of a CD-ROM changer
+ * @param opts Options to apply
+ *
+ * @retval 0 Slot set successfully.
+ * @retval -2 Drive doesn't has the capabilities required
+ * @retval -3 Error suring slot setting
+ */
 
 /**
  * @brief Unmount a device

@@ -18,6 +18,7 @@ libunieject_la_SOURCES = \
 	utils.c \
 	speed.c \
 	open.c \
+	slotchanger.c \
 	$(platformsrcs)
 
 libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
