@@ -31,7 +31,7 @@
 #	include <sys/cdio.h>
 #endif
 
-int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio)
+int libunieject_eject(struct unieject_opts opts, CdIo_t *cdio)
 {
 	// TODO: tell libcdio author about this
 	cdio_drive_misc_cap_t unused, misc_cap;
@@ -41,13 +41,13 @@ int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *c
 	{
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
 		{
-			unieject_error(stderr, "%s: the selected device doesn't have eject capabilities.\n", progname);
+			unieject_error(stderr, "%s: the selected device doesn't have eject capabilities.\n", opts.progname);
 			return -2;
 		}
 	} else {
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
 		{
-			unieject_error(stderr, "%s: the selected device doesn't have tray close capabilities.\n", progname);
+			unieject_error(stderr, "%s: the selected device doesn't have tray close capabilities.\n", opts.progname);
 			return -2;
 		}
 	}
@@ -61,13 +61,13 @@ int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *c
 		int devfd = open(opts.device, O_RDONLY);
 		if ( devfd == -1 )
 		{
-			unieject_error(stderr, "%s: unable to open device descriptor [%s].\n", progname, strerror(errno));
+			unieject_error(stderr, "%s: unable to open device descriptor [%s].\n", opts.progname, strerror(errno));
 			return -4;
 		}
 		
 		if ( ioctl(devfd, CDIOCALLOW) == -1 )
 		{
-			unieject_error(stderr, "%s: error in ioctl [%s].\n", progname, strerror(errno));
+			unieject_error(stderr, "%s: error in ioctl [%s].\n", opts.progname, strerror(errno));
 			return -5;
 		}
 		
@@ -79,7 +79,7 @@ int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *c
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
 		if ( opts.verbose != -1 )
-			fprintf(stderr, "%s: unable to execute command (CDIO returned: %d)\n", progname, sts);
+			fprintf(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts.progname, sts);
 		return -3;
 	}
 }

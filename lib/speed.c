@@ -24,7 +24,7 @@
 
 #include <stdio.h>
 
-int libunieject_setspeed(const char *progname, struct unieject_opts opts, CdIo_t *cdio)
+int libunieject_setspeed(struct unieject_opts opts, CdIo_t *cdio)
 {
 	// TODO: tell libcdio author about this
 	cdio_drive_misc_cap_t unused, misc_cap;
@@ -32,16 +32,16 @@ int libunieject_setspeed(const char *progname, struct unieject_opts opts, CdIo_t
 	
 	if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_SELECT_SPEED) )
 	{
-		unieject_error(stderr, "%s: the selected device doesn't have capability to select speed.\n", progname);
+		unieject_error(stderr, "%s: the selected device doesn't have capability to select speed.\n", opts.progname);
 		return -2;
 	}
 	
-	unieject_verbose(stdout, "%s: setting CD-ROM speed to %dX\n", progname, opts.speed);
+	unieject_verbose(stdout, "%s: setting CD-ROM speed to %dX\n", opts.progname, opts.speed);
 	driver_return_code_t sts = cdio_set_speed(cdio, opts.speed);
 	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
-		unieject_error(stderr, "%s: unable to execute command (CDIO returned: %d)\n", progname, sts);
+		unieject_error(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts.progname, sts);
 		return -3;
 	}
 	

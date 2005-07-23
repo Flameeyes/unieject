@@ -39,28 +39,27 @@ struct unieject_opts {
 	int force;		///< Force device unmount.
 	
 	char *device;		///< Path of the device to open.
+	char *progname;		///< Name of the program to use for outputs
+	void *cdio;		///< Shaded CdIo_t pointer, don't touch!
 };
 
 /**
  * @brief Gets the default CDIO device name.
- * @param progname Name of the program to output for messages.
  * @param opts Options to apply.
  *
  * @note This should be internal only
  */
-char *libunieject_defaultdevice(const char *progname, struct unieject_opts opts);
+char *libunieject_defaultdevice(struct unieject_opts opts);
 
 /**
  * @brief Gets the device name, resolving the argument or finding the default.
- * @param progname Name of the program to output for messages.
  * @param opts Options to apply.
  * @param basename Name of the device to canonicalize or NULL to find the default.
  */
-char *libunieject_getdevice(const char *progname, struct unieject_opts opts, const char *basename);
+char *libunieject_getdevice(struct unieject_opts opts, const char *basename);
 
 /**
  * @brief Open a given device
- * @param progname Name of the program to output for messages.
  * @param opts Options to apply.
  * @return the CdIo_t pointer to use for all the operations
  *
@@ -69,11 +68,10 @@ char *libunieject_getdevice(const char *progname, struct unieject_opts opts, con
  *
  * @note The device name is passed with the @b opts struct.
  */
-CdIo_t *libunieject_open(const char *progname, struct unieject_opts opts);
+CdIo_t *libunieject_open(struct unieject_opts opts);
 
 /**
  * @brief Eject the media in the passed cdio descriptor.
- * @param progname Name of the program to output for messages.
  * @param opts Options to apply
  * @param cdio libcdio descriptor for opened device.
  *
@@ -81,11 +79,10 @@ CdIo_t *libunieject_open(const char *progname, struct unieject_opts opts);
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error during ejection
  */
-int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
+int libunieject_eject(struct unieject_opts opts, CdIo_t *cdio);
 
 /**
  * @brief Sets the speed of the given CD-ROM device
- * @param progname Name of the program to output for messages.
  * @param opts Options to apply
  * @param cdio libcdio descriptor for opened device.
  *
@@ -93,17 +90,16 @@ int libunieject_eject(const char *progname, struct unieject_opts opts, CdIo_t *c
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error suring speed setting
  */
-int libunieject_setspeed(const char *progname, struct unieject_opts opts, CdIo_t *cdio);
+int libunieject_setspeed(struct unieject_opts opts, CdIo_t *cdio);
 
 /**
  * @brief Unmount a device
- * @param progname Name of the program to output for messages.
  * @param opts Options to apply.
  * @param device Normalized name of the device to unmount.
  *
  * @retval true Unmount completed successfully (or opts.fake enabled).
  * @retval false Error unmounting the device.
  */
-bool libunieject_umountdev(char *progname, struct unieject_opts opts, const char *device);
+bool libunieject_umountdev(struct unieject_opts opts, const char *device);
 
 #endif

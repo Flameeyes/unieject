@@ -24,7 +24,7 @@
 #include <sys/mount.h>
 #include <errno.h>
 
-char *checkmount(const char *progname, struct unieject_opts opts, char **device)
+char *checkmount(struct unieject_opts opts, char **device)
 {
 	char *ret = NULL;
 	FILE *fp = fopen("/proc/mounts", "r");
@@ -36,13 +36,13 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 	{
 		if ( dev[0] != '/' ) continue;
 		
-		char *newdev = simplifylink(progname, dev);
-		char *newmnt = simplifylink(progname, mnt);
+		char *newdev = simplifylink(opts.progname, dev);
+		char *newmnt = simplifylink(opts.progname, mnt);
 		
 		// symlinks?
 		if ( strcmp(newdev, *device) == 0 )
 		{
-			unieject_verbose(stdout, "%s: '%s' is mounted as '%s'\n", progname, *device, newmnt);
+			unieject_verbose(stdout, "%s: '%s' is mounted as '%s'\n", opts.progname, *device, newmnt);
 			ret = (newmnt == mnt) ? sstrdup(mnt) : newmnt;
 			
 			if ( newdev != dev ) free(newdev);
@@ -51,7 +51,7 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 
 		if ( strcmp(newmnt, *device) == 0 )
 		{
-			unieject_verbose(stdout, "%s: '%s' is the mount point of '%s'\n", progname, *device, newdev);
+			unieject_verbose(stdout, "%s: '%s' is the mount point of '%s'\n", opts.progname, *device, newdev);
 			ret = *device;
 			*device = (newdev == dev) ? sstrdup(dev) : newdev;
 			
@@ -69,14 +69,14 @@ char *checkmount(const char *progname, struct unieject_opts opts, char **device)
 	return ret;
 }
 
-bool internal_umountdev(char *progname, struct unieject_opts opts, const char *device)
+bool internal_umountdev(struct unieject_opts opts, const char *device)
 {
 	struct unieject_opts nonverbose_opts = opts;
 	nonverbose_opts.verbose = 0;
 	
 	char *mnt = NULL;
 	
-	while ( ( mnt = checkmount(progname, opts, &device) ) )
+	while ( ( mnt = checkmount(opts, &device) ) )
 	{
 #ifdef HAVE_UMOUNT2
 		if ( umount2(mnt, opts.force ? MNT_FORCE : 0) == -1 )
@@ -84,11 +84,11 @@ bool internal_umountdev(char *progname, struct unieject_opts opts, const char *d
 		if ( umount(mnt) == -1 )
 #endif
 		{
-			unieject_error(stderr, "%s: unable to unmount '%s' [%s]\n", progname, mnt, strerror(errno));
+			unieject_error(stderr, "%s: unable to unmount '%s' [%s]\n", opts.progname, mnt, strerror(errno));
 			return false;
 		}
 		
-		unieject_verbose(stdout, "%s: '%s' unmounted from '%s'\n", progname, device, mnt);
+		unieject_verbose(stdout, "%s: '%s' unmounted from '%s'\n", opts.progname, device, mnt);
 	}
 
 	return true;

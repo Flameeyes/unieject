@@ -31,8 +31,6 @@
 
 #include <popt.h>
 
-static char *progname;
-
 /*
   eject -V                              -- display program version and exit
   eject [-vn] -a on|off|1|0 [<name>]    -- turn auto-eject feature on or off
@@ -61,7 +59,7 @@ enum {
 };
 
 #define pre_cleanup() \
-	free ( progname ); \
+	free ( opts.progname ); \
 	if ( opts.device ) free(opts.device);
 
 /* Parse a all options. */
@@ -106,8 +104,8 @@ static int parse_options (int argc, const char *argv[])
 
 	poptContext optCon = poptGetContext (NULL, argc, argv, optionsTable, 0);
 	
-	progname = strrchr(argv[0],'/');
-	progname = progname ? strdup(progname+1) : strdup(argv[0]);
+	opts.progname = strrchr(argv[0],'/');
+	opts.progname = opts.progname ? strdup(opts.progname+1) : strdup(argv[0]);
 	
 	while ((tmpopt = poptGetNextOpt (optCon)) >= 0)
 	{
@@ -115,7 +113,7 @@ static int parse_options (int argc, const char *argv[])
 		
 		if ( opt != OP_IGNORE )
 		{
-			unieject_error(stderr, "%s: you can use just one of -x, -c and -d options\n", progname);
+			unieject_error(stderr, "%s: you can use just one of -x, -c and -d options\n", opts.progname);
 			return OP_ERROR;
 		} else
 			opt = tmpopt;
@@ -133,9 +131,9 @@ static int parse_options (int argc, const char *argv[])
 	const char *arg_device = poptGetArg(optCon);
 	
 	if ( poptGetArg(optCon) )
-		unieject_verbose(stdout, "%s: further non-option arguments ignored.\n", progname);
+		unieject_verbose(stdout, "%s: further non-option arguments ignored.\n", opts.progname);
 	
-	opts.device = libunieject_getdevice(progname, opts, arg_device);
+	opts.device = libunieject_getdevice(opts, arg_device);
 	
 	return opt;
 }
@@ -160,15 +158,15 @@ int main(int argc, const char *argv[])
 	case OP_ERROR:
 		return -1;
 	case OP_DEFAULT: {
-			char *default_device = libunieject_defaultdevice(progname, opts);
-			printf("%s: default device: `%s'\n", progname, default_device);
+			char *default_device = libunieject_defaultdevice(opts);
+			printf("%s: default device: `%s'\n", opts.progname, default_device);
 			
 			free(default_device);
 			return 0;
 		}
 	}
 	
-	CdIo_t *cdio = libunieject_open(progname, opts);
+	CdIo_t *cdio = libunieject_open(opts);
 	if ( ! cdio )
 	{
 		cleanup();
@@ -179,15 +177,15 @@ int main(int argc, const char *argv[])
 	switch(what)
 	{
 		case OP_SPEED:
-			retval = libunieject_setspeed(progname, opts, cdio);
+			retval = libunieject_setspeed(opts, cdio);
 			break;
 		default:
-			if ( ! libunieject_umountdev(progname, opts, opts.device) )
+			if ( ! libunieject_umountdev(opts, opts.device) )
 			{
-				unieject_error(stderr, "%s: unable to unmount device '%s'.\n", progname, opts.device);
+				unieject_error(stderr, "%s: unable to unmount device '%s'.\n", opts.progname, opts.device);
 				retval = -4;
 			} else
-				retval = libunieject_eject(progname, opts, cdio);
+				retval = libunieject_eject(opts, cdio);
 	}
 	
 	cleanup();

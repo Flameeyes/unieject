@@ -41,6 +41,6 @@ static char *sstrdup(const char *str)
 }
 
 char *simplifylink(const char *progname, const char *link);
-char *checkmount(const char *progname, struct unieject_opts opts, char **device);
+char *checkmount(struct unieject_opts opts, char **device);
 
 #endif
