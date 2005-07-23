@@ -29,6 +29,11 @@ OPTIONS
                          it needs to unmount a mounted volume to work.
                          (Note: libcdio misses support for this, so for now
                          is just disabled)
+  -A <accessmode>, --accessmode <accessmode>   Change the default access mode
+                         for the command. This is used to override the default
+                         access mode imposde by libcdio in case it doesn't
+                         work correctly. Leave the default if you don't know
+                         how to change this.
 
 AUTHOR
   unieject is wrote by Diego Petteno` <flameeyes@gentoo.org>, partially using

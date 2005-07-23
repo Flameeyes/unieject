@@ -41,6 +41,7 @@ struct unieject_opts {
 	
 	char *device;		///< Path of the device to open.
 	char *progname;		///< Name of the program to use for outputs
+	char *accessmethod;	///< Access method to load for libcdio
 	void *cdio;		///< Shaded CdIo_t pointer, don't touch!
 };
 
