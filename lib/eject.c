@@ -31,48 +31,48 @@
 #	include <sys/cdio.h>
 #endif
 
-int libunieject_eject(struct unieject_opts opts)
+int libunieject_eject(struct unieject_opts *opts)
 {
 	// TODO: tell libcdio author about this
 	cdio_drive_misc_cap_t unused, misc_cap;
-	cdio_get_drive_cap((CdIo_t*)opts.cdio, &unused, &unused, &misc_cap);
+	cdio_get_drive_cap((CdIo_t*)opts->cdio, &unused, &unused, &misc_cap);
 
 #ifdef __FreeBSD__
-	if ( strncmp("/dev/cd", opts.device, 7) != 0 )
+	if ( strncmp("/dev/cd", opts->device, 7) != 0 )
 		misc_cap = 0xFFFFFFFF;
 #endif
 
-	if ( opts.eject )
+	if ( opts->eject )
 	{
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
 		{
-			unieject_error(stderr, "%s: the selected device doesn't have eject capabilities.\n", opts.progname);
+			unieject_error(stderr, "%s: the selected device doesn't have eject capabilities.\n", opts->progname);
 			return -2;
 		}
 	} else {
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
 		{
-			unieject_error(stderr, "%s: the selected device doesn't have tray close capabilities.\n", opts.progname);
+			unieject_error(stderr, "%s: the selected device doesn't have tray close capabilities.\n", opts->progname);
 			return -2;
 		}
 	}
 	
-	if ( opts.fake )
+	if ( opts->fake )
 		return 0;
 
 #ifdef __FreeBSD__
-	if ( opts.eject )
+	if ( opts->eject )
 	{
-		int devfd = open(opts.device, O_RDONLY);
+		int devfd = open(opts->device, O_RDONLY);
 		if ( devfd == -1 )
 		{
-			unieject_error(stderr, "%s: unable to open device descriptor [%s].\n", opts.progname, strerror(errno));
+			unieject_error(stderr, "%s: unable to open device descriptor [%s].\n", opts->progname, strerror(errno));
 			return -4;
 		}
 		
 		if ( ioctl(devfd, CDIOCALLOW) == -1 )
 		{
-			unieject_error(stderr, "%s: error in ioctl [%s].\n", opts.progname, strerror(errno));
+			unieject_error(stderr, "%s: error in ioctl [%s].\n", opts->progname, strerror(errno));
 			return -5;
 		}
 		
@@ -81,25 +81,26 @@ int libunieject_eject(struct unieject_opts opts)
 #endif
 	
 #ifndef __FreeBSD__
-	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts.cdio, opts.eject, 0, 0);
+	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts->cdio, opts->eject, 0, 0);
 #else
 	driver_return_code_t sts;
-	if ( strncmp("/dev/cd", opts.device, 7) != 0 )
+	if ( strncmp("/dev/cd", opts->device, 7) != 0 )
 	{
-		if ( opts.eject )
-			sts = cdio_eject_media((CdIo_t**)&opts.cdio);
+		if ( opts->eject )
+			sts = cdio_eject_media((CdIo_t**)&opts->cdio);
 		else
 		{
-			cdio_destroy(opts.cdio);
-			sts = cdio_close_tray(opts.device, NULL);
+			cdio_destroy(opts->cdio);
+			opts->cdio = NULL;
+			sts = cdio_close_tray(opts->device, NULL);
 		}
 	} else
-		sts = mmc_start_stop_media((CdIo_t*)opts.cdio, opts.eject, 0, 0);
+		sts = mmc_start_stop_media((CdIo_t*)opts->cdio, opts->eject, 0, 0);
 #endif
 	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
-		unieject_error(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts.progname, sts);
+		unieject_error(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts->progname, sts);
 		return -3;
 	}
 }

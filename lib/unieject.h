@@ -72,13 +72,17 @@ bool libunieject_open(struct unieject_opts *opts);
 
 /**
  * @brief Eject the media in the passed cdio descriptor.
- * @param opts Options to apply
+ * @param opts Pointer to options to apply
  *
  * @retval 0 Eject successful
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error during ejection
+ *
+ * @note It's possible that opts->cdio value is set to NULL (and destroyed)
+ *       after a call to this method. This because on some OS you must close
+ *       previous opened device to do an eject/trayclose.
  */
-int libunieject_eject(struct unieject_opts opts);
+int libunieject_eject(struct unieject_opts *opts);
 
 /**
  * @brief Sets the speed of the given CD-ROM device
