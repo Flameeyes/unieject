@@ -22,7 +22,7 @@ libunieject_la_SOURCES = \
 	$(platformsrcs)
 
 libunieject_la_CURRENT := 2
-libunieject_la_REVISION := 0
+libunieject_la_REVISION := 1
 libunieject_la_AGE := 0
 
 libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
