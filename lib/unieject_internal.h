@@ -49,4 +49,12 @@ static char *sstrdup(const char *str)
 char *simplifylink(const char *progname, const char *link);
 char *checkmount(struct unieject_opts opts, char **device);
 
+// Gettext stuff
+#include <gettext.h>
+#ifdef ENABLE_NLS
+#	define _(x) gettext(x)
+#else
+#	define _(x) x
+#endif
+
 #endif

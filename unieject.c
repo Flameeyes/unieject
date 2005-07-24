@@ -80,30 +80,30 @@ static int parse_options (int argc, const char *argv[])
   
 	struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
-		  "Close CD-Rom tray." },
+		  gettext_noop("Close CD-Rom tray.") },
 		{ "noop", 		'n', POPT_ARG_VAL, &opts.fake, 1,
-		  "Don't eject, just show device found." },
+		  gettext_noop("Don't eject, just show device found.") },
 		{ "default",		'd', POPT_ARG_NONE, NULL, OP_DEFAULT,
-		  "Display default device." },
+		  gettext_noop("Display default device.") },
 		{ "verbose",		'v', POPT_ARG_VAL, &opts.verbose, 1,
-		  "Enable verbose output." },
+		  gettext_noop("Enable verbose output.") },
 		{ "no-unmount",		'm', POPT_ARG_VAL, &opts.unmount, 0,
-		  "Do not umount device even if it is mounted." },
+		  gettext_noop("Do not umount device even if it is mounted.") },
 		{ "quiet",		'Q', POPT_ARG_VAL, &opts.verbose, -1,
-		  "Disable output of error messages." },
+		  gettext_noop("Disable output of error messages.") },
 		{ "force",		'f', POPT_ARG_VAL, &opts.force, 1,
-		  "Force unmount of device." },
+		  gettext_noop("Force unmount of device.") },
 		{ "speed",		'x', POPT_ARG_INT, &opts.speed, OP_SPEED,
-		  "Set CD-Rom max speed." },
+		  gettext_noop("Set CD-Rom max speed.") },
 		{ "changerslot",	'c', POPT_ARG_NONE, NULL, OP_CHANGER,
-		  "Switch discs on a CD-ROM changer." },
+		  gettext_noop("Switch discs on a CD-ROM changer.") },
 		{ "accessmethod", 	'A', POPT_ARG_STRING, &opts.accessmethod, OP_IGNORE,
-		  "Select the access method for libcdio." },
+		  gettext_noop("Select the access method for libcdio.") },
 		{ "debugcdio",		'D', POPT_ARG_INT, &cdio_loglevel_default, OP_IGNORE,
-		  "Set debugging level for libcdio." },
+		  gettext_noop("Set debugging level for libcdio.") },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  "Ignored (classic eject compatibility)." },
+		  gettext_noop("Ignored (classic eject compatibility).") },
 		POPT_AUTOHELP {NULL, 0, 0, NULL, 0}
 	};
 
@@ -118,7 +118,7 @@ static int parse_options (int argc, const char *argv[])
 		
 		if ( opt != OP_IGNORE )
 		{
-			unieject_error(stderr, "%s: you can use just one of -x, -c and -d options\n", opts.progname);
+			unieject_error(stderr, _("%s: you can use just one of -x, -c and -d options\n"), opts.progname);
 			return OP_ERROR;
 		} else
 			opt = tmpopt;
@@ -136,7 +136,7 @@ static int parse_options (int argc, const char *argv[])
 	const char *arg_device = poptGetArg(optCon);
 	
 	if ( poptGetArg(optCon) )
-		unieject_verbose(stdout, "%s: further non-option arguments ignored.\n", opts.progname);
+		unieject_verbose(stdout, _("%s: further non-option arguments ignored.\n"), opts.progname);
 	
 	opts.device = libunieject_getdevice(opts, arg_device);
 	
