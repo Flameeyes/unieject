@@ -99,6 +99,8 @@ static int parse_options (int argc, const char *argv[])
 		  "Switch discs on a CD-ROM changer." },
 		{ "accessmethod", 	'A', POPT_ARG_STRING, &opts.accessmethod, OP_IGNORE,
 		  "Select the access method for libcdio." },
+		{ "debugcdio",		'D', POPT_ARG_INT, &cdio_loglevel_default, OP_IGNORE,
+		  "Set debugging level for libcdio." },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  "Ignored (classic eject compatibility)." },
@@ -149,10 +151,6 @@ int do_eject();
 
 int main(int argc, const char *argv[])
 {
-#ifndef NDEBUG
-	cdio_loglevel_default = 0;
-#endif
-
 	int what = parse_options(argc, argv);
 	
 	// First switch, non-device options

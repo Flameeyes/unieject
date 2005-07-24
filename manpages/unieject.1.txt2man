@@ -34,6 +34,8 @@ OPTIONS
                          access mode imposde by libcdio in case it doesn't
                          work correctly. Leave the default if you don't know
                          how to change this.
+  -D <level>, --debugcdio <level>    Sets the debug level for libcdio
+                         informations.
 
 ENVIRONMENT
   EJECT    Used for compatibility with FreeBSD's eject command; if it's set the
