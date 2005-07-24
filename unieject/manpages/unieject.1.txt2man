@@ -1,10 +1,10 @@
 NAME
   unieject - Universal eject commandline tool
 SYNOPSIS
-  unieject [-nvQmf] [device or mountpoint]
-  unieject [-nvQ] --trayclose [device or mountpoint]
-  unieject [-nvQ] --speed <speed> [device or mountpoint]
-  unieject [-nvQmf] --changerslot <slot> [device or mountpoint]
+  unieject [-nvQmf] [-A <accessmode>] [device or mountpoint]
+  unieject [-nvQ] [-A <accessmode>] --trayclose [device or mountpoint]
+  unieject [-nvQ] [-A <accessmode>] --speed <speed> [device or mountpoint]
+  unieject [-nvQmf] [-A <accessmode>] --changerslot <slot> [device or mountpoint]
   unieject [-nvQ] -d
 DESCRIPTION
   unieject is an universal eject command which works on Linux and FreeBSD,
@@ -34,6 +34,11 @@ OPTIONS
                          access mode imposde by libcdio in case it doesn't
                          work correctly. Leave the default if you don't know
                          how to change this.
+
+ENVIRONMENT
+  EJECT    Used for compatibility with FreeBSD's eject command; if it's set the
+           default device to eject is take from there instead than from libcdio
+           defaults.
 
 AUTHOR
   unieject is wrote by Diego Petteno` <flameeyes@gentoo.org>, partially using
