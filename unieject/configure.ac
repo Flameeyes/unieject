@@ -1,5 +1,5 @@
 AC_PREREQ(2.59)
-AC_INIT([unieject], [2], [flameeyes@gentoo.org])
+AC_INIT([unieject], [2.1], [flameeyes@gentoo.org])
 
 AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER([config.h])
