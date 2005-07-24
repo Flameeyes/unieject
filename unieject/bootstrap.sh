@@ -7,6 +7,8 @@ export WANT_AUTOMAKE="1.9"
 
 touch ChangeLog
 libtoolize --copy --force
+gettextize --no-changelog --copy --force
+
 aclocal -I m4
 autoconf --force
 autoheader --force

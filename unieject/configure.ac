@@ -5,6 +5,8 @@ AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER([config.h])
 AC_PROG_LIBTOOL
 
+AM_GNU_GETTEXT([external])
+
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([LIBCDIO], [libcdio >= 0.74])
 AC_SUBST(LIBCDIO_CFLAGS)
@@ -37,6 +39,6 @@ esac
 AM_CONDITIONAL([LINUX], [test "x$os" = "xLinux"])
 AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
 
-AC_OUTPUT([Makefile
+AC_OUTPUT([Makefile po/Makefile.in
 	lib/Makefile
 	manpages/Makefile])
