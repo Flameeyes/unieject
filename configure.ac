@@ -40,6 +40,8 @@ esac
 AM_CONDITIONAL([LINUX], [test "x$os" = "xLinux"])
 AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
 
-AC_OUTPUT([Makefile po/Makefile.in
+AC_OUTPUT([po/Makefile.in])
+AC_OUTPUT([Makefile
 	lib/Makefile
-	manpages/Makefile])
+	manpages/Makefile
+	lib/libunieject.pc])
