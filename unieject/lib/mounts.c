@@ -45,7 +45,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	{
 		normalized = sstrdup(getenv("EJECT"));
 		if ( normalized )
-			unieject_verbose(stdout, "%s: using value of EJECT variable '%s'\n", opts.progname, normalized);
+			unieject_verbose(stdout, _("%s: using value of EJECT variable '%s'\n"), opts.progname, normalized);
 	}
 #endif
 
@@ -53,17 +53,17 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	if ( ! normalized )
 	{
 		normalized = strdup("cd0");
-		unieject_verbose(stdout, "%s: using FreeBSD default: 'cd0'\n", opts.progname);
+		unieject_verbose(stdout, _("%s: using FreeBSD default: 'cd0'\n"), opts.progname);
 	}
 #endif
 
 	if ( ! normalized )
 	{
 		normalized = libunieject_defaultdevice(opts);
-		unieject_verbose(stdout, "%s: using default device '%s'\n", opts.progname, normalized);
+		unieject_verbose(stdout, _("%s: using default device '%s'\n"), opts.progname, normalized);
 	}
 
-	unieject_verbose(stdout, "%s: device name is '%s'\n", opts.progname, normalized);
+	unieject_verbose(stdout, _("%s: device name is '%s'\n"), opts.progname, normalized);
 	
 	if ( normalized[0] != '/' )
 	{
@@ -74,12 +74,12 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 		free(tmp); tmp = NULL;
 	}
 	
-	unieject_verbose(stdout, "%s: expanded name is '%s'\n", opts.progname, normalized);
+	unieject_verbose(stdout, _("%s: expanded name is '%s'\n"), opts.progname, normalized);
 	
 	tmp = simplifylink(opts.progname, normalized);
 	if ( tmp != normalized )
 	{
-		unieject_verbose(stdout, "%s: '%s' is a link to '%s'\n", opts.progname, normalized, tmp);
+		unieject_verbose(stdout, _("%s: '%s' is a link to '%s'\n"), opts.progname, normalized, tmp);
 		free(normalized);
 		normalized = tmp;
 		tmp = NULL;
@@ -93,7 +93,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	
 	// TODO: check for mountpoints, devices
 	
-	unieject_verbose(stdout, "%s: device is '%s'\n", opts.progname, normalized);
+	unieject_verbose(stdout, _("%s: device is '%s'\n"), opts.progname, normalized);
 	return normalized;
 }
 

@@ -37,7 +37,7 @@ int libunieject_slotchange(struct unieject_opts opts)
 	
 	if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_SELECT_DISC) )
 	{
-		unieject_error(stderr, "%s: the selected device doesn't have capability to select disc.\n", opts.progname);
+		unieject_error(stderr, _("%s: the selected device doesn't have capability to select disc.\n"), opts.progname);
 		return -2;
 	}
 	
@@ -48,7 +48,7 @@ int libunieject_slotchange(struct unieject_opts opts)
 	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
-		unieject_error(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts.progname, sts);
+		unieject_error(stderr, _("%s: unable to execute command (CDIO returned: %d)\n"), opts.progname, sts);
 		return -3;
 	}
 	
