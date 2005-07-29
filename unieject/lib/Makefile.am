@@ -28,4 +28,4 @@ libunieject_la_AGE := 0
 libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
 libunieject_la_LDFLAGS = $(AM_LDFLAGS) $(LIBCDIO_LDFLAGS) --no-undefined \
 	-version-info $(libunieject_la_CURRENT):$(libunieject_la_REVISION):$(libunieject_la_AGE)
-libunieject_la_LIBADD = $(AM_LDADD) $(LIBCDIO_LIBS)
+libunieject_la_LIBADD = $(AM_LDADD) $(LIBCDIO_LIBS) $(LTLIBINTL)
