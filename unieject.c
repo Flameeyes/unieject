@@ -55,6 +55,7 @@ enum {
 	OP_DEFAULT, // --default
 	OP_SPEED,
 	OP_CHANGER,
+	OP_VERSION,
 	OP_ERROR
 };
 
@@ -101,6 +102,8 @@ static int parse_options (int argc, const char *argv[])
 		  gettext_noop("Select the access method for libcdio.") },
 		{ "debugcdio",		'D', POPT_ARG_INT, &cdio_loglevel_default, OP_IGNORE,
 		  gettext_noop("Set debugging level for libcdio.") },
+		{ "version",		'V', POPT_ARG_NONE, NULL, OP_VERSION,
+		  gettext_noop("Display version and copyright information and exit.") },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  gettext_noop("Ignored (classic eject compatibility).") },
@@ -161,6 +164,13 @@ int main(int argc, const char *argv[])
 			printf(_("%s: default device: `%s'\n"), opts.progname, default_device);
 			
 			free(default_device);
+			free(opts.progname);
+			return 0;
+		}
+	case OP_VERSION: {
+			printf(_("unieject version %s\n"), PACKAGE_VERSION);
+			printf(_("Copyright (c) 2005 Diego Pettenò\n"));
+			
 			free(opts.progname);
 			return 0;
 		}
