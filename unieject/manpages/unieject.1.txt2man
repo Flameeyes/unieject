@@ -36,6 +36,7 @@ OPTIONS
                          how to change this.
   -D <level>, --debugcdio <level>    Sets the debug level for libcdio
                          informations.
+  -V, --version          Display version and copyright information and exit.
 
 ENVIRONMENT
   EJECT    Used for compatibility with FreeBSD's eject command; if it's set the
