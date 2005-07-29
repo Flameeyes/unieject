@@ -23,22 +23,16 @@
 // We need this for asprintf
 #define _GNU_SOURCE
 
-#define unieject_error \
-	if ( opts.verbose != -1 ) fprintf
-
-#define unieject_verbose \
-	if ( opts.verbose == 1 ) fprintf
-
-#define unieject_error_p \
-	if ( opts->verbose != -1 ) fprintf
-
-#define unieject_verbose_p \
-	if ( opts->verbose == 1 ) fprintf
-
 #include <config.h>
 #include <string.h>
 
 #include <unieject.h>
+
+#ifdef __GNUC__
+#	define PRINTF_LIKE(x, y) __attribute__( ( format(printf, x, y) ) )
+#else
+#	define PRINTF_LIKE(x, y)
+#endif
 
 // safe strdup
 static char *sstrdup(const char *str)
@@ -48,6 +42,9 @@ static char *sstrdup(const char *str)
 
 char *simplifylink(const char *progname, const char *link);
 char *checkmount(struct unieject_opts opts, char **device);
+
+void unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
+void unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 
 // Gettext stuff
 #include <gettext.h>
