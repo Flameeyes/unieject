@@ -1,0 +1,24 @@
+NAME
+  libunieject_setspeed - set the speed of a CD-Rom device
+SYNOPSIS
+  #include <unieject.h>
+  
+  int libunieject_setspeed(struct unieject_opts opts);
+DESCRIPTION
+  This function is the library function used to set the speed of a CD-Rom 
+  device using libcdio functions.
+  
+  It uses the opts structure to get the program name to use for outputs, the
+  device name of the device to set the speed of, and the speed to set it to.
+
+RETURN VALUE
+  libunieject_setspeed returns 0 if the speed is set correctly,
+  -3 if there are errors in libcdio code or -2 if the device has no
+  capability to set its speed.
+
+BUGS
+  On FreeBSD, while accessing ATAPI CD-Rom, the capabilities are not checked,
+  as the ATAPI interface has no way to get them from userspace right now.
+
+SEE ALSO
+  libunieject_open(3)
