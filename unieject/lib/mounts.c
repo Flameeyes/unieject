@@ -45,7 +45,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	{
 		normalized = sstrdup(getenv("EJECT"));
 		if ( normalized )
-			unieject_verbose(stdout, _("%s: using value of EJECT variable '%s'\n"), opts.progname, normalized);
+			unieject_verbose(opts, _("using value of EJECT variable '%s'\n"), normalized);
 	}
 #endif
 
@@ -53,17 +53,17 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	if ( ! normalized )
 	{
 		normalized = strdup("cd0");
-		unieject_verbose(stdout, _("%s: using FreeBSD default: 'cd0'\n"), opts.progname);
+		unieject_verbose(opts, _("using FreeBSD default: 'cd0'\n"));
 	}
 #endif
 
 	if ( ! normalized )
 	{
 		normalized = libunieject_defaultdevice(opts);
-		unieject_verbose(stdout, _("%s: using default device '%s'\n"), opts.progname, normalized);
+		unieject_verbose(opts, _("using default device '%s'\n"), normalized);
 	}
 
-	unieject_verbose(stdout, _("%s: device name is '%s'\n"), opts.progname, normalized);
+	unieject_verbose(opts, _("device name is '%s'\n"), normalized);
 	
 	if ( normalized[0] != '/' )
 	{
@@ -74,12 +74,12 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 		free(tmp); tmp = NULL;
 	}
 	
-	unieject_verbose(stdout, _("%s: expanded name is '%s'\n"), opts.progname, normalized);
+	unieject_verbose(opts, _("expanded name is '%s'\n"), normalized);
 	
 	tmp = simplifylink(opts.progname, normalized);
 	if ( tmp != normalized )
 	{
-		unieject_verbose(stdout, _("%s: '%s' is a link to '%s'\n"), opts.progname, normalized, tmp);
+		unieject_verbose(opts, _("'%s' is a link to '%s'\n"), normalized, tmp);
 		free(normalized);
 		normalized = tmp;
 		tmp = NULL;
@@ -93,7 +93,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	
 	// TODO: check for mountpoints, devices
 	
-	unieject_verbose(stdout, _("%s: device is '%s'\n"), opts.progname, normalized);
+	unieject_verbose(opts, _("device is '%s'\n"), normalized);
 	return normalized;
 }
 

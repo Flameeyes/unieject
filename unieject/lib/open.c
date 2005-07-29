@@ -42,7 +42,7 @@ bool libunieject_open(struct unieject_opts *opts)
 
 	if ( ! opts->cdio )
 	{
-		unieject_error_p(stderr, _("%s: cannot find CD-Rom driver.\n"), opts->progname);
+		unieject_error(*opts, _("cannot find CD-Rom driver.\n"));
 		return false;
 	}
 

@@ -118,7 +118,7 @@ static int parse_options (int argc, const char *argv[])
 		
 		if ( opt != OP_IGNORE )
 		{
-			unieject_error(stderr, _("%s: you can use just one of -x, -c and -d options\n"), opts.progname);
+			unieject_error(opts, _("you can use just one of -x, -c and -d options\n"));
 			return OP_ERROR;
 		} else
 			opt = tmpopt;
@@ -136,7 +136,7 @@ static int parse_options (int argc, const char *argv[])
 	const char *arg_device = poptGetArg(optCon);
 	
 	if ( poptGetArg(optCon) )
-		unieject_verbose(stdout, _("%s: further non-option arguments ignored.\n"), opts.progname);
+		unieject_verbose(opts, _("further non-option arguments ignored.\n"));
 	
 	opts.device = libunieject_getdevice(opts, arg_device);
 	
@@ -168,7 +168,7 @@ int main(int argc, const char *argv[])
 	case OP_IGNORE:
 		if ( ! libunieject_umountdev(opts, opts.device) )
 		{
-			unieject_error(stderr, _("%s: unable to unmount device '%s').\n", opts.progname, opts.device);
+			unieject_error(opts, _("unable to unmount device '%s'.\n"), opts.device);
 			free(opts.progname);
 			return -4;
 		}

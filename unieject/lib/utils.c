@@ -20,6 +20,8 @@
 #include <unieject_internal.h>
 
 #include <errno.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 #ifdef HAVE_LIBGEN_H
 #	include <libgen.h>
@@ -53,4 +55,58 @@ char *simplifylink(const char *progname, const char *orig)
 	free(tmp);
 #endif
 	return orig;
+}
+
+/**
+ * @brief Output an error for unieject library
+ * @param opts Options to apply for the output
+ * @param format Output format of the error
+ * @param ... As in printf() like function
+ *
+ * @note Internal function
+ */
+void unieject_error(const struct unieject_opts opts, const char *format, ...)
+{
+	if ( opts.verbose == -1 )
+		return;
+	
+	char *newformat = NULL;
+	if ( asprintf(&newformat, "%s: %s", opts.progname, format) == -1 )
+		return;
+	
+	va_list argptr;
+	va_start(argptr, format);
+	
+	vfprintf(stderr, newformat, argptr);
+	
+	va_end(argptr);
+	
+	free(newformat);
+}
+
+/**
+ * @brief Output verbose message for unieject library
+ * @param opts Options to apply for the output
+ * @param format Output format of the message
+ * @param ... As in printf() like function
+ *
+ * @note Internal function
+ */
+void unieject_verbose(const struct unieject_opts opts, const char *format, ...)
+{
+	if ( opts.verbose < 1 )
+		return;
+	
+	char *newformat = NULL;
+	if ( asprintf(&newformat, "%s: %s", opts.progname, format) == -1 )
+		return;
+	
+	va_list argptr;
+	va_start(argptr, format);
+	
+	vfprintf(stdout, newformat, argptr);
+	
+	va_end(argptr);
+	
+	free(newformat);
 }

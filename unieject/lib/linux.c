@@ -42,7 +42,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 		// symlinks?
 		if ( strcmp(newdev, *device) == 0 )
 		{
-			unieject_verbose(stdout, _("%s: '%s' is mounted as '%s'\n"), opts.progname, *device, newmnt);
+			unieject_verbose(opts, _("'%s' is mounted as '%s'\n"), *device, newmnt);
 			ret = (newmnt == mnt) ? sstrdup(mnt) : newmnt;
 			
 			if ( newdev != dev ) free(newdev);
@@ -51,7 +51,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 
 		if ( strcmp(newmnt, *device) == 0 )
 		{
-			unieject_verbose(stdout, _("%s: '%s' is the mount point of '%s'\n"), opts.progname, *device, newdev);
+			unieject_verbose(opts, _("'%s' is the mount point of '%s'\n"), *device, newdev);
 			ret = *device;
 			*device = (newdev == dev) ? sstrdup(dev) : newdev;
 			
@@ -84,11 +84,11 @@ bool internal_umountdev(struct unieject_opts opts, const char *device)
 		if ( umount(mnt) == -1 )
 #endif
 		{
-			unieject_error(stderr, "%s: unable to unmount '%s' [%s]\n", opts.progname, mnt, strerror(errno));
+			unieject_error(opts, "unable to unmount '%s' [%s]\n", mnt, strerror(errno));
 			return false;
 		}
 		
-		unieject_verbose(stdout, "%s: '%s' unmounted from '%s'\n", opts.progname, device, mnt);
+		unieject_verbose(opts, "'%s' unmounted from '%s'\n", device, mnt);
 	}
 
 	return true;
