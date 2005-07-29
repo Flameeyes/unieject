@@ -29,8 +29,10 @@
 #include <unieject.h>
 
 #ifdef __GNUC__
-#	define PRINTF_LIKE(x, y) __attribute__( ( format(printf, x, y) ) )
+#	define PRINTF_LIKE(x, y)	__attribute__( ( format(printf, x, y) ) )
+#	define INTERNAL			__attribute__( ( visibility("internal") ) )
 #else
+#	define INTERNAL
 #	define PRINTF_LIKE(x, y)
 #endif
 
@@ -43,8 +45,8 @@ static char *sstrdup(const char *str)
 char *simplifylink(const char *progname, const char *link);
 char *checkmount(struct unieject_opts opts, char **device);
 
-void unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
-void unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
+void INTERNAL unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
+void INTERNAL unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 
 // Gettext stuff
 #include <gettext.h>
