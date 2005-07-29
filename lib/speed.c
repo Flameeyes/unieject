@@ -37,16 +37,16 @@ int libunieject_setspeed(struct unieject_opts opts)
 	
 	if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_SELECT_SPEED) )
 	{
-		unieject_error(stderr, "%s: the selected device doesn't have capability to select speed.\n", opts.progname);
+		unieject_error(stderr, _("%s: the selected device doesn't have capability to select speed.\n"), opts.progname);
 		return -2;
 	}
 	
-	unieject_verbose(stdout, "%s: setting CD-ROM speed to %dX\n", opts.progname, opts.speed);
+	unieject_verbose(stdout, _("%s: setting CD-ROM speed to %dX\n"), opts.progname, opts.speed);
 	driver_return_code_t sts = cdio_set_speed((CdIo_t*)opts.cdio, opts.speed);
 	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
-		unieject_error(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts.progname, sts);
+		unieject_error(stderr, _("%s: unable to execute command (CDIO returned: %d)\n"), opts.progname, sts);
 		return -3;
 	}
 	

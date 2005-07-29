@@ -147,8 +147,6 @@ static int parse_options (int argc, const char *argv[])
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio); \
 	pre_cleanup()
 
-int do_eject();
-
 int main(int argc, const char *argv[])
 {
 	int what = parse_options(argc, argv);
@@ -160,7 +158,7 @@ int main(int argc, const char *argv[])
 		return -1;
 	case OP_DEFAULT: {
 			char *default_device = libunieject_defaultdevice(opts);
-			printf("%s: default device: `%s'\n", opts.progname, default_device);
+			printf(_("%s: default device: `%s'\n"), opts.progname, default_device);
 			
 			free(default_device);
 			free(opts.progname);
@@ -170,7 +168,7 @@ int main(int argc, const char *argv[])
 	case OP_IGNORE:
 		if ( ! libunieject_umountdev(opts, opts.device) )
 		{
-			unieject_error(stderr, "%s: unable to unmount device '%s'.\n", opts.progname, opts.device);
+			unieject_error(stderr, _("%s: unable to unmount device '%s').\n", opts.progname, opts.device);
 			free(opts.progname);
 			return -4;
 		}

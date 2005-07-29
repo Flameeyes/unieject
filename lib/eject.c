@@ -46,13 +46,13 @@ int libunieject_eject(struct unieject_opts *opts)
 	{
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
 		{
-			unieject_error_p(stderr, "%s: the selected device doesn't have eject capabilities.\n", opts->progname);
+			unieject_error_p(stderr, _("%s: the selected device doesn't have eject capabilities.\n"), opts->progname);
 			return -2;
 		}
 	} else {
 		if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
 		{
-			unieject_error_p(stderr, "%s: the selected device doesn't have tray close capabilities.\n", opts->progname);
+			unieject_error_p(stderr, _("%s: the selected device doesn't have tray close capabilities.\n"), opts->progname);
 			return -2;
 		}
 	}
@@ -66,13 +66,13 @@ int libunieject_eject(struct unieject_opts *opts)
 		int devfd = open(opts->device, O_RDONLY);
 		if ( devfd == -1 )
 		{
-			unieject_error_p(stderr, "%s: unable to open device descriptor [%s].\n", opts->progname, strerror(errno));
+			unieject_error_p(stderr, _("%s: unable to open device descriptor [%s].\n"), opts->progname, strerror(errno));
 			return -4;
 		}
 		
 		if ( ioctl(devfd, CDIOCALLOW) == -1 )
 		{
-			unieject_error_p(stderr, "%s: error in ioctl [%s].\n", opts->progname, strerror(errno));
+			unieject_error_p(stderr, _("%s: error in ioctl [%s].\n"), opts->progname, strerror(errno));
 			return -5;
 		}
 		
@@ -110,7 +110,7 @@ int libunieject_eject(struct unieject_opts *opts)
 	
 	if ( sts != DRIVER_OP_SUCCESS )
 	{
-		unieject_error_p(stderr, "%s: unable to execute command (CDIO returned: %d)\n", opts->progname, sts);
+		unieject_error_p(stderr, _("%s: unable to execute command (CDIO returned: %d)\n"), opts->progname, sts);
 		return -3;
 	}
 }

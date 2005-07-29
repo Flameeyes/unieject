@@ -34,7 +34,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 	int mnts = getmntinfo(&mntbuf, MNT_NOWAIT);
 	if (mnts == 0)
 	{
-		unieject_error(stderr, "%s: error receiving mount information: %s\n", opts.progname, strerror(errno));
+		unieject_error(stderr, _("%s: error receiving mount information: %s\n"), opts.progname, strerror(errno));
 		return *device;
 	}
 	
@@ -49,7 +49,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 		
 		if ( strcmp(newdev, *device) == 0 )
 		{
-			unieject_verbose(stdout, "%s: '%s' is mounted as '%s'\n", opts.progname, *device, newmnt);
+			unieject_verbose(stdout, _("%s: '%s' is mounted as '%s'\n"), opts.progname, *device, newmnt);
 			ret = (newmnt == mntbuf[n].f_mntonname) ? sstrdup(mntbuf[n].f_mntonname) : newmnt;
 			
 			if ( newdev != mntbuf[n].f_mntfromname ) free(newdev);
@@ -58,7 +58,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 
 		if ( strcmp(newmnt, *device) == 0 )
 		{
-			unieject_verbose(stdout, "%s: '%s' is the mount point of '%s'\n", opts.progname, *device, newdev);
+			unieject_verbose(stdout, _("%s: '%s' is the mount point of '%s'\n"), opts.progname, *device, newdev);
 			ret = *device;
 			*device = (newdev == mntbuf[n].f_mntfromname) ? sstrdup(mntbuf[n].f_mntfromname) : newdev;
 			
@@ -84,11 +84,11 @@ bool internal_umountdev(struct unieject_opts opts, const char *device)
 	{
 		if ( unmount(mnt, opts.force ? MNT_FORCE : 0) == -1 )
 		{
-			unieject_error(stderr, "%s: unable to unmount '%s' [%s]\n", opts.progname, mnt, strerror(errno));
+			unieject_error(stderr, _("%s: unable to unmount '%s' [%s]\n"), opts.progname, mnt, strerror(errno));
 			return false;
 		}
 		
-		unieject_verbose(stdout, "%s: '%s' unmounted from '%s'\n", opts.progname, device, mnt);
+		unieject_verbose(stdout, _("%s: '%s' unmounted from '%s'\n"), opts.progname, device, mnt);
 	}
 
 	return true;
