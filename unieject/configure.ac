@@ -45,6 +45,16 @@ esac
 AM_CONDITIONAL([LINUX], [test "x$os" = "xLinux"])
 AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
 
+AC_MSG_CHECKING([compiler supports __attribute__((constructor))])
+AC_COMPILE_IFELSE([
+	void ctor() __attribute__((constructor));
+	void ctor() { };
+	], [
+		AC_MSG_RESULT([yes])
+	], [
+		AC_MSG_FAILURE([no, unable to build unieject])
+	])
+
 AC_OUTPUT([po/Makefile.in])
 AC_OUTPUT([Makefile
 	lib/Makefile
