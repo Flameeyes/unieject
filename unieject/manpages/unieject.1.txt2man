@@ -20,6 +20,9 @@ OPTIONS
   -m, --no-unmount       Don't unmount the device if it's mounted (the eject
                          will probably fail if the device is mounted, this
                          way).
+  -u, --unmount          Unmount the device if it's mounted (this is the
+                         default behavior, this option is used to override
+                         unieject.conf(5) file).
   -f, --force            Force unmounting of device if it's mounted. This
                          works only if OS supports it.
   

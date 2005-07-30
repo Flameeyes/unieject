@@ -125,6 +125,8 @@ static int parse_options (int argc, const char *argv[])
 		  gettext_noop("Enable verbose output.") },
 		{ "no-unmount",		'm', POPT_ARG_VAL, &opts.unmount, 0,
 		  gettext_noop("Do not umount device even if it is mounted.") },
+		{ "unmount",		'u', POPT_ARG_VAL, &opts.unmount, 1,
+		  gettext_noop("Unmount device if mounted (default behavior).") },
 		{ "quiet",		'Q', POPT_ARG_VAL, &opts.verbose, -1,
 		  gettext_noop("Disable output of error messages.") },
 		{ "force",		'f', POPT_ARG_VAL, &opts.force, 1,
