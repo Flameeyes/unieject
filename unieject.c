@@ -31,6 +31,8 @@
 
 #include <popt.h>
 
+#include <confuse.h>
+
 /*
   eject -V                              -- display program version and exit
   eject [-vn] -a on|off|1|0 [<name>]    -- turn auto-eject feature on or off
@@ -49,6 +51,7 @@ By default tries -r, -s, -f, and -q in order until success.
 */
 
 struct unieject_opts opts;
+cfg_t *cfg = NULL; // configuration file descriptor
 
 enum {
 	OP_IGNORE,
@@ -80,6 +83,29 @@ void cleanup()
 	if ( opts.progname ) free(opts.progname);
 	if ( opts.device ) free(opts.device);
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
+	
+	if ( cfg ) cfg_free(cfg);
+}
+
+static int parse_configuration()
+{
+	cfg_opt_t cfgopts[] =
+	{
+		CFG_SIMPLE_STR("device", &opts.device),
+		CFG_SIMPLE_INT("verbosity", &opts.verbose),
+		CFG_SIMPLE_BOOL("unmount", &opts.unmount),
+		CFG_SIMPLE_BOOL("force", &opts.force),
+		CFG_SIMPLE_STR("accessmethod", &opts.accessmethod),
+		CFG_SIMPLE_INT("debugcdio", &cdio_loglevel_default),
+		CFG_END()
+	};
+	
+	cfg = cfg_init(cfgopts, CFGF_NONE);
+	if ( cfg_parse(cfg, SYSCONFDIR "/unieject.conf") == CFG_PARSE_ERROR )
+	{
+		unieject_error(opts, _("Error parsing configuration file %s\n"), SYSCONFDIR "/unieject.conf");
+		exit(-5);
+	}
 }
 
 /* Parse a all options. */
@@ -87,7 +113,6 @@ static int parse_options (int argc, const char *argv[])
 {
 	char tmpopt;
 	char opt = OP_IGNORE; /* used for argument parsing */
-	char *psz_my_source;
 	
 	struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
@@ -143,10 +168,13 @@ static int parse_options (int argc, const char *argv[])
 		fprintf(stderr, "%s: %s\n",
 			poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
 			poptStrerror(opt));
-		return OP_ERROR;
+		
+		exit(-1);
 	}
 	
 	const char *arg_device = poptGetArg(optCon);
+	if ( ! arg_device )
+		arg_device = opts.device;
 	
 	if ( poptGetArg(optCon) )
 		unieject_verbose(opts, _("further non-option arguments ignored.\n"));
@@ -158,13 +186,12 @@ static int parse_options (int argc, const char *argv[])
 
 int main(int argc, const char *argv[])
 {
+	parse_configuration();
 	int what = parse_options(argc, argv);
 	
 	// First switch, non-device options
 	switch(what)
 	{
-	case OP_ERROR:
-		return -1;
 	case OP_DEFAULT: {
 			char *default_device = libunieject_defaultdevice(opts);
 			printf(_("%s: default device: `%s'\n"), opts.progname, default_device);
