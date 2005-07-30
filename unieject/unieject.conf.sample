@@ -18,6 +18,16 @@ unmount = true
 # Set to true if you want to force the unmounting of the device
 force = false
 
+# Respect capabilities
+# Set to false if you want to forse ejection also if the device states that
+# it doesn't support it
+respect-capabilities = true
+
+# Unmount wrapper
+# Set this to the complete path of the wrapper to call to unmount a device.
+# The name of the device will be concatenated after a space.
+# unmount-wrapper = "/usr/bin/pumount"
+
 # CDIO access method
 # Set the access method for cdio to eject and set the device
 # accessmethod = READ_CD # default on linux

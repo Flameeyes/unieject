@@ -12,26 +12,42 @@ DESCRIPTION
 
 OPTIONS
   -t, --trayclose        Close the tray of the CD-Rom instead of eject it.
-  -n, --noop             Doesn't actually do nothing, just print what it
-                         would have done.
-  -d, --default          Show the default device that will be ejected.
-  -v, --verbose          Show more information while executing the command.
-  -Q, --quiet            Show less information while executing the command.
-  -m, --no-unmount       Don't unmount the device if it's mounted (the eject
-                         will probably fail if the device is mounted, this
-                         way).
-  -u, --unmount          Unmount the device if it's mounted (this is the
-                         default behavior, this option is used to override
-                         unieject.conf(5) file).
-  -f, --force            Force unmounting of device if it's mounted. This
-                         works only if OS supports it.
-  
   -x <speed>, --speed <speed>   Set the maximum speed for the CD-ROM drive
                          (if applicable).
   -c <slot>, --changerslot <slot>    Change the slot of a CD-ROM changer,
                          it needs to unmount a mounted volume to work.
                          (Note: libcdio misses support for this, so for now
                          is just disabled)
+  
+  -n, --noop             Doesn't actually do nothing, just print what it
+                         would have done.
+  -d, --default          Show the default device that will be ejected.
+  -v, --verbose          Show more information while executing the command.
+  -Q, --quiet            Show less information while executing the command.
+  
+  -m, --no-unmount       Don't unmount the device if it's mounted (the eject
+                         will probably fail if the device is mounted, this
+                         way).
+  -u, --unmount          Unmount the device if it's mounted (this is the
+                         default behavior, this option is used to override
+                         unieject.conf(5) file).
+  
+  -f, --force            Force unmounting of device if it's mounted. This
+                         works only if OS supports it.
+  --no-force             Don't force unmounting of device (this is the default
+                         behavior, this option is used to override
+                         unieject.conf(5) file).
+  
+  --ignore-caps          Ignore the capabilities stated by the device to eject.
+                         Unieject will try the ejection in any case.
+  --no-ignore-caps       Don't ignore the capabilities stated by the device
+                         (this is the default behavior, this option is used to
+                         override unieject.conf(5) file).
+  
+  -W <wrapper>, --umount-wrapper <wrapper>   Use the given wrapper to unmount
+                         the device instead of library functions. The device
+                         name will be passed right after the wrapper.
+  
   -A <accessmode>, --accessmode <accessmode>   Change the default access mode
                          for the command. This is used to override the default
                          access mode imposde by libcdio in case it doesn't
