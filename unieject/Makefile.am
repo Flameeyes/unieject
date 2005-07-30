@@ -6,6 +6,7 @@ INCLUDES = $(all_includes) -I$(top_srcdir)/lib
 
 unieject_SOURCES = unieject.c lib/utils.c
 unieject_CFLAGS = $(AM_CFLAGS) \
+	-DSYSCONFDIR=\"$(sysconfdir)\" \
 	$(LIBCDIO_CFLAGS) \
 	$(LIBPOPT_CFLAGS) \
 	$(CONFUSE_CFLAGS)
