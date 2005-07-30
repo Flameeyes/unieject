@@ -28,6 +28,13 @@ PARAMETERS
                 ejected.
   force = bool  If unmount is true, this will force the unmount of the device
                 also if it's still in use.
+  respect-capabilities = bool   If set to true (the default), unieject will
+                respect the capabilities stated by the device, else it will try
+                the ejection also if the drive states otherwise.
+  unmount-wrapper = string   This setting can be used when, to unmount a device,
+                you need to launch a wrapper script to umount instead of using
+                library functions (i.e.: unieject command is not setuid, nor
+                has right POSIX capability set).
   accessmethod = string   Defines the access method to use for CDIO CD-Rom
                 access. This depends on the platform and should never be
                 changed if you don't know what is used for. See libcdio

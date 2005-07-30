@@ -27,3 +27,8 @@ The config file parsing is done using libconfuse
 ( http://www.nongnu.org/confuse/ ).
 For FreeBSD support you'll also need an extra patch for libcdio-0.75 to be
 able to manage ATAPI cdroms (/dev/acd*).
+
+Unieject will build with GCC3+ and ICC9, as they support for sure function's
+attributes, as it makes use of __attribute__((constructor)) to initialize
+and __attribute__((destructor)) to destroy the data.
+
