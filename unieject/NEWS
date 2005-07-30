@@ -1,4 +1,13 @@
-24 June 2005: Release 2.1
+31 July 2005: Release 3
+-----------------------
+New major release. Added gettext (internationalization) support. Added support
+for a configuration file with default parameters to unieject command.
+Added support for configurable umount wrappers like pumount and hmount.
+There's a test manpage for libunieject_setspeed(3) function.
+This version requires libconfuse and builds only with GCC and ICC (with support
+for __attribute__((constructor)).
+
+24 July 2005: Release 2.1
 -------------------------
 Quick release to change the default access method to Linux CD-Roms from ioctl
 to READ_CD, as ioctl seems to be broken on SCSI mediums.
@@ -7,7 +16,7 @@ affecting the execution.
 Added a parameter to change the access mode for the command and another to set
 the debug level for libcdio output (doesn't affect unieject verbosity).
 
-23 June 2005: Release 2
+23 July 2005: Release 2
 -----------------------
 This is the second public "working" version, the first hitting Gentoo's Portage.
 Respect to the first release it features a complete manpage for the unieject
