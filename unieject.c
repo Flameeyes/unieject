@@ -51,7 +51,6 @@ By default tries -r, -s, -f, and -q in order until success.
 */
 
 struct unieject_opts opts;
-cfg_t *cfg = NULL; // configuration file descriptor
 
 enum {
 	OP_IGNORE,
@@ -83,8 +82,6 @@ void cleanup()
 	if ( opts.progname ) free(opts.progname);
 	if ( opts.device ) free(opts.device);
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
-	
-	if ( cfg ) cfg_free(cfg);
 }
 
 static int parse_configuration()
@@ -100,12 +97,26 @@ static int parse_configuration()
 		CFG_END()
 	};
 	
-	cfg = cfg_init(cfgopts, CFGF_NONE);
+	cfg_t *cfg = cfg_init(cfgopts, CFGF_NONE);
 	if ( cfg_parse(cfg, SYSCONFDIR "/unieject.conf") == CFG_PARSE_ERROR )
 	{
 		unieject_error(opts, _("Error parsing configuration file %s\n"), SYSCONFDIR "/unieject.conf");
+		cfg_free(cfg);
 		exit(-5);
 	}
+	
+	char *userconf;
+	asprintf(&userconf, "%s/.unieject", getenv("HOME"));
+	if ( cfg_parse(cfg, userconf) == CFG_PARSE_ERROR )
+	{
+		unieject_error(opts, _("Error parsing configuration file %s\n"), userconf);
+		free(userconf);
+		cfg_free(cfg);
+		exit(-5);
+	}
+	
+	free(userconf);
+	cfg_free(cfg);
 }
 
 /* Parse a all options. */
