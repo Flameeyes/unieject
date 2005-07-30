@@ -23,5 +23,7 @@ already mime the main options of Linux's eject.
 To be compiled and executed it requires libcdio (tested with 0.74 and above)
 and libpopt. It also requires txt2man ( http://mvertes.free.fr/ ) to compile
 the manpages.
+The config file parsing is done using libconfuse
+( http://www.nongnu.org/confuse/ ).
 For FreeBSD support you'll also need an extra patch for libcdio-0.75 to be
 able to manage ATAPI cdroms (/dev/acd*).
