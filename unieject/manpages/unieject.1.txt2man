@@ -46,6 +46,9 @@ ENVIRONMENT
            default device to eject is take from there instead than from libcdio
            defaults.
 
+SEE ALSO
+  unieject.conf(5)
+
 AUTHOR
   unieject is wrote by Diego Petteno` <flameeyes@gentoo.org>, partially using
   code for FreeBSD from eject-1.5 by Shunsuke Akiyama <akiyama@FreeBSD.org>
