@@ -1,0 +1,30 @@
+# Sample configuration file for unieject
+
+# Default device to eject
+# This can be set to the device you want to eject when you
+# don't provide a specific device to eject.
+# device = /dev/dvd
+
+# Verbosity of unieject
+# This can be set to 0 (default visibility), 1 (verbose), -1 (quiet)
+verbosity = 0
+
+# Unmount device if mounted
+# Set to false if you don't want to unmount the device if it's
+# mounted
+unmount = true
+
+# Force unmounting of the device if in still in use
+# Set to true if you want to force the unmounting of the device
+force = false
+
+# CDIO access method
+# Set the access method for cdio to eject and set the device
+# accessmethod = READ_CD # default on linux
+# accessmethod = READ_CD2
+# accessmethod = ioctl
+
+# CDIO debug level
+# Set the informative debug level for CDIO.
+# debugcdio = 0
+
