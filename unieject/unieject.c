@@ -59,17 +59,12 @@ enum {
 	OP_ERROR
 };
 
-#define pre_cleanup() \
-	free ( opts.progname ); \
-	if ( opts.device ) free(opts.device);
+void init_opts() __attribute__((constructor));
+void cleanup() __attribute__((destructor));
 
-/* Parse a all options. */
-static int parse_options (int argc, const char *argv[])
+/* Initialize the default options (set as constructor) */
+void init_opts()
 {
-	char tmpopt;
-	char opt = OP_IGNORE; /* used for argument parsing */
-	char *psz_my_source;
-	
 	opts.eject = 1;
 	opts.fake = 0;
 	opts.verbose = 0;
@@ -78,7 +73,22 @@ static int parse_options (int argc, const char *argv[])
 	opts.force = 0;
 	opts.device = NULL;
 	opts.accessmethod = NULL;
-  
+}
+
+void cleanup()
+{
+	if ( opts.progname ) free(opts.progname);
+	if ( opts.device ) free(opts.device);
+	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
+}
+
+/* Parse a all options. */
+static int parse_options (int argc, const char *argv[])
+{
+	char tmpopt;
+	char opt = OP_IGNORE; /* used for argument parsing */
+	char *psz_my_source;
+	
 	struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
 		  gettext_noop("Close CD-Rom tray.") },
@@ -146,10 +156,6 @@ static int parse_options (int argc, const char *argv[])
 	return opt;
 }
 
-#define cleanup() \
-	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio); \
-	pre_cleanup()
-
 int main(int argc, const char *argv[])
 {
 	int what = parse_options(argc, argv);
@@ -163,15 +169,12 @@ int main(int argc, const char *argv[])
 			char *default_device = libunieject_defaultdevice(opts);
 			printf(_("%s: default device: `%s'\n"), opts.progname, default_device);
 			
-			free(default_device);
-			free(opts.progname);
 			return 0;
 		}
 	case OP_VERSION: {
 			printf(_("unieject version %s\n"), PACKAGE_VERSION);
 			printf(_("Copyright (c) 2005 Diego Pettenò\n"));
 			
-			free(opts.progname);
 			return 0;
 		}
 	case OP_CHANGER:
@@ -179,16 +182,12 @@ int main(int argc, const char *argv[])
 		if ( ! libunieject_umountdev(opts, opts.device) )
 		{
 			unieject_error(opts, _("unable to unmount device '%s'.\n"), opts.device);
-			free(opts.progname);
 			return -4;
 		}
 	}
 	
 	if ( ! libunieject_open(&opts) )
-	{
-		cleanup();
 		return -1;
-	}
 
 	int retval;
 	switch(what)
@@ -203,6 +202,5 @@ int main(int argc, const char *argv[])
 			retval = libunieject_eject(&opts);
 	}
 	
-	cleanup();
 	return retval;
 }
