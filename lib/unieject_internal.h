@@ -40,15 +40,21 @@
 #	define INTERNAL
 #endif
 
+#ifdef SUPPORT_ATTRIBUTE_NONNULL
+#	define NONNULL(...)		__attribute__( ( nonnull(__VA_ARGS__) ) )
+#else
+#	define NONNULL(...)
+#endif
+
 // safe strdup
 static char *sstrdup(const char *str)
 {
 	return str ? strdup(str) : NULL;
 }
 
-char INTERNAL *simplifylink(const char *progname, const char *link);
-char INTERNAL *checkmount(struct unieject_opts opts, char **device);
-bool INTERNAL internal_umountdev(struct unieject_opts opts, const char *device);
+char INTERNAL *simplifylink(const char *progname, const char *link) NONNULL();
+char INTERNAL *checkmount(struct unieject_opts opts, char **device) NONNULL();
+bool INTERNAL internal_umountdev(struct unieject_opts opts, const char *device) NONNULL();
 
 void INTERNAL unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 void INTERNAL unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);

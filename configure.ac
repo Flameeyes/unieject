@@ -75,6 +75,17 @@ AC_COMPILE_IFELSE([
 		AC_MSG_RESULT([no])
 	])
 
+AC_MSG_CHECKING([if compiler supports __attribute__((nonnull()))])
+AC_COMPILE_IFELSE([
+	void some_function(void *foo, void *bar) __attribute__((nonnull()));
+	void some_function(void *foo, void *bar) { }
+	], [
+		AC_MSG_RESULT([yes])
+		AC_DEFINE([SUPPORT_ATTRIBUTE_NONNULL], 1, [Define this if the compiler supports the nonnull attribute])
+	], [
+		AC_MSG_RESULT([no])
+	])
+
 AC_OUTPUT([po/Makefile.in])
 AC_OUTPUT([Makefile
 	lib/Makefile
