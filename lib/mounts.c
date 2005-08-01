@@ -97,7 +97,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	return normalized;
 }
 
-bool libunieject_umountdev(struct unieject_opts opts, const char *device)
+bool libunieject_umountdev(struct unieject_opts opts, char *device)
 {
 	if ( opts.fake || ! opts.unmount ) return true;
 	
