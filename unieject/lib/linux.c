@@ -43,9 +43,9 @@ char *checkmount(struct unieject_opts opts, char **device)
 		if ( strcmp(newdev, *device) == 0 )
 		{
 			unieject_verbose(opts, _("'%s' is mounted as '%s'\n"), *device, newmnt);
-			ret = (newmnt == mnt) ? sstrdup(mnt) : newmnt;
+			ret = newmnt;
 			
-			if ( newdev != dev ) free(newdev);
+			free(newdev);
 			break;
 		}
 
@@ -53,14 +53,14 @@ char *checkmount(struct unieject_opts opts, char **device)
 		{
 			unieject_verbose(opts, _("'%s' is the mount point of '%s'\n"), *device, newdev);
 			ret = *device;
-			*device = (newdev == dev) ? sstrdup(dev) : newdev;
+			*device = newdev;
 			
-			if ( newmnt != mnt ) free(newmnt);
+			free(newmnt);
 			break;
 		}
 		
-		if ( newdev != dev ) free(newdev);
-		if ( newmnt != mnt ) free(newmnt);
+		free(newdev);
+		free(newmnt);
 	}
 	free(mnt);
 	free(dev);

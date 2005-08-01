@@ -50,9 +50,9 @@ char *checkmount(struct unieject_opts opts, char **device)
 		if ( strcmp(newdev, *device) == 0 )
 		{
 			unieject_verbose(opts, _("'%s' is mounted as '%s'\n"), *device, newmnt);
-			ret = (newmnt == mntbuf[n].f_mntonname) ? sstrdup(mntbuf[n].f_mntonname) : newmnt;
+			ret = newmnt;
 			
-			if ( newdev != mntbuf[n].f_mntfromname ) free(newdev);
+			free(newdev);
 			break;
 		}
 
@@ -60,14 +60,14 @@ char *checkmount(struct unieject_opts opts, char **device)
 		{
 			unieject_verbose(opts, _("'%s' is the mount point of '%s'\n"), *device, newdev);
 			ret = *device;
-			*device = (newdev == mntbuf[n].f_mntfromname) ? sstrdup(mntbuf[n].f_mntfromname) : newdev;
+			*device = newdev;
 			
-			if ( newmnt != mntbuf[n].f_mntonname ) free(newmnt);
+			free(newmnt);
 			break;
 		}
 		
-		if ( newdev != mntbuf[n].f_mntfromname ) free(newdev);
-		if ( newmnt != mntbuf[n].f_mntonname ) free(newmnt);
+		free(newdev);
+		free(newmnt);
 	}
 	
 	return ret;

@@ -55,7 +55,7 @@ char *simplifylink(const char *progname, const char *orig)
 	
 	free(tmp);
 #endif
-	return orig;
+	return strdup(orig);
 }
 
 /**
