@@ -113,7 +113,10 @@ int libunieject_setspeed(struct unieject_opts opts);
  *
  * @retval true Unmount completed successfully (or opts.fake enabled).
  * @retval false Error unmounting the device.
+ *
+ * @note While @c device is not modified, passing it as const is not possible
+ * as it calls an internal function using non-const char*
  */
-bool libunieject_umountdev(struct unieject_opts opts, const char *device);
+bool libunieject_umountdev(struct unieject_opts opts, char *device);
 
 #endif
