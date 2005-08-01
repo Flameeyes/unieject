@@ -86,7 +86,7 @@ void cleanup()
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
 }
 
-static int parse_configuration()
+static void parse_configuration()
 {
 	cfg_opt_t cfgopts[] =
 	{
