@@ -28,12 +28,16 @@
 
 #include <unieject.h>
 
-#ifdef __GNUC__
+#ifdef SUPPORT_ATTRIBUTE_FORMAT
 #	define PRINTF_LIKE(x, y)	__attribute__( ( format(printf, x, y) ) )
+#else
+#	define PRINTF_LIKE(x, y)
+#endif
+
+#ifdef SUPPORT_ATTRIBUTE_INTERNAL
 #	define INTERNAL			__attribute__( ( visibility("internal") ) )
 #else
 #	define INTERNAL
-#	define PRINTF_LIKE(x, y)
 #endif
 
 // safe strdup
