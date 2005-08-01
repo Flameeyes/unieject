@@ -43,7 +43,7 @@
 #	define NONNULL(...)
 #endif
 
-// safe strdup
+/* safe strdup */
 static char *sstrdup(const char *str)
 {
 	return str ? strdup(str) : NULL;
@@ -56,7 +56,7 @@ bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNUL
 void INTERNAL unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 void INTERNAL unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 
-// Gettext stuff
+/* Gettext stuff */
 #include <gettext.h>
 #ifdef ENABLE_NLS
 #	define _(x) gettext(x)
