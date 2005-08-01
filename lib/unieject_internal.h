@@ -20,9 +20,6 @@
 #ifndef __UNIEJECT_INTERNAL_H__
 #define __UNIEJECT_INTERNAL_H__
 
-// We need this for asprintf
-#define _GNU_SOURCE
-
 #include <config.h>
 #include <string.h>
 
