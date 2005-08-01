@@ -46,7 +46,7 @@
 /* safe strdup */
 #define sstrdup(str)			str ? strdup(str) : NULL;
 
-char INTERNAL *simplifylink(const char *progname, const char *link) NONNULL();
+char INTERNAL *simplifylink(const char *link) NONNULL();
 char INTERNAL *checkmount(struct unieject_opts opts, char **device) NONNULL();
 bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNULL();
 

@@ -28,7 +28,7 @@
 #	include <libgen.h>
 #endif
 
-char *simplifylink(const char *progname, const char *orig)
+char *simplifylink(const char *orig)
 {
 #if defined(HAVE_READLINK) && defined(HAVE_DIRNAME)
 	char *tmp = (char*)malloc(1024);

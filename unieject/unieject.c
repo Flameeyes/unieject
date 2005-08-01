@@ -17,8 +17,8 @@
 
    */
 
-#include <unieject.h>
 #include <unieject_internal.h>
+#include <unieject.h>
 
 #include <unistd.h>
 
