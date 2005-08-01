@@ -27,7 +27,9 @@ AC_SUBST(LIBPOPT_LIBS)
 
 dnl Mandatory functions and headers
 AC_CHECK_HEADERS([stdlib.h unistd.h stdio.h string.h unistd.h])
-AC_CHECK_FUNCS([perror strerror readlink dirname])
+AC_CHECK_FUNCS([perror strerror readlink dirname strdup],, [
+	AC_MSG_FAILURE([Unable to find needed functions.])
+	])
 
 dnl Optional functions
 AC_CHECK_HEADERS([libgen.h])
