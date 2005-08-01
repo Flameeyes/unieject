@@ -48,46 +48,10 @@ esac
 AM_CONDITIONAL([LINUX], [test "x$os" = "xLinux"])
 AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
 
-AC_MSG_CHECKING([if compiler supports __attribute__((constructor))])
-AC_COMPILE_IFELSE([
-	void ctor() __attribute__((constructor));
-	void ctor() { };
-	], [
-		AC_MSG_RESULT([yes])
-	], [
-		AC_MSG_FAILURE([no, unable to build unieject])
-	])
-
-AC_MSG_CHECKING([if compiler supports __attribute__((format(printf, n, n)))])
-AC_COMPILE_IFELSE([
-	void __attribute__((format(printf, 1, 2))) printflike(const char *fmt, ...) { }
-	], [
-		AC_MSG_RESULT([yes])
-		AC_DEFINE([SUPPORT_ATTRIBUTE_FORMAT], 1, [Define this if the compiler supports the format attribute])
-	], [
-		AC_MSG_RESULT([no])
-	])
-
-AC_MSG_CHECKING([if compiler supports __attribute__((visibility("internal")))])
-AC_COMPILE_IFELSE([
-	void __attribute__((visibility("internal"))) internal_function() { }
-	], [
-		AC_MSG_RESULT([yes])
-		AC_DEFINE([SUPPORT_ATTRIBUTE_INTERNAL], 1, [Define this if the compiler supports the internal visibility attribute])
-	], [
-		AC_MSG_RESULT([no])
-	])
-
-AC_MSG_CHECKING([if compiler supports __attribute__((nonnull()))])
-AC_COMPILE_IFELSE([
-	void some_function(void *foo, void *bar) __attribute__((nonnull()));
-	void some_function(void *foo, void *bar) { }
-	], [
-		AC_MSG_RESULT([yes])
-		AC_DEFINE([SUPPORT_ATTRIBUTE_NONNULL], 1, [Define this if the compiler supports the nonnull attribute])
-	], [
-		AC_MSG_RESULT([no])
-	])
+CC_ATTRIBUTE_CONSTRUCTOR(, [AC_MSG_FAILURE([Constructor attribute is needed to build unieject.])] )
+CC_ATTRIBUTE_FORMAT
+CC_ATTRIBUTE_INTERNAL
+CC_ATTRIBUTE_NONNULL
 
 AC_MSG_CHECKING([if compiler supports -std=c99 flag])
 AC_COMPILE_IFELSE([int a;], [
