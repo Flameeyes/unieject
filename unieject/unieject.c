@@ -131,51 +131,56 @@ static int parse_options (int argc, const char *argv[])
 	
 	struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
-		  gettext_noop("Close CD-Rom tray.") },
+		  gettext_noop("Close CD-Rom tray."), NULL },
 		{ "speed",		'x', POPT_ARG_INT, &opts.speed, OP_SPEED,
-		  gettext_noop("Set CD-Rom max speed.") },
+		  gettext_noop("Set CD-Rom max speed."),
+		  "max_speed" },
 		{ "changerslot",	'c', POPT_ARG_NONE, NULL, OP_CHANGER,
-		  gettext_noop("Switch discs on a CD-ROM changer.") },
+		  gettext_noop("Switch discs on a CD-ROM changer."),
+		  "changer" },
 		
 		{ "noop", 		'n', POPT_ARG_VAL, &opts.fake, 1,
-		  gettext_noop("Don't eject, just show device found.") },
+		  gettext_noop("Don't eject, just show device found."), NULL },
 		{ "default",		'd', POPT_ARG_NONE, NULL, OP_DEFAULT,
-		  gettext_noop("Display default device.") },
+		  gettext_noop("Display default device."), NULL },
 		
 		{ "verbose",		'v', POPT_ARG_VAL, &opts.verbose, 1,
-		  gettext_noop("Enable verbose output.") },
+		  gettext_noop("Enable verbose output."), NULL },
 		{ "quiet",		'Q', POPT_ARG_VAL, &opts.verbose, -1,
-		  gettext_noop("Disable output of error messages.") },
+		  gettext_noop("Disable output of error messages."), NULL },
 		
 		{ "no-unmount",		'm', POPT_ARG_VAL, &opts.unmount, 0,
-		  gettext_noop("Do not umount device even if it is mounted.") },
+		  gettext_noop("Do not umount device even if it is mounted."), NULL },
 		{ "unmount",		'u', POPT_ARG_VAL, &opts.unmount, 1,
-		  gettext_noop("Unmount device if mounted (default behavior).") },
+		  gettext_noop("Unmount device if mounted (default behavior)."), NULL },
 		
 		{ "force",		'f', POPT_ARG_VAL, &opts.force, 1,
-		  gettext_noop("Force unmount of device.") },
+		  gettext_noop("Force unmount of device."), NULL },
 		{ "no-force",		0, POPT_ARG_VAL, &opts.force, 0,
-		  gettext_noop("Don't force unmount of device (default behavior).") },
+		  gettext_noop("Don't force unmount of device (default behavior)."), NULL },
 		
 		{ "ignore-caps",	0, POPT_ARG_VAL, &opts.caps, 0,
-		  gettext_noop("Ignore capabilities as reported by device.") },
+		  gettext_noop("Ignore capabilities as reported by device."), NULL },
 		{ "no-ignore-caps",	0, POPT_ARG_VAL, &opts.caps, 1,
-		  gettext_noop("Don't ignore capabilities reported by device (default behavior).") },
+		  gettext_noop("Don't ignore capabilities reported by device (default behavior)."), NULL },
 		
 		{ "umount-wrapper",	'W', POPT_ARG_STRING, &opts.umount_wrapper, OP_IGNORE,
-		  gettext_noop("Use this as wrapper to umount the device.") },
+		  gettext_noop("Use an umount wrapper to unmount."),
+		  "wrapper" },
 		
 		{ "accessmethod", 	'A', POPT_ARG_STRING, &opts.accessmethod, OP_IGNORE,
-		  gettext_noop("Select the access method for libcdio.") },
+		  gettext_noop("Select the access method for libcdio."),
+		  "method" },
 		{ "debugcdio",		'D', POPT_ARG_INT, &cdio_loglevel_default, OP_IGNORE,
-		  gettext_noop("Set debugging level for libcdio.") },
+		  gettext_noop("Set debugging level for libcdio."),
+		  "level" },
 		
 		{ "version",		'V', POPT_ARG_NONE, NULL, OP_VERSION,
-		  gettext_noop("Display version and copyright information and exit.") },
+		  gettext_noop("Display version and copyright information and exit."), NULL },
 		
 		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  gettext_noop("Ignored (classic eject compatibility).") },
-		POPT_AUTOHELP {NULL, 0, 0, NULL, 0}
+		  gettext_noop("Ignored (classic eject compatibility)."), NULL },
+		POPT_AUTOHELP {NULL, 0, 0, NULL, 0, NULL, NULL}
 	};
 
 	poptContext optCon = poptGetContext (NULL, argc, argv, optionsTable, 0);
