@@ -49,11 +49,10 @@ struct unieject_opts {
 
 /**
  * @brief Gets the default CDIO device name.
- * @param opts Options to apply.
  *
  * @note This should be internal only
  */
-char *libunieject_defaultdevice(struct unieject_opts opts);
+char *libunieject_defaultdevice();
 
 /**
  * @brief Gets the device name, resolving the argument or finding the default.
