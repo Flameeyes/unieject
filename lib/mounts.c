@@ -77,7 +77,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	unieject_verbose(opts, _("expanded name is '%s'\n"), normalized);
 	
 	tmp = simplifylink(opts.progname, normalized);
-	if ( tmp != normalized )
+	if ( strcmp(tmp, normalized) )
 	{
 		unieject_verbose(opts, _("'%s' is a link to '%s'\n"), normalized, tmp);
 		free(normalized);
