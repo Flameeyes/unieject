@@ -31,20 +31,20 @@
  * @brief Defines the options used to influence libunieject functions
  */
 struct unieject_opts {
-	int eject;		///< Will eject or close the tray?
-	int fake;		///< Don't eject, just show device found.
-	int verbose;		///< Enable verbose output.
-	int unmount;		///< Unmount device if occupied.
-	int speed;		///< Maximum speed to set the device to.
-	int force;		///< Force device unmount.
-	int caps;		///< Follow capabilities reported by device
-	int slot;		///< Slot to set the changer to.
+	int eject;		/**< Will eject or close the tray? */
+	int fake;		/**< Don't eject, just show device found. */
+	int verbose;		/**< Enable verbose output. */
+	int unmount;		/**< Unmount device if occupied. */
+	int speed;		/**< Maximum speed to set the device to. */
+	int force;		/**< Force device unmount. */
+	int caps;		/**< Follow capabilities reported by device */
+	int slot;		/**< Slot to set the changer to. */
 	
-	char *device;		///< Path of the device to open.
-	char *umount_wrapper;	///< Umount wrapper to use (like pumount)
-	char *progname;		///< Name of the program to use for outputs
-	char *accessmethod;	///< Access method to load for libcdio
-	void *cdio;		///< Shaded CdIo_t pointer, don't touch!
+	char *device;		/**< Path of the device to open. */
+	char *umount_wrapper;	/**< Umount wrapper to use (like pumount) */
+	char *progname;		/**< Name of the program to use for outputs */
+	char *accessmethod;	/**< Access method to load for libcdio */
+	void *cdio;		/**< Shaded CdIo_t pointer, don't touch! */
 };
 
 /**
