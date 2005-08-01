@@ -44,10 +44,7 @@
 #endif
 
 /* safe strdup */
-static char *sstrdup(const char *str)
-{
-	return str ? strdup(str) : NULL;
-}
+#define sstrdup(str)			str ? strdup(str) : NULL;
 
 char INTERNAL *simplifylink(const char *progname, const char *link) NONNULL();
 char INTERNAL *checkmount(struct unieject_opts opts, char **device) NONNULL();
