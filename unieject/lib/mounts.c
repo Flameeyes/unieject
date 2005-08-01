@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *libunieject_defaultdevice(struct unieject_opts opts)
+char *libunieject_defaultdevice()
 {
 	CdIo_t *cdio = cdio_open(NULL, DRIVER_UNKNOWN);
 	char *device = cdio_get_default_device(cdio);
@@ -59,7 +59,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 
 	if ( ! normalized )
 	{
-		normalized = libunieject_defaultdevice(opts);
+		normalized = libunieject_defaultdevice();
 		unieject_verbose(opts, _("using default device '%s'\n"), normalized);
 	}
 

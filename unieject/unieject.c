@@ -226,7 +226,7 @@ int main(int argc, const char *argv[])
 	switch(what)
 	{
 	case OP_DEFAULT: {
-			char *default_device = libunieject_defaultdevice(opts);
+			char *default_device = libunieject_defaultdevice();
 			printf(_("%s: default device: `%s'\n"), opts.progname, default_device);
 			
 			return 0;
