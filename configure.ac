@@ -2,12 +2,11 @@ AC_PREREQ(2.59)
 AC_INIT([unieject], [3], [flameeyes@gentoo.org])
 AC_SUBST(PACKAGE_TARNAME)
 
-AC_GNU_SOURCE
-
 AM_INIT_AUTOMAKE([unieject], [3])
 AM_CONFIG_HEADER([config.h])
-AC_PROG_LIBTOOL
 
+AC_GNU_SOURCE
+AC_PROG_LIBTOOL
 AM_GNU_GETTEXT([external])
 
 PKG_PROG_PKG_CONFIG
@@ -84,6 +83,14 @@ AC_COMPILE_IFELSE([
 	], [
 		AC_MSG_RESULT([yes])
 		AC_DEFINE([SUPPORT_ATTRIBUTE_NONNULL], 1, [Define this if the compiler supports the nonnull attribute])
+	], [
+		AC_MSG_RESULT([no])
+	])
+
+AC_MSG_CHECKING([if compiler supports -std=c99 flag])
+AC_COMPILE_IFELSE([int a;], [
+		AC_MSG_RESULT([yes])
+		CFLAGS="${CFLAGS} -std=c99"
 	], [
 		AC_MSG_RESULT([no])
 	])
