@@ -104,6 +104,7 @@ int libunieject_setspeed(struct unieject_opts opts);
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error suring slot setting
  */
+int libunieject_slotchange(struct unieject_opts opts);
 
 /**
  * @brief Unmount a device

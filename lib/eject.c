@@ -116,4 +116,6 @@ int libunieject_eject(struct unieject_opts *opts)
 		unieject_error(*opts, _("unable to execute command (CDIO returned: %d)\n"), sts);
 		return -3;
 	}
+	
+	return 0;
 }

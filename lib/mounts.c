@@ -17,8 +17,8 @@
 
    */
 
-#include <unieject.h>
 #include <unieject_internal.h>
+#include <unieject.h>
 
 #include <unistd.h>
 #include <stdio.h>
@@ -76,7 +76,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	
 	unieject_verbose(opts, _("expanded name is '%s'\n"), normalized);
 	
-	tmp = simplifylink(opts.progname, normalized);
+	tmp = simplifylink(normalized);
 	if ( strcmp(tmp, normalized) )
 	{
 		unieject_verbose(opts, _("'%s' is a link to '%s'\n"), normalized, tmp);
@@ -90,6 +90,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 		normalized[len-1] = '\0';
 	
 	char *mnt = checkmount(opts, &normalized);
+	free(mnt);
 	
 	// TODO: check for mountpoints, devices
 	

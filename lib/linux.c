@@ -20,6 +20,7 @@
 #include <unieject_internal.h>
 #include <unieject.h>
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <sys/mount.h>
 #include <errno.h>
@@ -36,8 +37,8 @@ char *checkmount(struct unieject_opts opts, char **device)
 	{
 		if ( dev[0] != '/' ) continue;
 		
-		char *newdev = simplifylink(opts.progname, dev);
-		char *newmnt = simplifylink(opts.progname, mnt);
+		char *newdev = simplifylink(dev);
+		char *newmnt = simplifylink(mnt);
 		
 		// symlinks?
 		if ( strcmp(newdev, *device) == 0 )
