@@ -32,3 +32,34 @@ Unieject will build with GCC3+ and ICC9, as they support for sure function's
 attributes, as it makes use of __attribute__((constructor)) to initialize
 and __attribute__((destructor)) to destroy the data.
 
+
+Note to packagers
+-----------------
+Being a package maintainer myself, I think it's good to leave a few notes to
+who wants to package unieject.
+
+Unieject is though as a drop-in replacement for 'eject' command, but still it
+doesn't just "go in" as is, because programs just know about 'eject' command.
+If you wanto to make unieject provide the eject facilities to other programs
+you need to create an eject symlink to unieject so that eject command is
+executed by unieject.
+Please also note that to be able to umount correctly the partitions you must
+be root, or use a suid wrapper. You can also set capabilities bits to eject
+command, but that's still not supported. The use of a suid umount wrapper like
+pumount is supported by the configuration file.
+
+The sample configuration file is not installed by default, this allow to define
+the right unieject defaults on a per-distribution basis.
+
+API documentation is not being built at the moment; when it will be, it will be
+specified and will have a --enable/--disable switch on ./configure.
+
+Man pages are not generated during release creation just to make easier my work
+sorry about this, but txt2man is just a bash script so that shouldn't be too
+much of a problem.
+
+This package is supposed to build fine with -Werror, -Wall, -Wextra and 
+-pedantic CFLAGS, or at least it does so on my system. Unfortuantely, it's
+./configure to fail when checking for strdup if -Werror is defined, I don't
+really know why. Also --as-needed LDFLAG is supposed to work.
+
