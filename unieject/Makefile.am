@@ -38,7 +38,10 @@ EXTRA_DIST = config.rpath mkinstalldirs ChangeLog NEWS COPYING INSTALL \
 	svn2cl.xsl
 EXTRA_CLEAN = loadcd
 
-ChangeLog: svn2cl.xsl
+cltimestamp:
+	touch cltimestamp
+
+ChangeLog: cltimestamp
 	@if test -d $(top_srcdir)/.svn; then \
 		svn up $(top_srcdir); \
 		svn log $(top_srcdir) --xml --verbose | \
@@ -48,6 +51,7 @@ ChangeLog: svn2cl.xsl
 	else \
 		touch ChangeLog; \
 	fi
+	rm cltimestamp
 
 install-exec-hook: loadcd
 	rm -f $(DESTDIR)$(bindir)/loadcd
