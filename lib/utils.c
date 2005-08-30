@@ -40,7 +40,7 @@ char *simplifylink(const char *orig)
 		if ( tmp[0] != '/' ) // relative link
 		{
 			char *copylink = sstrdup(orig);
-			char *origdir = sstrdup(dirname(copylink));
+			char *origdir = strdup(dirname(copylink));
 			free(copylink);
 			
 			char *newname = NULL;
