@@ -22,6 +22,15 @@ unieject_LDADD = $(AM_LDADD) \
 	$(CONFUSE_LIBS) \
 	$(top_builddir)/lib/libunieject.la
 
+loadcd: unieject
+	rm -f loadcd
+	$(LN_S) $< $@
+
 ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = config.rpath mkinstalldirs
+EXTRA_CLEAN = loadcd
+
+install-exec-hook: loadcd
+	rm -f $(DESTDIR)$(bindir)/loadcd
+	(cd $(DESTDIR)$(bindir) && $(LN_S) unieject loadcd)
