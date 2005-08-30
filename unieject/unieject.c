@@ -224,6 +224,12 @@ static int parse_options (int argc, const char *argv[])
 
 int main(int argc, const char *argv[])
 {
+#ifdef ENABLE_NLS
+	setlocale (LC_ALL, "");
+	bindtextdomain (PACKAGE, LOCALEDIR);
+	textdomain (PACKAGE);
+#endif
+
 	parse_configuration();
 	int what = parse_options(argc, argv);
 	
