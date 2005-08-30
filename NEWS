@@ -1,3 +1,12 @@
+60 August 2005: Release 4
+-------------------------
+Another release, this time with working gettext support. Also added "loadcd"
+alias to trayclose. Now the release are built with make dist, and it also
+generate the ChangeLog using svn2cl xsl file (require xsltproc and access
+to my SVN repository, so I'm the only one who can use it right now). Added
+preliminary support to Doxygen. Now unieject builds fine without any kind of
+warning.
+
 31 July 2005: Release 3
 -----------------------
 New major release. Added gettext (internationalization) support. Added support
