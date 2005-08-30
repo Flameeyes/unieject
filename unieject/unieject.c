@@ -227,6 +227,17 @@ int main(int argc, const char *argv[])
 	parse_configuration();
 	int what = parse_options(argc, argv);
 	
+	/*
+	 * To make simpler the user experience with unieject, it's possible to
+	 * provide a "loadcd" symlink or alias that defaults to trayclose
+	 * instead of eject.
+	 */
+	if ( strcmp("loadcd", opts.progname) == 0 )
+	{
+		unieject_verbose(opts, _("default to closing tray instead of eject.\n"));
+		opts.eject = 0;
+	}
+	
 	// First switch, non-device options
 	switch(what)
 	{
