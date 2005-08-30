@@ -31,7 +31,7 @@ loadcd: unieject
 	$(LN_S) $< $@
 
 ACLOCAL_AMFLAGS = -I m4
-AUTOMAKE_OPTIONS = foreign
+AUTOMAKE_OPTIONS = foreign no-dist-gzip dist-bzip2
 
 EXTRA_DIST = config.rpath mkinstalldirs ChangeLog NEWS COPYING INSTALL \
 	README configure AUTHORS ABOUT-NLS bootstrap.sh unieject.conf.sample \
