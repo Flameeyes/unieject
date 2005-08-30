@@ -24,6 +24,7 @@
 
 #include <sys/param.h>
 #include <sys/mount.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
 
@@ -44,8 +45,8 @@ char *checkmount(struct unieject_opts opts, char **device)
 		// ignore special devices
 		if ( mntbuf[n].f_mntfromname[0] != '/' ) continue;
 		
-		char *newdev = simplifylink(opts.progname, mntbuf[n].f_mntfromname);
-		char *newmnt = simplifylink(opts.progname, mntbuf[n].f_mntonname);
+		char *newdev = simplifylink(mntbuf[n].f_mntfromname);
+		char *newmnt = simplifylink(mntbuf[n].f_mntonname);
 		
 		if ( strcmp(newdev, *device) == 0 )
 		{
@@ -73,7 +74,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 	return ret;
 }
 
-bool internal_umountdev(struct unieject_opts opts, const char *device)
+bool internal_umountdev(struct unieject_opts opts, char *device)
 {
 	struct unieject_opts nonverbose_opts = opts;
 	nonverbose_opts.verbose = 0;
