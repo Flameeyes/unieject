@@ -34,8 +34,20 @@ ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST = config.rpath mkinstalldirs ChangeLog NEWS COPYING INSTALL \
-	README configure AUTHORS ABOUT-NLS bootstrap.sh unieject.conf.sample
+	README configure AUTHORS ABOUT-NLS bootstrap.sh unieject.conf.sample \
+	svn2cl.xsl
 EXTRA_CLEAN = loadcd
+
+ChangeLog: svn2cl.xsl
+	@if test -d $(top_srcdir)/.svn; then \
+		svn up $(top_srcdir); \
+		svn log $(top_srcdir) --xml --verbose | \
+			xsltproc $(top_srcdir)/svn2cl.xsl - | \
+		$(GSED) -e 's:\<flame\>:Diego Pettenò <flameeyes@gentoo.org>:' \
+		> ChangeLog; \
+	else \
+		touch ChangeLog; \
+	fi
 
 install-exec-hook: loadcd
 	rm -f $(DESTDIR)$(bindir)/loadcd
