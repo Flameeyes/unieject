@@ -62,6 +62,10 @@ AC_COMPILE_IFELSE([int a;], [
 		AC_MSG_RESULT([no])
 	])
 
+dnl Checking for support programs
+GNU_PROG_SED(, [AC_MSG_FAILURE([GNU sed is needed to build unieject.])])
+AC_SUBST([GSED])
+
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([Doxyfile
 	Makefile
