@@ -6,10 +6,10 @@ export WANT_AUTOCONF="2.5"
 export WANT_AUTOMAKE="1.9"
 
 touch ChangeLog
-libtoolize --copy --force
-gettextize --no-changelog --copy --force
+libtoolize --force
+autopoint --force
 
 aclocal -I m4
 autoconf --force
 autoheader --force
-automake --add-missing --force-missing  --copy
+automake --add-missing --force-missing
