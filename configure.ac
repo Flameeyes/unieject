@@ -1,13 +1,14 @@
 AC_PREREQ(2.59)
-AC_INIT([unieject], [3], [flameeyes@gentoo.org])
+AC_INIT([unieject], [4], [flameeyes@gentoo.org])
 AC_SUBST(PACKAGE_TARNAME)
 
-AM_INIT_AUTOMAKE([unieject], [3])
+AM_INIT_AUTOMAKE([unieject], [4])
 AM_CONFIG_HEADER([config.h])
 
 AC_GNU_SOURCE
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.14])
 
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([LIBCDIO], [libcdio >= 0.74])
@@ -66,6 +67,7 @@ AC_CONFIG_FILES([Doxyfile
 	Makefile
 	lib/Makefile
 	manpages/Makefile
+	m4/Makefile
 	lib/libunieject.pc])
 
 AC_OUTPUT

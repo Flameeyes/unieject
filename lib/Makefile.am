@@ -1,7 +1,7 @@
 libincludedir = $(includedir)/unieject
 libinclude_HEADERS = unieject.h
 
-noinst_HEADERS = unieject_internal.h
+noinst_HEADERS = unieject_internal.h gettext.h
 
 if LINUX
 platformsrcs = linux.c

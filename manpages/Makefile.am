@@ -7,6 +7,9 @@ unieject.conf.5: unieject.conf.5.txt2man
 libunieject_setspeed.3: libunieject_setspeed.3.txt2man
 	txt2man -s 3 -v "Unieject man pages" -t libunieject_setspeed $< > $(top_builddir)/$(subdir)/$@
 
+EXTRA_DIST = unieject.1.txt2man unieject.conf.5.txt2man \
+	libunieject_setspeed.3.txt2man
+
 man_MANS = unieject.1 \
 	unieject.conf.5 \
 	libunieject_setspeed.3
