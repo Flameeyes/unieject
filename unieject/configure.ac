@@ -61,8 +61,11 @@ AC_COMPILE_IFELSE([int a;], [
 		AC_MSG_RESULT([no])
 	])
 
-AC_OUTPUT([po/Makefile.in])
-AC_OUTPUT([Makefile
+AC_CONFIG_FILES([po/Makefile.in])
+AC_CONFIG_FILES([Doxyfile
+	Makefile
 	lib/Makefile
 	manpages/Makefile
 	lib/libunieject.pc])
+
+AC_OUTPUT
