@@ -33,6 +33,32 @@ attributes, as it makes use of __attribute__((constructor)) to initialize
 and __attribute__((destructor)) to destroy the data.
 
 
+Dependencies
+------------
+
+libcdio (version 0.74 or above) http://www.gnu.org/software/libcdio/
+  The base library that provides access to CD-Rom drives. Mandatory.
+
+txt2man http://mvertes.free.fr/
+  It's required to build the man pages that describes the behavior of the
+  command and the configuration file. Mandatory.
+
+libpopt
+  Used for command line parameters and arguments parsing. Mandatory.
+
+libconfuse (2.5) http://www.nongnu.org/confuse/
+  Used for configuration file parsing. Mandatory.
+
+Subversion
+  Required to get an updated ChangeLog built during make dist phase.
+  Optional when building out of the source tarball.
+
+libxslt
+  xsltproc command is used to use svn2cl script, it's only needed during
+  make dist phase, so no need for it when building out of the source
+  tarball.
+
+
 Note to packagers
 -----------------
 Being a package maintainer myself, I think it's good to leave a few notes to
