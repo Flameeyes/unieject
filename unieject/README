@@ -67,7 +67,7 @@ who wants to package unieject.
 
 Unieject is though as a drop-in replacement for 'eject' command, but still it
 doesn't just "go in" as is, because programs just know about 'eject' command.
-If you wanto to make unieject provide the eject facilities to other programs
+If you want to make unieject provide the eject facilities to other programs
 you need to create an eject symlink to unieject so that eject command is
 executed by unieject.
 Please also note that to be able to umount correctly the partitions you must
