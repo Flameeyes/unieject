@@ -16,7 +16,13 @@ AC_SUBST(LIBCDIO_CFLAGS)
 AC_SUBST(LIBCDIO_LDFLAGS)
 AC_SUBST(LIBCDIO_LIBS)
 
-PKG_CHECK_MODULES([CONFUSE], [libconfuse >= 2.5])
+AC_ARG_WITH([libconfuse], [AC_HELP_STRING([--without-libconfuse],
+	[Don't use libconfuse for configuration file])])
+
+if test "x$with_libconfuse" != "xno"; then
+	PKG_CHECK_MODULES([CONFUSE], [libconfuse >= 2.5])
+	AC_DEFINE([HAVE_LIBCONFUSE], 1, [Define if building with libconfuse])
+fi
 AC_SUBST(CONFUSE_CFLAGS)
 AC_SUBST(CONFUSE_LDFLAGS)
 AC_SUBST(CONFUSE_LIBS)

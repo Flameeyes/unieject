@@ -49,7 +49,9 @@ libpopt
   Used for command line parameters and arguments parsing. Mandatory.
 
 libconfuse (2.5) http://www.nongnu.org/confuse/
-  Used for configuration file parsing. Mandatory.
+  Used for configuration file parsing. Optional, it can be disabled with
+  --without-libconfuse option at ./configure, in which case the configuration
+  file won't be loaded and parsed at all.
 
 Subversion
   Required to get an updated ChangeLog built during make dist phase.
