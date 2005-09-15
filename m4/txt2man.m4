@@ -11,10 +11,12 @@ AC_DEFUN([PROG_TXT2MAN], [
 	fi
 	
 	if test "x$TXT2MAN" != "xno"; then
-		AC_SUBST([TXT2MAN])
+		foo=bar; dnl to avoid errors if $2 is unset
 		$1
 	else
 		foo=bar; dnl to avoid errors if $2 is unset
 		$2
 	fi
+	
+	AC_SUBST([TXT2MAN])
 ])
