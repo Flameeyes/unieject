@@ -20,9 +20,6 @@ same.
 It can fully replace FreeBSD's eject (in both atapi and atapicam mode), and
 already mime the main options of Linux's eject.
 
-For FreeBSD support you'll also need an extra patch for libcdio-0.75 to be
-able to manage ATAPI cdroms (/dev/acd*).
-
 Unieject will build with GCC3+ and ICC9, as they support for sure function's
 attributes, as it makes use of __attribute__((constructor)) to initialize
 and __attribute__((destructor)) to destroy the data.
@@ -33,6 +30,9 @@ Dependencies
 
 libcdio (version 0.74 or above) http://www.gnu.org/software/libcdio/
   The base library that provides access to CD-Rom drives. Mandatory.
+  FreeBSD support requires a specially patched libcdio (for versions earlier
+  than 0.76) to handle ATAPI CD-Roms without CAM support. This patch is
+  included in Gentoo/FreeBSD.
 
 txt2man http://mvertes.free.fr/
   It's required to build the man pages that describes the behavior of the
