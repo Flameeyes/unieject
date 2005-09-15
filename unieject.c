@@ -86,6 +86,7 @@ void cleanup()
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
 }
 
+#ifdef HAVE_LIBCONFUSE
 static void parse_configuration()
 {
 	cfg_opt_t cfgopts[] =
@@ -122,6 +123,7 @@ static void parse_configuration()
 	free(userconf);
 	cfg_free(cfg);
 }
+#endif
 
 /* Parse a all options. */
 static int parse_options (int argc, const char *argv[])
@@ -230,7 +232,9 @@ int main(int argc, const char *argv[])
 	textdomain (PACKAGE);
 #endif
 
+#ifdef HAVE_LIBCONFUSE
 	parse_configuration();
+#endif
 	int what = parse_options(argc, argv);
 	
 	/*
