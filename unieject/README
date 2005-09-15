@@ -20,11 +20,6 @@ same.
 It can fully replace FreeBSD's eject (in both atapi and atapicam mode), and
 already mime the main options of Linux's eject.
 
-Unieject will build with GCC3+ and ICC9, as they support for sure function's
-attributes, as it makes use of __attribute__((constructor)) to initialize
-and __attribute__((destructor)) to destroy the data.
-
-
 Dependencies
 ------------
 
@@ -56,6 +51,13 @@ libxslt
   xsltproc command is used to use svn2cl script, it's only needed during
   make dist phase, so no need for it when building out of the source
   tarball.
+
+Compiler
+  unieject is tested with GCC 3.3, 3.4 and 4.0. It should work fine with ICC9,
+  too. To work it requires constructor and destructor attiibutes that are
+  present in GCC since version 3, and in ICC 9 (at least).
+  If supported, it will also make use of other attributes to hide symbols from
+  the resulting library.
 
 
 Note to packagers
