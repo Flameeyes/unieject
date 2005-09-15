@@ -83,7 +83,9 @@ specified and will have a --enable/--disable switch on ./configure.
 
 Man pages are not generated during release creation just to make easier my work
 sorry about this, but txt2man is just a bash script so that shouldn't be too
-much of a problem.
+much of a problem. In case, txt2man can be shipped along with unieject sources
+and used from a specific path with --with-txt2man=/path/to/txt2man. It can also
+be disabled using --without-txt2man.
 
 This package is supposed to build fine with -Werror, -Wall, -Wextra and 
 -pedantic CFLAGS, or at least it does so on my system. Unfortuantely, it's
