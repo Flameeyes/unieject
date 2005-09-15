@@ -46,7 +46,7 @@ ChangeLog: cltimestamp
 		svn up $(top_srcdir); \
 		svn log $(top_srcdir) --xml --verbose | \
 			xsltproc $(top_srcdir)/svn2cl.xsl - | \
-		$(GSED) -e 's:\<flame\>:Diego Pettenò <flameeyes@gentoo.org>:' \
+		$(GSED) -f $(top_srcdir)/svn2authors.sed \
 		> ChangeLog; \
 	else \
 		touch ChangeLog; \
