@@ -41,7 +41,9 @@ libcdio (version 0.74 or above) http://www.gnu.org/software/libcdio/
 
 txt2man http://mvertes.free.fr/
   It's required to build the man pages that describes the behavior of the
-  command and the configuration file. Mandatory.
+  command and the configuration file.
+  Optional, it will warn if it's not found. If it's not present, man pages
+  won't be built.
 
 libpopt
   Used for command line parameters and arguments parsing. Mandatory.
