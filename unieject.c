@@ -58,6 +58,8 @@ enum {
 	OP_SPEED,
 	OP_CHANGER,
 	OP_VERSION,
+	OP_LOCK,
+	OP_UNLOCK,
 	OP_ERROR
 };
 
@@ -140,6 +142,10 @@ static int parse_options (int argc, const char *argv[])
 		{ "changerslot",	'c', POPT_ARG_NONE, NULL, OP_CHANGER,
 		  gettext_noop("Switch discs on a CD-ROM changer."),
 		  "changer" },
+		{ "lock",		'l', POPT_ARG_NONE, NULL, OP_LOCK,
+		  gettext_noop("Lock the CD-Rom drive."), NULL },
+		{ "lock",		'l', POPT_ARG_NONE, NULL, OP_UNLOCK,
+		  gettext_noop("Unlock the CD-Rom drive."), NULL },
 		
 		{ "noop", 		'n', POPT_ARG_VAL, &opts.fake, 1,
 		  gettext_noop("Don't eject, just show device found."), NULL },
@@ -283,6 +289,12 @@ int main(int argc, const char *argv[])
 			break;
 		case OP_CHANGER:
 			retval = libunieject_slotchange(opts);
+			break;
+		case OP_LOCK:
+			retval = libunieject_togglelock(opts, 1);
+			break;
+		case OP_UNLOCK:
+			retval = libunieject_togglelock(opts, 0);
 			break;
 		default:
 			retval = libunieject_eject(&opts);

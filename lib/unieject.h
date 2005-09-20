@@ -107,6 +107,17 @@ int libunieject_setspeed(struct unieject_opts opts);
 int libunieject_slotchange(struct unieject_opts opts);
 
 /**
+ * @brief Toggle locking of a CD-ROM device
+ * @param opts Options to apply
+ * @param lock 1 if you want to lock the drive, 0 if you want to unlock it
+ *
+ * @retval 0 Locking successful.
+ * @retval -2 Drive doesn't have the capabilities required
+ * @retval -3 Error during lock toggling
+ */
+int libunieject_togglelock(struct unieject_opts opts, int lock);
+
+/**
  * @brief Unmount a device
  * @param opts Options to apply.
  * @param device Normalized name of the device to unmount.

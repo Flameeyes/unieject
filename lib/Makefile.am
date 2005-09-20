@@ -19,6 +19,7 @@ libunieject_la_SOURCES = \
 	speed.c \
 	open.c \
 	slotchanger.c \
+	lock.c \
 	$(platformsrcs)
 
 libunieject_la_CURRENT := 3
