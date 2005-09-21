@@ -144,7 +144,7 @@ static int parse_options (int argc, const char *argv[])
 		  "changer" },
 		{ "lock",		'l', POPT_ARG_NONE, NULL, OP_LOCK,
 		  gettext_noop("Lock the CD-Rom drive."), NULL },
-		{ "lock",		'l', POPT_ARG_NONE, NULL, OP_UNLOCK,
+		{ "unlock",		'L', POPT_ARG_NONE, NULL, OP_UNLOCK,
 		  gettext_noop("Unlock the CD-Rom drive."), NULL },
 		
 		{ "noop", 		'n', POPT_ARG_VAL, &opts.fake, 1,

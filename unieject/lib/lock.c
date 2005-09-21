@@ -55,16 +55,16 @@ int libunieject_togglelock(struct unieject_opts opts, int lock)
 	
 	CDIO_MMC_SET_COMMAND(lockcmd.field, CDIO_MMC_GPCMD_ALLOW_MEDIUM_REMOVAL);
 	
-	lockcmd.field[1] |= 1;
+//	lockcmd.field[1] |= 1;
 	lockcmd.field[4] = lock ? 1 : 0;
 	
-	fprintf(stderr, "DEBUG: %02x%02x%02x%02x%02x%02x", lockcmd.field[0], lockcmd.field[1], lockcmd.field[2], lockcmd.field[3], lockcmd.field[4], lockcmd.field[5]);
+	fprintf(stderr, "DEBUG: %02x%02x%02x%02x%02x%02x\n", lockcmd.field[0], lockcmd.field[1], lockcmd.field[2], lockcmd.field[3], lockcmd.field[4], lockcmd.field[5]);
 	
 	driver_return_code_t sts = mmc_run_cmd(
 		(CdIo_t*)opts.cdio,
 		DEFAULT_TIMEOUT_MS, /* Should this be configurable? */
 		&lockcmd,
-		SCSI_MMC_DATA_READ,
+		SCSI_MMC_DATA_WRITE,
 		0,
 		buf
 		);
