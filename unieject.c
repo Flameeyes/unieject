@@ -33,7 +33,9 @@
 
 #include <popt.h>
 
+#ifdef HAVE_LIBCONFUSE
 #include <confuse.h>
+#endif
 
 #include <gettext.h>
 #ifdef ENABLE_NLS
