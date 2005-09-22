@@ -111,3 +111,21 @@ void unieject_verbose(const struct unieject_opts opts, const char *format, ...)
 	
 	free(newformat);
 }
+
+/**
+ * @brief Outputs a message about the given status return code
+ * @param opts Options to apply for the output
+ * @param sts Status return code from libcdio library
+ */
+int unieject_status(const struct unieject_opts opts, int sts)
+{
+	switch(sts)
+	{
+	case DRIVER_OP_SUCCESS:
+		return 0;
+	default:
+		unieject_error(opts, _("unable to execute command (unknown CDIO status: %d)\n"), sts);
+	}
+	
+	return -3;
+}
