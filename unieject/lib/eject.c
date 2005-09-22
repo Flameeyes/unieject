@@ -111,11 +111,5 @@ int libunieject_eject(struct unieject_opts *opts)
 	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts->cdio, opts->eject, 0, 0);
 #endif
 	
-	if ( sts != DRIVER_OP_SUCCESS )
-	{
-		unieject_error(*opts, _("unable to execute command (CDIO returned: %d)\n"), sts);
-		return -3;
-	}
-	
-	return 0;
+	return unieject_status(*opts, sts);
 }

@@ -52,6 +52,7 @@ bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNUL
 
 void INTERNAL unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 void INTERNAL unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
+int INTERNAL unieject_status(const struct unieject_opts opts, int sts);
 
 /* Gettext stuff */
 #include <gettext.h>

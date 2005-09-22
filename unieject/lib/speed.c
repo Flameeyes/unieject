@@ -47,11 +47,5 @@ int libunieject_setspeed(struct unieject_opts opts)
 	unieject_verbose(opts, _("setting CD-ROM speed to %dX\n"), opts.speed);
 	driver_return_code_t sts = cdio_set_speed((CdIo_t*)opts.cdio, opts.speed);
 	
-	if ( sts != DRIVER_OP_SUCCESS )
-	{
-		unieject_error(opts, _("unable to execute command (CDIO returned: %d)\n"), sts);
-		return -3;
-	}
-	
-	return 0;
+	return unieject_status(opts, sts);
 }

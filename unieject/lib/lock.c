@@ -68,11 +68,5 @@ int libunieject_togglelock(struct unieject_opts opts, int lock)
 		buf
 		);
 	
-	if ( sts != 0 )
-	{
-		unieject_error(opts, _("unable to execute command (CDIO returned: %d)\n"), sts);
-		return -3;
-	}
-	
-	return 0;
+	return unieject_status(opts, sts);
 }

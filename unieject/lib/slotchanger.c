@@ -48,13 +48,7 @@ int libunieject_slotchange(struct unieject_opts opts)
 	unieject_verbose(stdout, "%s: setting disc slot to %d\n", opts.progname, opts.slot);
 	driver_return_code_t sts = cdio_set_disc((CdIo_t*)opts.cdio, opts.slot);
 	
-	if ( sts != DRIVER_OP_SUCCESS )
-	{
-		unieject_error(opts, _("unable to execute command (CDIO returned: %d)\n"), sts);
-		return -3;
-	}
-	
-	return 0;
+	return unieject_status(opts, sts);
 #else
 	unieject_error(opts, "libcdio doesn't support slot changing yet.\n");
 	return -4;
