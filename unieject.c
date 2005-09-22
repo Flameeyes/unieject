@@ -17,6 +17,8 @@
 
    */
 
+#include <config.h>
+
 #include <unieject_internal.h>
 #include <unieject.h>
 
@@ -32,6 +34,11 @@
 #include <popt.h>
 
 #include <confuse.h>
+
+#include <gettext.h>
+#ifdef ENABLE_NLS
+#include <locale.h>
+#endif
 
 /*
   eject -V                              -- display program version and exit
