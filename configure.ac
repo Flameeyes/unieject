@@ -80,9 +80,6 @@ dnl Checking for support programs
 GNU_PROG_SED(, [AC_MSG_FAILURE([GNU sed is needed to build unieject.])])
 AC_SUBST([GSED])
 
-PROG_TXT2MAN(, [AC_MSG_WARN([txt2man was not found or was disabled, man pages won't be built])])
-AM_CONDITIONAL([HAVE_TXT2MAN], [test "x$TXT2MAN" != "xno"])
-
 DOXYGEN_DOC([Doxyfile])
 
 AC_CONFIG_FILES([po/Makefile.in])
