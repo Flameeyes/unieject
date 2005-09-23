@@ -211,7 +211,7 @@ static int parse_options (int argc, const char *argv[])
 		
 		if ( opt != OP_IGNORE )
 		{
-			unieject_error(opts, _("you can use just one of -x, -c and -d options\n"));
+			unieject_error(opts, _("you can use just one of -x, -c, -l, -L and -d options\n"));
 			return OP_ERROR;
 		} else
 			opt = tmpopt;
@@ -285,6 +285,8 @@ int main(int argc, const char *argv[])
 			unieject_error(opts, _("unable to unmount device '%s'.\n"), opts.device);
 			return -4;
 		}
+	case OP_ERROR:
+		return -1;
 	}
 	
 	if ( ! libunieject_open(&opts) )
