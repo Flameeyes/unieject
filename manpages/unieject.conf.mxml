@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<manpage>
+<docdate>2005-09-23</docdate>
+<doctitle>unieject.conf</doctitle>
+
+<section>5</section>
+
+<names>
+  <name>unieject.conf
+    <desc>Configuration file for unieject command</desc>
+  </name>
+</names>
+
+<presection title="description">
+  The unieject.conf file is the configuration file for unieject command, which
+  contains the defaults used by unieject when it's called without particular
+  options which overrides it.
+</presection>
+
+<presection title="file format">
+  <p>The file is a simple unix-style configuration file, without sections and
+  with options and values set in the form</p>
+  
+  <p><tt>name = value</tt></p>
+  
+  <p>Comments are started by #, everything stands after that character in a line 
+  is considered a comment.</p>
+</presection>
+
+<usage>
+  <conf optional="1" setting="device" argument="string">
+    The device to eject if none is specified on the command line. This does
+    override EJECT environment variable.
+  </conf>
+  
+  <conf optional="1" setting="verbosity" argument="[-1|0|1]">
+    This option allow to select between --verbose option (set it to 1)
+    or --quiet option (set it to -1). The default verbosity (0) only
+    outputs the errors.
+  </conf>
+  
+  <conf optional="1" setting="unmount" argument="bool">
+    If set to true, this will invoke unmounting of the device if it is
+    mounted. If set to false, mounted devices cannot be ejected.
+  </conf>
+  
+  <conf optional="1" setting="force" argument="bool">
+    If unmount is true, this will force the unmount of the device also if it's
+    still in use.
+  </conf>
+  
+  <conf optional="1" setting="respect-capabilities" argument="bool">
+    If set to true (the default), unieject will respect the capabilities stated
+    by the device, else it will try the ejection also if the drive states
+    otherwise.
+  </conf>
+  
+  <conf optional="1" setting="unmount-wrapper" argument="string">
+    This setting can be used when, to unmount a device, you need to launch a
+    wrapper script to unmount, instead of using library functions (i.e.:
+    unieject command is not setuid, nor has right POSIX capability set).
+  </conf>
+  
+  <conf optional="1" setting="accessmethod" argument="string">
+    Defines the access method to use for CDIO Cd-Rom access. This depends on
+    the platform and should never be changed if you don't know what is used
+    for. See libcdio documentation for the access methods available.
+  </conf>
+  
+  <conf optional="1" setting="debugcdio" argument="integer">
+    This sets the informative output level of CDIO library. 0 is the full
+    debug output level.
+  </conf>
+</usage>
+
+<postsection title="author">
+  unieject is written by Diego Petteno` &lt;flameeyes@gentoo.org&gt;
+</postsection>
+
+<seealso>
+  <manpage>unieject<section>1</section>, </manpage>
+  unieject.conf.sample
+</seealso>
+
+</manpage>
+
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
