@@ -42,8 +42,16 @@ dnl Optional functions
 AC_CHECK_HEADERS([libgen.h])
 AC_CHECK_FUNCS([getenv umount2])
 
+AC_ARG_ENABLE([lock-workaround],
+	AC_HELP_STRING([--enable-lock-woraround], [Enable Linux CD-Rom lock workaround]))
+
 case $host_os in
 	linux* ) os="Linux"
+		if test "x$enable_lock-workaround" != "xno"; then
+			AC_CHECK_HEADERS([linux/cdrom.h fcntl.h sys/ioctl.h errno.h], ,
+				AC_MSG_FAILURE([Unable to find needed headers]))
+			AC_DEFINE([USE_LOCK_WORKAROUND], 1, [Use Linucd CD-Rom lock workaround])
+		fi
 		;;
 	freebsd* ) os="FreeBSD"
 		;;

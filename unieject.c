@@ -300,10 +300,10 @@ int main(int argc, const char *argv[])
 			retval = libunieject_slotchange(opts);
 			break;
 		case OP_LOCK:
-			retval = libunieject_togglelock(opts, 1);
+			retval = libunieject_togglelock(&opts, 1);
 			break;
 		case OP_UNLOCK:
-			retval = libunieject_togglelock(opts, 0);
+			retval = libunieject_togglelock(&opts, 0);
 			break;
 		default:
 			retval = libunieject_eject(&opts);

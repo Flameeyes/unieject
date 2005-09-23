@@ -108,14 +108,20 @@ int libunieject_slotchange(struct unieject_opts opts);
 
 /**
  * @brief Toggle locking of a CD-ROM device
- * @param opts Options to apply
+ * @param opts Pointer to options to apply
  * @param lock 1 if you want to lock the drive, 0 if you want to unlock it
  *
  * @retval 0 Locking successful.
  * @retval -2 Drive doesn't have the capabilities required
  * @retval -3 Error during lock toggling
+ * @retval -4 Unable to open raw descriptor to the device (some OS only)
+ * @retval -5 Unable to execute raw ioctl on the device (some OS only)
+ *
+ * @note It's possible that opts->cdio value is set to NULL (and destroyed)
+ *       after a call to this method. This because on some OS you must close
+ *       previous opened device to do an eject/trayclose.
  */
-int libunieject_togglelock(struct unieject_opts opts, int lock);
+int libunieject_togglelock(struct unieject_opts *opts, int lock);
 
 /**
  * @brief Unmount a device
