@@ -59,6 +59,24 @@ Compiler
   If supported, it will also make use of other attributes to hide symbols from
   the resulting library.
 
+OS-specific notes
+-----------------
+Although libcdio masks most of the underlying operating system's calls, to work
+as intended, unieject has to use some workarounds on certain OS:
+
+FreeBSD
+  - When accessing CD-Rom devices via CAM interface, the capabilities are
+    unset as there is no way to get them directly. They are then ignored, and
+    set as the drive is capable of everything.
+  - Before ejecting a CD-Rom, the CDIOCALLOW ioctl must be sent to the device.
+  - Ejecting an ATAPI CD-Rom device without using CAM interface is done with
+    raw ioctls.
+
+Linux
+  - The MMC to lock the CD-Rom door is disallowed from userspace, so the lock
+    is done using raw ioctls. The workaround is enabled during configure by
+    --enable-lock-workaround, so that it can be disabled if this will change
+    in future.
 
 Note to packagers
 -----------------
