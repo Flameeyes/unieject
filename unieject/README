@@ -29,12 +29,6 @@ libcdio (version 0.74 or above) http://www.gnu.org/software/libcdio/
   than 0.76) to handle ATAPI CD-Roms without CAM support. This patch is
   included in Gentoo/FreeBSD.
 
-txt2man http://mvertes.free.fr/
-  It's required to build the man pages that describes the behavior of the
-  command and the configuration file.
-  Optional, it will warn if it's not found. If it's not present, man pages
-  won't be built.
-
 libpopt
   Used for command line parameters and arguments parsing. Mandatory.
 
@@ -51,6 +45,13 @@ libxslt
   xsltproc command is used to use svn2cl script, it's only needed during
   make dist phase, so no need for it when building out of the source
   tarball.
+
+mxml2man (5.8.6.1) http://dev.gentoo.org/~flameeyes/projects.xhtml#mxml2man
+  This evolution of Apple's xml2man is used to create the man pages from the
+  MXML sources. The modified version is required to get the extended MXML
+  format working.
+  It's not required to build unieject, as now the man pages are generated at
+  distribution time, but it's needed to complete a make dist.
 
 Compiler
   unieject is tested with GCC 3.3, 3.4 and 4.0. It should work fine with ICC9,
@@ -98,12 +99,6 @@ the right unieject defaults on a per-distribution basis.
 
 API documentation is not being built at the moment; when it will be, it will be
 specified and will have a --enable/--disable switch on ./configure.
-
-Man pages are not generated during release creation just to make easier my work
-sorry about this, but txt2man is just a bash script so that shouldn't be too
-much of a problem. In case, txt2man can be shipped along with unieject sources
-and used from a specific path with --with-txt2man=/path/to/txt2man. It can also
-be disabled using --without-txt2man.
 
 This package is supposed to build fine with -Werror, -Wall, -Wextra and 
 -pedantic CFLAGS, or at least it does so on my system. Unfortuantely, it's
