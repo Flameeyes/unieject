@@ -125,11 +125,11 @@
   <manpage>unieject.conf<section>5</section></manpage>
 </seealso>
 
-<author>
+<postsection title="author">
   unieject is written by Diego Petteno` &lt;flameeyes@gentoo.org&gt;, partially
   using code for FreeBSD from eject-1.5 by Shunsuke Akiyama
   &lt;akiyama@FreeBSD.org&gt;.
-</author>
+</postsection>
 
 </manpage>
 
