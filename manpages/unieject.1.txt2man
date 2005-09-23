@@ -18,6 +18,9 @@ OPTIONS
                          it needs to unmount a mounted volume to work.
                          (Note: libcdio misses support for this, so for now
                          is just disabled)
+  -l, --lock             Lock the tray of the CD-Rom drive to avoid manual
+                         ejection.
+  -L, --unlock           Unlock a previously-locked CD-Rom drive.
   
   -n, --noop             Doesn't actually do nothing, just print what it
                          would have done.
