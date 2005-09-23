@@ -46,7 +46,7 @@ libxslt
   make dist phase, so no need for it when building out of the source
   tarball.
 
-mxml2man (5.8.6.1) http://dev.gentoo.org/~flameeyes/projects.xhtml#mxml2man
+mxml2man (8.5.9.1) http://dev.gentoo.org/~flameeyes/projects.xhtml#mxml2man
   This evolution of Apple's xml2man is used to create the man pages from the
   MXML sources. The modified version is required to get the extended MXML
   format working.
