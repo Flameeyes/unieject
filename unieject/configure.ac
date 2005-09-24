@@ -10,8 +10,13 @@ AC_PROG_LIBTOOL
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.14])
 
+case $host_os in
+	freebsd*)	libcdiomin="0.76" ;;
+	*)		libcdiomin="0.74" ;;
+esac
+
 PKG_PROG_PKG_CONFIG
-PKG_CHECK_MODULES([LIBCDIO], [libcdio >= 0.74])
+PKG_CHECK_MODULES([LIBCDIO], [libcdio >= $libcdiomin])
 AC_SUBST(LIBCDIO_CFLAGS)
 AC_SUBST(LIBCDIO_LDFLAGS)
 AC_SUBST(LIBCDIO_LIBS)
