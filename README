@@ -104,3 +104,18 @@ This package is supposed to build fine with -Werror, -Wall, -Wextra and
 ./configure to fail when checking for strdup if -Werror is defined, I don't
 really know why. Also --as-needed LDFLAG is supposed to work.
 
+API Documentation
+-----------------
+libunieject is quite simple as a library, but it has some documentation about
+the libraries it provides.
+The API documentation can be built using doxygen. The configure script will
+automatically take care of looking for doxygen and, if it's found, to expand
+a Doxyfile with the path of the source code and the output directory that would
+be $(top_builddir)/doc.
+The formats which you want the documentation into can be selected passing to
+configure a DOXYFORMATS with the name of the formats to enable.
+
+Note: --enable-doc does *not* mean that the doc is going to be built by make
+and installed by make install. Building and installing the documentation is
+something that should be done only by the users (or packagers) who really
+wants and know how to use the API documentation.
