@@ -15,8 +15,6 @@ AC_DEFUN([_DOXYFORMAT], [
 AC_DEFUN([DOXYGEN_DOC], [
 	AC_ARG_ENABLE([doc], [AC_HELP_STRING([--enable-doc],
 		[Enable API documentation building in Doxygen])])
-	AC_ARG_WITH([docpath], [AC_HELP_STRING([--with-docpath],
-		[Where to install documentation to (default to /usr/share/doc/$PACKAGE_NAME)])])
 	AC_ARG_VAR([DOXYFORMATS], [Formats to create the doxygen doc in, selected from html (default) htmlhelp latex rtf man xml (more than one is fine)])
 	
 	if test "x$enable_doc" != "xno"; then
