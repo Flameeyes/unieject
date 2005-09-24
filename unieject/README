@@ -25,9 +25,8 @@ Dependencies
 
 libcdio (version 0.74 or above) http://www.gnu.org/software/libcdio/
   The base library that provides access to CD-Rom drives. Mandatory.
-  FreeBSD support requires a specially patched libcdio (for versions earlier
-  than 0.76) to handle ATAPI CD-Roms without CAM support. This patch is
-  included in Gentoo/FreeBSD.
+  FreeBSD support requires at least version 0.76 to handle ATAPI
+  CD-Roms without CAM support.
 
 libpopt
   Used for command line parameters and arguments parsing. Mandatory.
