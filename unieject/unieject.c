@@ -109,7 +109,7 @@ static void parse_configuration()
 		CFG_SIMPLE_STR("accessmethod", &opts.accessmethod),
 		CFG_SIMPLE_INT("debugcdio", &cdio_loglevel_default),
 		CFG_SIMPLE_BOOL("respect-capabilities", &opts.caps),
-		CFG_SIMPLE_BOOL("unmount-wrapper", &opts.umount_wrapper),
+		CFG_SIMPLE_STR("unmount-wrapper", &opts.umount_wrapper),
 		CFG_END()
 	};
 	
