@@ -38,6 +38,8 @@ EXTRA_DIST = config.rpath mkinstalldirs ChangeLog NEWS COPYING INSTALL \
 	svn2cl.xsl
 EXTRA_CLEAN = loadcd
 
+DISTCLEANFILES = ChangeLog
+
 cltimestamp:
 	touch cltimestamp
 
