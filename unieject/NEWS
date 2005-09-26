@@ -1,4 +1,4 @@
-60 August 2005: Release 4
+30 August 2005: Release 4
 -------------------------
 Another release, this time with working gettext support. Also added "loadcd"
 alias to trayclose. Now the release are built with make dist, and it also
