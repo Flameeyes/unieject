@@ -1,3 +1,12 @@
+26 September 2005: Release 5
+----------------------------
+This release is the first one with the public SVN, but still nobody stepped up
+to prepare translations. It features a documentation cleanup, the new manpages
+that uses mxml2man (and are no more created at buildtime, so no more extra
+deps), and a clean up in dependencies, now also libconfuse is optional (but
+required to get the configuration file working). It also adds a new lock action
+to lock/unlock the manual eject of a CD-Rom drive.
+
 30 August 2005: Release 4
 -------------------------
 Another release, this time with working gettext support. Also added "loadcd"
