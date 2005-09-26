@@ -10,3 +10,4 @@ EXTRA_DIST = unieject.mxml unieject.conf.mxml $(man_MANS)
 
 man_MANS = unieject.1 unieject.conf.5
 
+DISTCLEANFILES= = $(man_MANS)
