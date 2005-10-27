@@ -45,8 +45,10 @@
 
 #ifdef SUPPORT__BUILTIN_EXPECT
 #	define LIKELY(x)		__builtin_expect(!!(x), 1)
-#else
 #	define UNLIKELY(x)		__builtin_expect(!!(x), 0)
+#else
+#	define LIKELY(x)		x
+#	define UNLIKELY(x)		x
 #endif
 
 /* safe strdup */
