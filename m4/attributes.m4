@@ -58,3 +58,20 @@ AC_DEFUN([CC_ATTRIBUTE_NONNULL], [
 		])
 ])
 
+AC_DEFUNE([CC_FUNC_EXPECT], [
+	AC_MSG_CHECING([if compiler has __builtin_expect function]),
+	AC_COMPILE_IFELSE([
+		int some_function()
+		{
+			int a = 3;
+			return (int)__builtin_expect(a, 3);
+		}
+		], [
+			AC_MSG_RESULT([yes])
+			AC_DEFINE([SUPPORT__BUILTIN_EXPECT], 1, [Define this if the compiler supports __builtin_expect() function])
+			$1
+		], [
+			AC_MSG_RESULT([no])
+			$2
+		])
+])
