@@ -80,9 +80,9 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	while ( ( mnt = checkmount(opts, &device) ) )
 	{
 #ifdef HAVE_UMOUNT2
-		if ( umount2(mnt, opts.force ? MNT_FORCE : 0) == -1 )
+		if ( UNLIKELY(umount2(mnt, opts.force ? MNT_FORCE : 0) == -1) )
 #else
-		if ( umount(mnt) == -1 )
+		if ( UNLIKELY(umount(mnt) == -1) )
 #endif
 		{
 			unieject_error(opts, "unable to unmount '%s' [%s]\n", mnt, strerror(errno));

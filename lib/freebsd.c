@@ -33,7 +33,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 	char *ret = NULL;
 	struct statfs *mntbuf;
 	int mnts = getmntinfo(&mntbuf, MNT_NOWAIT);
-	if (mnts == 0)
+	if (UNLIKELY(mnts == 0))
 	{
 		unieject_error(opts, _("error receiving mount information: %s\n"), strerror(errno));
 		return *device;
@@ -83,7 +83,7 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	
 	while ( ( mnt = checkmount(opts, &device) ) )
 	{
-		if ( unmount(mnt, opts.force ? MNT_FORCE : 0) == -1 )
+		if ( UNLIKELY(unmount(mnt, opts.force ? MNT_FORCE : 0) == -1) )
 		{
 			unieject_error(opts, _("unable to unmount '%s' [%s]\n"), mnt, strerror(errno));
 			return false;

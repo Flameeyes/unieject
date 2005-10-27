@@ -40,7 +40,7 @@ bool libunieject_open(struct unieject_opts *opts)
 #endif
 	opts->cdio = cdio_open_am(opts->device, cdio_os_driver, opts->accessmethod ? opts->accessmethod : DEFAULT_ACCESS);
 
-	if ( ! opts->cdio )
+	if ( UNLIKELY(!opts->cdio) )
 	{
 		unieject_error(*opts, _("cannot find CD-Rom driver.\n"));
 		return false;

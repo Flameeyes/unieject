@@ -71,13 +71,13 @@ int libunieject_togglelock(struct unieject_opts *opts, int lock)
 	opts->cdio = NULL;
 	
 	int devfd = open(opts->device, O_RDONLY|O_NONBLOCK);
-	if ( devfd == -1 )
+	if ( UNLIKELY(devfd == -1) )
 	{
 		unieject_error(*opts, _("unable to open device descriptor [%s].\n"), strerror(errno));
 		return -4;
 	}
 	
-	if ( ioctl(devfd, CDROM_LOCKDOOR, lock ? 1 : 0) == -1 )
+	if ( UNLIKELY(ioctl(devfd, CDROM_LOCKDOOR, lock ? 1 : 0) == -1) )
 	{
 		unieject_error(*opts, _("error in ioctl [%s].\n"), strerror(errno));
 		return -5;

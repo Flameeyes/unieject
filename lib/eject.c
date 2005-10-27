@@ -60,20 +60,20 @@ int libunieject_eject(struct unieject_opts *opts)
 		}
 	}
 	
-	if ( opts->fake )
+	if ( UNLIKELY(opts->fake) )
 		return 0;
 
 #ifdef __FreeBSD__
 	if ( opts->eject )
 	{
 		int devfd = open(opts->device, O_RDONLY);
-		if ( devfd == -1 )
+		if ( UNLIKELY(devfd == -1) )
 		{
 			unieject_error(*opts, _("unable to open device descriptor [%s].\n"), strerror(errno));
 			return -4;
 		}
 		
-		if ( ioctl(devfd, CDIOCALLOW) == -1 )
+		if ( UNLIKELY(ioctl(devfd, CDIOCALLOW) == -1) )
 		{
 			unieject_error(*opts, _("error in ioctl [%s].\n"), strerror(errno));
 			return -5;

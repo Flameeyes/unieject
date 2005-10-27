@@ -289,7 +289,7 @@ int main(int argc, const char *argv[])
 		return -1;
 	}
 	
-	if ( ! libunieject_open(&opts) )
+	if ( UNLIKELY(! libunieject_open(&opts)) )
 		return -1;
 
 	int retval;

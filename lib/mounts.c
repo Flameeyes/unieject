@@ -108,7 +108,7 @@ bool libunieject_umountdev(struct unieject_opts opts, char *device)
 		char *cmd;
 		asprintf(&cmd, "%s %s", opts.umount_wrapper, device);
 		
-		if ( system(cmd) != 0 )
+		if ( UNLIKELY(system(cmd) != 0) )
 		{
 			unieject_error(opts, _("error executing umount wrapper.\n"));
 			free(cmd);
