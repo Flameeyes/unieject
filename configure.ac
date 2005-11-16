@@ -89,7 +89,7 @@ AC_SUBST([GSED])
 DOXYGEN_DOC([Doxyfile])
 
 AC_ARG_ENABLE([experimental-ldflags],
-	AC_HELP_STRING([--enable-experimetnal-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
+	AC_HELP_STRING([--enable-experimental-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
 
 if test "x$enable_experimental_ldflags" = "xyes"; then
 	LDFLAGS="$LDFLAGS -Wl,--as-needed -Wl,--not-add-needed"
