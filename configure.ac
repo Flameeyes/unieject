@@ -6,7 +6,14 @@ AM_INIT_AUTOMAKE([unieject], [5])
 AM_CONFIG_HEADER([config.h])
 
 AC_GNU_SOURCE
+
+dnl Next four lines is a hack to prevent libtool checking for CXX/F77
+m4_undefine([AC_PROG_CXX])
+m4_defun([AC_PROG_CXX],[])
+m4_undefine([AC_PROG_F77])
+m4_defun([AC_PROG_F77],[])
 AC_PROG_LIBTOOL
+
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.14])
 
