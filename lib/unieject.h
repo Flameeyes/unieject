@@ -22,6 +22,10 @@
 
 #include <cdio/cdio.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @file
  * @brief Base interface to unieject functions
@@ -135,5 +139,9 @@ int libunieject_togglelock(struct unieject_opts *opts, int lock);
  * as it calls an internal function using non-const char*
  */
 bool libunieject_umountdev(struct unieject_opts opts, char *device);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
