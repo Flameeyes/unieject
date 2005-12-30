@@ -97,6 +97,8 @@ if test "x$unieject_cv_c99_flag" = "xyes"; then
 	STDFLAGS="-std=c99"
 fi
 
+AC_SUBST(STDFLAGS)
+
 dnl Checking for support programs
 GNU_PROG_SED(, [AC_MSG_FAILURE([GNU sed is needed to build unieject.])])
 AC_SUBST([GSED])
@@ -109,6 +111,8 @@ AC_ARG_ENABLE([experimental-ldflags],
 if test "x$enable_experimental_ldflags" = "xyes"; then
 	EXP_LDFLAGS="-Wl,--as-needed -Wl,--not-add-needed"
 fi
+
+AC_SUBST(EXP_LDFLAGS)
 
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([Makefile
