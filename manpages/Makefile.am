@@ -1,13 +1,8 @@
-EXTRA_DIST = unieject.mxml unieject.conf.mxml $(man_MANS)
+EXTRA_DIST = unieject.conf.5.xml unieject.8.xml $(man_MANS)
 
-%.1: %.mxml
-	rm -f $@
-	mxml2man $< $@
-
-%.5: %.mxml
-	rm -f $@
-	mxml2man $< $@
+%: %.xml
+	xmlto man $<
 
 man_MANS = unieject.1 unieject.conf.5
 
-DISTCLEANFILES= = $(man_MANS)
+DISTCLEANFILES = $(man_MANS)
