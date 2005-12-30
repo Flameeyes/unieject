@@ -12,12 +12,14 @@ unieject_SOURCES = unieject.c lib/utils.c
 unieject_CFLAGS = $(AM_CFLAGS) \
 	$(LIBCDIO_CFLAGS) \
 	$(LIBPOPT_CFLAGS) \
-	$(CONFUSE_CFLAGS)
+	$(CONFUSE_CFLAGS) \
+	$(STDFLAGS)
 
 unieject_LDFLAGS = $(AM_LDFLAGS) \
 	$(LIBCDIO_LDFLAGS) \
 	$(LIBPOPT_LDFLAGS) \
-	$(CONFUSE_LDFLAGS)
+	$(CONFUSE_LDFLAGS) \
+	$(EXP_LDFLAGS)
 
 unieject_LDADD = $(AM_LDADD) \
 	$(LIBCDIO_LIBS) \

@@ -94,7 +94,7 @@ AC_CACHE_CHECK([if compiler supports -std=c99 flag],
 	])
 
 if test "x$unieject_cv_c99_flag" = "xyes"; then
-	CFLAGS="$CFLAGS -std=c99"
+	STDFLAGS="-std=c99"
 fi
 
 dnl Checking for support programs
@@ -107,7 +107,7 @@ AC_ARG_ENABLE([experimental-ldflags],
 	AC_HELP_STRING([--enable-experimental-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
 
 if test "x$enable_experimental_ldflags" = "xyes"; then
-	LDFLAGS="$LDFLAGS -Wl,--as-needed -Wl,--not-add-needed"
+	EXP_LDFLAGS="-Wl,--as-needed -Wl,--not-add-needed"
 fi
 
 AC_CONFIG_FILES([po/Makefile.in])
