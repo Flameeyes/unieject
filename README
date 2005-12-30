@@ -45,16 +45,16 @@ libxslt
   make dist phase, so no need for it when building out of the source
   tarball.
 
-mxml2man (8.5.9.1) http://dev.gentoo.org/~flameeyes/projects.xhtml#mxml2man
-  This evolution of Apple's xml2man is used to create the man pages from the
-  MXML sources. The modified version is required to get the extended MXML
-  format working.
-  It's not required to build unieject, as now the man pages are generated at
-  distribution time, but it's needed to complete a make dist.
+xmlto
+  The xmlto command is used to generate man pages starting from docbook XML
+  files containing the documentation.
+  It's not required to build unieject, as the man pages are generated at make
+  dist time, but it's needed if you want to create a working package after a
+  make distclean.
 
 Compiler
   unieject is tested with GCC 3.3, 3.4 and 4.0. It should work fine with ICC9,
-  too. To work it requires constructor and destructor attiibutes that are
+  too. To work it requires constructor and destructor attributes that are
   present in GCC since version 3, and in ICC 9 (at least).
   If supported, it will also make use of other attributes to hide symbols from
   the resulting library.
