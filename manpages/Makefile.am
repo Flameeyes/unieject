@@ -1,4 +1,4 @@
-EXTRA_DIST = unieject.conf.5.xml unieject.8.xml $(man_MANS)
+EXTRA_DIST = unieject.conf.5.xml unieject.1.xml $(man_MANS)
 
 %: %.xml
 	xmlto man $<
