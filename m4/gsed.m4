@@ -18,4 +18,6 @@ AC_DEFUN([GNU_PROG_SED], [
 		true
 		$1
 	fi
+	
+	GSED="$gnu_cv_prog_sed"
 ])
