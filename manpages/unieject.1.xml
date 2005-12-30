@@ -1,0 +1,435 @@
+<?xml version='1.0'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+ "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article>
+  <articleinfo>
+    <title>unieject</title>
+
+    <authorgroup>
+      <author>
+        <firstname>Diego</firstname>
+        <surname>Pettenò</surname>
+        <affiliation>
+          <address><email>flameeyes@gentoo.org</email></address>
+        </affiliation>
+      </author>
+    </authorgroup>
+
+    <copyright>
+      <year>2005</year>
+      <holder>Diego Pettenò</holder>
+    </copyright>
+
+  </articleinfo>
+
+  <section>
+    <title>Reference</title>
+
+    <refentry>
+      <refentryinfo>
+        <title>unieject</title>
+	<date>December 2005</date>
+	<productname>unieject</productname>
+      </refentryinfo>
+      <refmeta>
+        <refentrytitle>unieject</refentrytitle>
+	<manvolnum>1</manvolnum>
+      </refmeta>
+      <refnamediv>
+        <refname>unieject</refname>
+	<refpurpose>Universal eject commandline tool</refpurpose>
+      </refnamediv>
+      <refsynopsisdiv>
+        <cmdsynopsis>
+          <command>unieject</command>
+          <arg choice="opt">
+            <option>--noop</option>
+          </arg>
+          <arg choice="opt">
+            <option>--verbose</option>
+            <option>--quiet</option>
+          </arg>
+          <arg choice="opt">
+            <option>--ignore-caps</option>
+            <option>--no-ignore-caps</option>
+          </arg>
+          <arg choice="opt">
+            <option>--accessmode</option>
+            <replaceable>mode</replaceable>
+          </arg>
+          <arg choice="opt">
+            <option>--debugcdio</option>
+            <replaceable>level</replaceable>
+          </arg>
+          
+          <arg choice="opt">
+            <option>--no-unmount</option>
+            <option>--unmount</option>
+          </arg>
+          <arg choice="opt">
+            <option>--force</option>
+            <option>--no-force</option>
+          </arg>
+          <arg choice="opt">
+            <option>--umount-wrapper</option>
+            <replaceable>wrapper</replaceable>
+          </arg>
+          <arg choice="opt">
+            <replaceable>device or mountpoint</replaceable>
+          </arg>
+        </cmdsynopsis>
+      
+        <cmdsynopsis>
+          <command>unieject</command>
+          <arg choice="opt">
+            <option>--noop</option>
+          </arg>
+          <arg choice="opt">
+            <option>--verbose</option>
+            <option>--quiet</option>
+          </arg>
+          <arg choice="opt">
+            <option>--ignore-caps</option>
+            <option>--no-ignore-caps</option>
+          </arg>
+          <arg choice="opt">
+            <option>--accessmode</option>
+            <replaceable>mode</replaceable>
+          </arg>
+          <arg choice="opt">
+            <option>--debugcdio</option>
+            <replaceable>level</replaceable>
+          </arg>
+          
+          <arg choice="req">
+            <option>--lock</option>
+            <option>--unlock</option>
+          </arg>
+          <arg choice="opt">
+            <replaceable>device or mountpoint</replaceable>
+          </arg>
+        </cmdsynopsis>
+      
+        <cmdsynopsis>
+          <command>unieject</command>
+          <arg choice="opt">
+            <option>--noop</option>
+          </arg>
+          <arg choice="opt">
+            <option>--verbose</option>
+            <option>--quiet</option>
+          </arg>
+          <arg choice="opt">
+            <option>--ignore-caps</option>
+            <option>--no-ignore-caps</option>
+          </arg>
+          <arg choice="opt">
+            <option>--accessmode</option>
+            <replaceable>mode</replaceable>
+          </arg>
+          <arg choice="opt">
+            <option>--debugcdio</option>
+            <replaceable>level</replaceable>
+          </arg>
+          
+          <arg choice="plain">
+            <option>--trayclose</option>
+          </arg>
+          <arg choice="opt">
+            <replaceable>device or mountpoint</replaceable>
+          </arg>
+        </cmdsynopsis>
+      
+        <cmdsynopsis>
+          <command>unieject</command>
+          <arg choice="opt">
+            <option>--noop</option>
+          </arg>
+          <arg choice="opt">
+            <option>--verbose</option>
+            <option>--quiet</option>
+          </arg>
+          <arg choice="opt">
+            <option>--ignore-caps</option>
+            <option>--no-ignore-caps</option>
+          </arg>
+          <arg choice="opt">
+            <option>--accessmode</option>
+            <replaceable>mode</replaceable>
+          </arg>
+          <arg choice="opt">
+            <option>--debugcdio</option>
+            <replaceable>level</replaceable>
+          </arg>
+          
+          <arg choice="plain">
+            <option>--speed</option>
+            <replaceable>speed</replaceable>
+          </arg>
+          <arg choice="opt">
+            <replaceable>device or mountpoint</replaceable>
+          </arg>
+        </cmdsynopsis>
+      </refsynopsisdiv>
+
+      <refsect1>
+        <title>Description</title>
+        <para>
+        <command>unieject</command> is a simple commandline tool that allows to
+        eject, close the tray, set the speed, lock and unlock a CD-Rom drive.
+        The main difference from the usual <command>eject</command> tool you
+        find in many distributions is that it uses libcdio and its then portable
+        on non-Linux operating system, as far as libcdio is ported, too.
+        </para>
+      </refsect1>
+
+      <refsect1>
+        <title>Actions</title>
+        
+        <para>
+        The default action is, of course, to eject the CD in the drive, but
+        there are a few extra actions that are present, mainly for compatibility
+        with classic <command>eject</command> command.
+        </para>
+        
+        <variablelist>
+          <varlistentry>
+            <term><option>--trayclose</option></term>
+            <term><option>-t</option></term>
+            <listitem>
+              <para>
+                Close the tray of the drive instead of ejecting the CD in it.
+              </para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>
+              <option>--speed</option>
+              <replaceable>speed</replaceable>
+            </term>
+            <term>
+              <option>-x</option>
+              <replaceable>speed</replaceable>
+            </term>
+            <listitem>
+              <para>
+                Set the maximum speed for the CD-Rom drive, if applicable.
+              </para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term><option>--lock</option></term>
+            <term><option>-l</option></term>
+            <term><option>--unlock</option></term>
+            <term><option>-L</option></term>
+            <listitem>
+              <para>
+                Allows to lock or unlock the tray of the CD-Rom drive to disable
+                and then re-enable the manual eject by button.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+        </variablelist>
+      </refsect1>
+          
+      <refsect1>
+        <title>Common options</title>
+	
+        <variablelist>
+	  <varlistentry>
+	    <term><option>--noop</option></term>
+            <term><option>-n</option></term>
+	    <listitem>
+              <para>
+              Don't actually do anything, just print what it would have been
+              done to execute the required command.
+              </para>
+	    </listitem>
+	  </varlistentry>
+	
+          <varlistentry>
+            <term><option>--verbose</option></term>
+            <term><option>-V</option></term>
+            <listitem>
+              <para>
+                Show more information while executing the command (increase
+                verbosity).
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term><option>--quiet</option></term>
+            <term><option>-Q</option></term>
+            <listitem>
+              <para>
+                Hides error while executing the command (decrease verbosity).
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term><option>--ignore-caps</option></term>
+            <listitem>
+              <para>
+                Ignore the capabilities stated by the device to eject, and try
+                to run the command anyway, useful if a device is known not to
+                report them correctly. On FreeBSD systems this is forced while
+                using ioctl access.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term><option>--no-ignore-caps</option></term>
+            <listitem>
+              <para>
+                Don't ignore the capabilities stated by the device (this is the
+                default behavior, this option is used to override
+                <citerefentry><refentrytitle>unieject.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+                file).
+              </para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term>
+              <option>--accessmode</option>
+              <replaceable>mode</replaceable>
+            </term>
+            <listitem>
+              <para>
+                Change the default access mode for the command. This is used to
+                override the default access mode imposed by libcdio in case it
+                doesn't work correctly. Leave the default if you don't know how
+                to change this.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>
+              <option>--debugcdio</option>
+              <replaceable>level</replaceable>
+            </term>
+            <listitem>
+              <para>
+                Sets the debug level for libcdio information messages.
+                <replaceable>0</replaceable> means the most debug output is
+                generated.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+        </variablelist>
+      </refsect1>
+      
+      <refsect1>
+        <title>Ejection options</title>
+        
+        <variablelist>
+          <varlistentry>
+            <term><option>--no-unmount</option></term>
+            <term><option>-m</option></term>
+            <listitem>
+              <para>
+                Don't unmount the device if it's mounted (eject will fail if the
+                device is mounted).
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term><option>--unmount</option></term>
+            <term><option>-u</option></term>
+            <listitem>
+              <para>
+                Unmount the device if it's mounted (this is the
+                default behavior, this option is used to override
+                <citerefentry><refentrytitle>unieject.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+                file).
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term><option>--force</option></term>
+            <term><option>-f</option></term>
+            <listitem>
+              <para>
+                Force unmounting of the device if it's mounted, this works only
+                if the operating system supports it.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term><option>--no-force</option></term>
+            <listitem>
+              <para>
+                Don't force unmounting of device (this is the
+                default behavior, this option is used to override
+                <citerefentry><refentrytitle>unieject.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+                file).
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>
+              <option>--umount-wrapper</option>
+              <replaceable>wrapper</replaceable>
+            </term>
+            <term>
+              <option>-W</option>
+              <replaceable>wrapper</replaceable>
+            </term>
+            <listitem>
+              <para>
+                Use the given wrapper to unmount the device instead of library's
+                functions. The device name will be passed right after the
+                wrapper.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+        </variablelist>
+      </refsect1>
+      
+      <refsect1>
+        <title>Environment</title>
+        
+        <para>
+          The following environment variables changes the behavior of
+          <command>unieject</command>.
+        </para>
+        
+        <variablelist>
+          <varlistentry>
+            <term>EJECT</term>
+            
+            <listitem>
+              <para>
+                Used for compatibility with FreeBSD's eject command; when it's
+                set the default device to eject is take from there instead of
+                libcdio defaults.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </refsect1>
+      
+      <refsect1>
+        <title>See Also</title>
+        <para>
+          <citerefentry><refentrytitle>unieject.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+        </para>
+      </refsect1>
+    </refentry>
+  </section>
+</article>
+
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
