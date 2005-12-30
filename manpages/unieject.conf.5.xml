@@ -1,0 +1,178 @@
+<?xml version='1.0'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+ "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article>
+  <articleinfo>
+    <title>unieject.conf</title>
+
+    <authorgroup>
+      <author>
+        <firstname>Diego</firstname>
+        <surname>Pettenò</surname>
+        <affiliation>
+          <address><email>flameeyes@gentoo.org</email></address>
+        </affiliation>
+      </author>
+    </authorgroup>
+
+    <copyright>
+      <year>2005</year>
+      <holder>Diego Pettenò</holder>
+    </copyright>
+
+  </articleinfo>
+
+  <section>
+    <title>Reference</title>
+
+    <refentry>
+      <refentryinfo>
+        <title>unieject.conf</title>
+	<date>December 2005</date>
+	<productname>unieject</productname>
+      </refentryinfo>
+      <refmeta>
+        <refentrytitle>unieject.conf</refentrytitle>
+	<manvolnum>5</manvolnum>
+      </refmeta>
+      <refnamediv>
+        <refname>unieject.conf</refname>
+	<refpurpose>Configuration file for <citerefentry><refentrytitle>unieject</refentrytitle></citerefentry> tool</refpurpose>
+      </refnamediv>
+      <refsynopsisdiv>
+        <cmdsynopsis><command>/etc/unieject.conf</command></cmdsynopsis>
+      </refsynopsisdiv>
+
+      <refsect1>
+        <title>Description</title>
+	<para>
+        The <filename>unieject.conf</filename> file is the configuration file for
+	<citerefentry><refentrytitle>unieject</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+	command, with the defaults used when it's called without particular
+	options which overrides it.
+	</para>
+      </refsect1>
+
+      <refsect1>
+        <title>File Format</title>
+        <para>
+        The file is a simple unix (or ini) style configuration file, without
+        sections and with options and values set in the form
+        </para>
+        
+        <para>name = value</para>
+        
+        <para>
+        Comments are started by #, everything standing after that character in
+        a line is considered a comment.
+        </para>
+      </refsect1>
+        
+      <refsect1>
+        <title>Settings</title>
+	<variablelist>
+	  <varlistentry>
+	    <term>device = path</term>
+	    <listitem>
+              <para>
+              The device to eject if none is specified on the command line.
+              This does override EJECT environment variable.
+              </para>
+	    </listitem>
+	  </varlistentry>
+          
+          <varlistentry>
+            <term>verbosity = -1 | 0 | 1</term>
+            <listitem>
+              <para>
+              This option allow to choose the default verbosity. If set to 1, it
+              would be like always using <option>--verbose</option> on command
+              line, while if set to -1 it would be like always using
+              <option>--quiet</option>. The default verbosity (0) only outputs
+              errors.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>unmount = bool</term>
+            <listitem>
+              <para>
+              If set to <option>true</option>, this will invoke unmounting of
+              the device when it's mounted. If set to <option>false</option>,
+              mounted devices cannot be ejected.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>force = bool</term>
+            <listitem>
+              <para>
+              If unmount is set to <option>true</option>, this option allows to
+              choose if to force the unmount when the device is still in use.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>respect-capabilities = bool</term>
+            <listitem>
+              <para>
+              If set to <option>true</option> (the default),
+              <command>unieject</command> will respect the capabilities returned
+              by the device, otherwise it will try to eject also if the drive
+              states not to support eject.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>unmount-wrapper  = command</term>
+            <listitem>
+              <para>
+              This setting can be used when, to unmount a device, you need to
+              launch a wrapper script, instead of using library functions (for
+              example when <command>unieject</command> command is not setuid or
+              doesn't have POSIX capabilities set).
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>accessmethod = string</term>
+            <listitem>
+              <para>
+              Defines the access method to use for CDIO CD-Rom access. This
+              depends on the platform and should never be changed if you don't
+              know what is used for. See also libcdio documentation for the
+              available access methods for your platform.
+              </para>
+            </listitem>
+          </varlistentry>
+          
+          <varlistentry>
+            <term>debugcdio  = integer</term>
+            <listitem>
+              <para>
+              This option sets the informative output level of CDIO library.
+              <option>0</option> is the full debug output level. See also
+              libcdio documentation for the available values.
+              </para>
+            </listitem>
+          </varlistentry>
+	</variablelist>
+      </refsect1>
+      
+      <refsect1>
+        <title>See Also</title>
+        <para>
+          <citerefentry><refentrytitle>unieject</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+          unieject.conf.sample
+        </para>
+      </refsect1>
+    </refentry>
+  </section>
+</article>
+
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
