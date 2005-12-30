@@ -1,3 +1,9 @@
+30 December 2005: Release 5.1
+-----------------------------
+First service release, mainly replace the old man pages with new ones written in
+DocBook (thanks to Stuart Herbert from Gentoo), but also fixes the autotools
+support to make it saner, and add extern "C" for functions in libunieject.
+
 26 September 2005: Release 5
 ----------------------------
 This release is the first one with the public SVN, but still nobody stepped up
