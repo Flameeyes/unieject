@@ -13,7 +13,7 @@ AC_DEFUN([_DOXYFORMAT], [
 ])
 
 AC_DEFUN([DOXYGEN_DOC], [
-	AC_ARG_ENABLE([doc], [AC_HELP_STRING([--enable-doc],
+	AC_ARG_ENABLE([doc], [AS_HELP_STRING([--enable-doc],
 		[Enable API documentation building in Doxygen])])
 	AC_ARG_VAR([DOXYFORMATS], [Formats to create the doxygen doc in, selected from html (default) htmlhelp latex rtf man xml (more than one is fine)])
 	

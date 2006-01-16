@@ -28,7 +28,7 @@ AC_SUBST(LIBCDIO_CFLAGS)
 AC_SUBST(LIBCDIO_LDFLAGS)
 AC_SUBST(LIBCDIO_LIBS)
 
-AC_ARG_WITH([libconfuse], [AC_HELP_STRING([--without-libconfuse],
+AC_ARG_WITH([libconfuse], [AS_HELP_STRING([--without-libconfuse],
 	[Don't use libconfuse for configuration file])])
 
 if test "x$with_libconfuse" != "xno"; then
@@ -55,7 +55,7 @@ AC_CHECK_HEADERS([libgen.h])
 AC_CHECK_FUNCS([getenv umount2])
 
 AC_ARG_ENABLE([lock-workaround],
-	AC_HELP_STRING([--enable-lock-woraround], [Enable Linux CD-Rom lock workaround]))
+	AS_HELP_STRING([--enable-lock-woraround], [Enable Linux CD-Rom lock workaround]))
 
 case $host_os in
 	linux* ) os="Linux"
@@ -106,7 +106,7 @@ AC_SUBST([GSED])
 DOXYGEN_DOC([Doxyfile])
 
 AC_ARG_ENABLE([experimental-ldflags],
-	AC_HELP_STRING([--enable-experimental-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
+	AS_HELP_STRING([--enable-experimental-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
 
 if test "x$enable_experimental_ldflags" = "xyes"; then
 	EXP_LDFLAGS="-Wl,--as-needed -Wl,--not-add-needed"
