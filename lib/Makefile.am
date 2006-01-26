@@ -26,7 +26,7 @@ libunieject_la_CURRENT := 3
 libunieject_la_REVISION := 0
 libunieject_la_AGE := 0
 
-libunieject_la_CFLAGS = $(STDFLAGS) $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
+libunieject_la_CFLAGS = $(C99FLAGS) $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
 libunieject_la_LDFLAGS = $(AM_LDFLAGS) $(EXP_LDFLAGS) $(LIBCDIO_LDFLAGS) --no-undefined \
 	-version-info $(libunieject_la_CURRENT):$(libunieject_la_REVISION):$(libunieject_la_AGE) \
 libunieject_la_LIBADD = $(AM_LDADD) $(LIBCDIO_LIBS) $(LTLIBINTL)

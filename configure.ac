@@ -81,27 +81,11 @@ CC_ATTRIBUTE_INTERNAL
 CC_ATTRIBUTE_NONNULL
 CC_FUNC_EXPECT
 
-
-AC_CACHE_CHECK([if compiler supports -std=c99 flag],
-	[unieject_cv_c99_flag],
-	[
-	 save_CFLAGS=$CFLAGS
-	 CFLAGS="$CFLAGS -std=c99"
-	 AC_COMPILE_IFELSE([int a;],
-		[unieject_cv_c99_flag=yes],
-		[unieject_cv_c99_flag=no])
-	CFLAGS="$save_CFLAGS"
-	])
-
-if test "x$unieject_cv_c99_flag" = "xyes"; then
-	STDFLAGS="-std=c99"
-fi
-
-AC_SUBST(STDFLAGS)
-
 dnl Checking for support programs
 GNU_PROG_SED(, [AC_MSG_FAILURE([GNU sed is needed to build unieject.])])
 AC_SUBST([GSED])
+
+LANG_C99(, [AC_MSG_FAILURE([C99 support is required to build unieject.])])
 
 DOXYGEN_DOC([Doxyfile])
 
