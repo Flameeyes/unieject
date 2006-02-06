@@ -93,7 +93,7 @@ AC_ARG_ENABLE([experimental-ldflags],
 	AS_HELP_STRING([--enable-experimental-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
 
 if test "x$enable_experimental_ldflags" = "xyes"; then
-	EXP_LDFLAGS="-Wl,--as-needed -Wl,--not-add-needed"
+	EXP_LDFLAGS="-Wl,--as-needed"
 fi
 
 AC_SUBST(EXP_LDFLAGS)
