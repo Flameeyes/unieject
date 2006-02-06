@@ -96,6 +96,13 @@ if test "x$enable_experimental_ldflags" = "xyes"; then
 	EXP_LDFLAGS="-Wl,--as-needed"
 fi
 
+AC_ARG_ENABLE([maintainer-flags],
+	AS_HELP_STRING([--enable-maintainer-flags], [Enable extra CFLAGS for maintainers (don't use as user)]))
+
+if test "x$enable_maintainer_flags" = "xyes"; then
+	CFLAGS="$CFLAGS -Wall -Wextra -pedantic -Werror -fno-common -Wstrict-aliasing=2"
+fi
+
 AC_SUBST(EXP_LDFLAGS)
 
 AC_CONFIG_FILES([po/Makefile.in])
