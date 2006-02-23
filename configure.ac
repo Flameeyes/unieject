@@ -69,6 +69,7 @@ case $host_os in
 		;;
 	
 	* ) os="Unsupported"
+		AC_MSG_ERROR([Unsupported Operating System detected, please report back.])
 		;;
 esac
 
