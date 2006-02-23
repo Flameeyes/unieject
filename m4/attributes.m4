@@ -39,6 +39,25 @@ AC_DEFUN([CC_ATTRIBUTE_FORMAT], [
 	fi
 ])
 
+AC_DEFUN([CC_ATTRIBUTE_FORMAT_ARG], [
+	AC_CACHE_CHECK([if compiler supports __attribute__((format_arg(printf)))],
+		[cc_cv_attribute_format_arg],
+		[AC_COMPILE_IFELSE([
+			void __attribute__((format_arg(printf, 1))) gettextlike(const char *fmt) { }
+			],
+			[cc_cv_attribute_format_arg=yes],
+			[cc_cv_attribute_format_arg=no])
+		])
+	
+	if test "x$cc_cv_attribute_format_arg" = "xyes"; then
+		AC_DEFINE([SUPPORT_ATTRIBUTE_FORMAT_ARG], 1, [Define this if the compiler supports the format_arg attribute])
+		$1
+	else
+		true
+		$2
+	fi
+])
+
 AC_DEFUN([CC_ATTRIBUTE_INTERNAL], [
 	AC_CACHE_CHECK([if compiler supports __attribute__((visibility("internal")))],
 		[cc_cv_attribute_internal],
