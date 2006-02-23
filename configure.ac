@@ -18,6 +18,7 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.14])
 
 case $host_os in
+	dragonfly*)	libcdiomin="0.77" ;;
 	freebsd*)	libcdiomin="0.76" ;;
 	*)		libcdiomin="0.74" ;;
 esac
