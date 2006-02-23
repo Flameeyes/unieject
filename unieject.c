@@ -1,5 +1,5 @@
 /* unieject - Universal eject command
-   Copyright (C) 2005, Diego Pettenò
+   Copyright (C) 2005-2006, Diego Pettenò
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -274,7 +274,7 @@ int main(int argc, const char *argv[])
 		}
 	case OP_VERSION: {
 			printf(_("unieject version %s\n"), PACKAGE_VERSION);
-			printf(_("Copyright (c) 2005 Diego Pettenò\n"));
+			printf(_("Copyright (c) 2005-2006 Diego Pettenò\n"));
 			
 			return 0;
 		}
