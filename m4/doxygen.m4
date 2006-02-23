@@ -17,7 +17,7 @@ AC_DEFUN([DOXYGEN_DOC], [
 		[Enable API documentation building in Doxygen])])
 	AC_ARG_VAR([DOXYFORMATS], [Formats to create the doxygen doc in, selected from html (default) htmlhelp latex rtf man xml (more than one is fine)])
 	
-	if test "x$enable_doc" != "xno"; then
+	if test "x$enable_doc" = "xyes"; then
 		AC_CHECK_PROGS([DOXYGEN], [doxygen], [no])
 		if test "x$DOXYGEN" = "xno"; then
 			AC_MSG_ERROR([Doxygen not found but documentation requested])
