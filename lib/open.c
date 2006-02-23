@@ -33,7 +33,7 @@
 bool libunieject_open(struct unieject_opts *opts)
 {
 
-#ifdef __FreeBSD__
+#ifdef FREEBSD_DRIVER
 	if ( strncmp("/dev/cd", opts->device, 7) )
 		opts->cdio = cdio_open_am(opts->device, DRIVER_FREEBSD, "ioctl");
 	else

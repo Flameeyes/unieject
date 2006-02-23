@@ -24,7 +24,7 @@
 
 #include <stdio.h>
 
-#ifdef __FreeBSD__
+#ifdef FREEBSD_DRIVER
 #	include <fcntl.h>
 #	include <errno.h>
 #	include <sys/ioctl.h>
@@ -39,7 +39,7 @@ int libunieject_eject(struct unieject_opts *opts)
 		cdio_drive_misc_cap_t unused, misc_cap;
 		cdio_get_drive_cap((CdIo_t*)opts->cdio, &unused, &unused, &misc_cap);
 
-#ifdef __FreeBSD__
+#ifdef FREEBSD_DRIVER
 		if ( strncmp("/dev/cd", opts->device, 7) != 0 )
 			misc_cap = 0xFFFFFFFF;
 #endif
@@ -63,7 +63,7 @@ int libunieject_eject(struct unieject_opts *opts)
 	if ( UNLIKELY(opts->fake) )
 		return 0;
 
-#ifdef __FreeBSD__
+#ifdef FREEBSD_DRIVER
 	if ( opts->eject )
 	{
 		int devfd = open(opts->device, O_RDONLY);
@@ -83,7 +83,7 @@ int libunieject_eject(struct unieject_opts *opts)
 	}
 #endif
 	
-#ifdef __FreeBSD__
+#ifdef FREEBSD_DRIVER
 	driver_return_code_t sts;
 	if ( strncmp("/dev/cd", opts->device, 7) != 0 )
 	{

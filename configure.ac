@@ -65,7 +65,9 @@ case $host_os in
 			AC_DEFINE([USE_LOCK_WORKAROUND], 1, [Use Linucd CD-Rom lock workaround])
 		fi
 		;;
-	freebsd* ) os="FreeBSD"
+	dnl DragonFly BSD uses the same interface as FreeBSD, luckily
+	freebsd*|dragonfly* ) os="FreeBSD"
+		AC_DEFINE([FREEBSD_DRIVER], [1], [Enable FreeBSD driver])
 		;;
 	
 	* ) os="Unsupported"

@@ -32,7 +32,7 @@ int libunieject_setspeed(struct unieject_opts opts)
 		cdio_drive_misc_cap_t unused, misc_cap;
 		cdio_get_drive_cap((CdIo_t*)opts.cdio, &unused, &unused, &misc_cap);
 		
-#ifdef __FreeBSD__
+#ifdef FREEBSD_DRIVER
 		if ( strncmp("/dev/cd", opts.device, 7) != 0 )
 			misc_cap = 0xFFFFFFFF;
 #endif

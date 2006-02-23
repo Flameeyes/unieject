@@ -49,7 +49,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	}
 #endif
 
-#ifdef __FreeBSD__
+#ifdef FREEBSD_DRIVER
 	if ( ! normalized )
 	{
 		normalized = strdup("cd0");
