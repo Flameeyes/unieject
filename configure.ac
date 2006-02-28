@@ -56,7 +56,7 @@ AC_CHECK_HEADERS([libgen.h])
 AC_CHECK_FUNCS([getenv umount2])
 
 AC_ARG_ENABLE([lock-workaround],
-	AS_HELP_STRING([--enable-lock-woraround], [Enable Linux CD-Rom lock workaround]))
+	AS_HELP_STRING([--enable-lock-workaround], [Enable Linux CD-Rom lock workaround]))
 
 case $host_os in
 	linux* ) os="Linux"
