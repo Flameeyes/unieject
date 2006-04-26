@@ -60,6 +60,7 @@ By default tries -r, -s, -f, and -q in order until success.
 */
 
 struct unieject_opts opts;
+static poptContext optCon = NULL;
 
 enum {
 	OP_IGNORE,
@@ -95,6 +96,7 @@ void cleanup()
 	if ( opts.progname ) free(opts.progname);
 	if ( opts.device ) free(opts.device);
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
+	if ( optCon ) poptFreeContext(optCon);
 }
 
 #ifdef HAVE_LIBCONFUSE
@@ -200,7 +202,7 @@ static int parse_options (int argc, const char *argv[])
 		POPT_AUTOHELP {NULL, 0, 0, NULL, 0, NULL, NULL}
 	};
 
-	poptContext optCon = poptGetContext (NULL, argc, argv, optionsTable, 0);
+	optCon = poptGetContext (NULL, argc, argv, optionsTable, 0);
 	
 	opts.progname = strrchr(argv[0],'/');
 	opts.progname = opts.progname ? strdup(opts.progname+1) : strdup(argv[0]);
