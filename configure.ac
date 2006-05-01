@@ -81,9 +81,11 @@ AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
 
 CC_ATTRIBUTE_CONSTRUCTOR(, [AC_MSG_FAILURE([Constructor attribute is needed to build unieject.])] )
 CC_ATTRIBUTE_FORMAT
-CC_ATTRIBUTE_INTERNAL
 CC_ATTRIBUTE_NONNULL
 CC_FUNC_EXPECT
+
+CC_ATTRIBUTE_VISIBILITY
+CC_FLAG_VISIBILITY([CFLAGS="$CFLAGS -fvisibility=hidden"])
 
 dnl Checking for support programs
 GNU_PROG_SED(, [AC_MSG_FAILURE([GNU sed is needed to build unieject.])])

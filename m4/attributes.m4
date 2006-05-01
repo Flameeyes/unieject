@@ -58,18 +58,41 @@ AC_DEFUN([CC_ATTRIBUTE_FORMAT_ARG], [
 	fi
 ])
 
-AC_DEFUN([CC_ATTRIBUTE_INTERNAL], [
-	AC_CACHE_CHECK([if compiler supports __attribute__((visibility("internal")))],
-		[cc_cv_attribute_internal],
+AC_DEFUN([CC_ATTRIBUTE_VISIBILITY], [
+	AC_CACHE_CHECK([if compiler supports __attribute__((visibility("...")))],
+		[cc_cv_attribute_visibility],
 		[AC_COMPILE_IFELSE([
 			void __attribute__((visibility("internal"))) internal_function() { }
+			void __attribute__((visibility("hidden"))) hidden_function() { }
+			void __attribute__((visibility("default"))) external_function() { }
 			],
-			[cc_cv_attribute_internal=yes],
-			[cc_cv_attribute_internal=no])
+			[cc_cv_attribute_visibility=yes],
+			[cc_cv_attribute_visibility=no])
 		])
 	
-	if test "x$cc_cv_attribute_internal" = "xyes"; then
-		AC_DEFINE([SUPPORT_ATTRIBUTE_INTERNAL], 1, [Define this if the compiler supports the internal visibility attribute])
+	if test "x$cc_cv_attribute_visibility" = "xyes"; then
+		AC_DEFINE([SUPPORT_ATTRIBUTE_VISIBILITY], 1, [Define this if the compiler supports the visibility attribute])
+		$1
+	else
+		true
+		$2
+	fi
+])
+
+AC_DEFUN([CC_FLAG_VISIBILITY], [
+	AC_CACHE_CHECK([if compiler supports -fvisibility=hidden],
+		[cc_cv_flag_visibility],
+		[
+		save_CFLAGS=$CFLAGS
+		CFLAGS="$CFLAGS -fvisibility=hidden"
+		AC_COMPILE_IFELSE([int a;],
+			[cc_cv_flag_visibility=yes],
+			[cc_cv_flag_visibility=no])
+		CFLAGS="$save_CFLAGS"
+		])
+	
+	if test "x$cc_cv_flag_visibility" = "xyes"; then
+		AC_DEFINE([SUPPORT_FLAG_VISIBILITY], 1, [Define this if the compiler supports the -fvisibility flag])
 		$1
 	else
 		true

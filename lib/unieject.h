@@ -26,6 +26,8 @@
 extern "C" {
 #endif
 
+#pragma GCC visibility push(default)
+
 /**
  * @file
  * @brief Base interface to unieject functions
@@ -143,5 +145,7 @@ bool libunieject_umountdev(struct unieject_opts opts, char *device);
 #ifdef __cplusplus
 }
 #endif
+
+#pragma GCC visibility pop
 
 #endif
