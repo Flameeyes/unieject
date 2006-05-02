@@ -25,7 +25,7 @@ unieject_LDADD = $(AM_LDADD) \
 	$(LIBCDIO_LIBS) \
 	$(LIBPOPT_LIBS) \
 	$(CONFUSE_LIBS) \
-	@LIBINTL@ \
+	$(LTLIBINTL) \
 	$(top_builddir)/lib/libunieject.la
 
 loadcd: unieject
