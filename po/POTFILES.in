@@ -1,3 +1,12 @@
 # List of source files which contain translatable strings.
 
 unieject.c
+lib/eject.c
+lib/freebsd.c
+lib/linux.c
+lib/lock.c
+lib/mounts.c
+lib/open.c
+lib/slotchanger.c
+lib/speed.c
+lib/utils.c
