@@ -72,9 +72,6 @@ char *checkmount(struct unieject_opts opts, char **device)
 
 bool internal_umountdev(struct unieject_opts opts, char *device)
 {
-	struct unieject_opts nonverbose_opts = opts;
-	nonverbose_opts.verbose = 0;
-	
 	char *mnt = NULL;
 	
 	while ( ( mnt = checkmount(opts, &device) ) )
