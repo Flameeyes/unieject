@@ -80,7 +80,9 @@ msgstr "Ignora le capacità riportate dal dispositivo."
 
 #: unieject.c:184
 msgid "Don't ignore capabilities reported by device (default behavior)."
-msgstr "Non ignorare le capacità riportate dal dispositivo (comportamento predefinito)."
+msgstr ""
+"Non ignorare le capacità riportate dal dispositivo (comportamento "
+"predefinito)."
 
 #: unieject.c:187
 msgid "Use an umount wrapper to unmount."
@@ -245,4 +247,3 @@ msgstr "impostazione della velocità del CD-Rom a '%dX\n"
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr "impossibile eseguire il comando (stato CDIO sconosciuto: %d)\n"
-
