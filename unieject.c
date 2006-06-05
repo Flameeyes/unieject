@@ -287,6 +287,7 @@ int main(int argc, const char *argv[])
 			unieject_error(opts, _("unable to unmount device '%s'.\n"), opts.device);
 			return -4;
 		}
+		break;
 	case OP_ERROR:
 		return -1;
 	}
