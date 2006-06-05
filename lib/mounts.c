@@ -111,8 +111,8 @@ bool libunieject_umountdev(struct unieject_opts opts, char *device)
 		
 		res = system(cmd);
 		
-		if ( cmd != 0 )
-			unieject_error(opts, _("error executing umount wrapper.\n"));
+		if ( res != 0 )
+			unieject_verbose(opts, _("error executing umount wrapper, ignoring.\n"));
 		free(cmd);
 	}
 	
