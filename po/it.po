@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-05 07:05+0200\n"
+"POT-Creation-Date: 2006-06-05 07:33+0200\n"
 "PO-Revision-Date: 2006-06-05 07:11+0200\n"
 "Last-Translator: Diego 'Flameeyes' Pettenò <flameeyes@gentoo.org>\n"
 "Language-Team: Italian\n"
@@ -169,12 +169,12 @@ msgstr "'%s' è montato su '%s'\n"
 msgid "'%s' is the mount point of '%s'\n"
 msgstr "'%s' è il punto di montaggio di '%s'\n"
 
-#: lib/freebsd.c:88
+#: lib/freebsd.c:85
 #, c-format
 msgid "unable to unmount '%s' [%s]\n"
 msgstr "impossibile smontare '%s' [%s]\n"
 
-#: lib/freebsd.c:92
+#: lib/freebsd.c:89
 #, c-format
 msgid "'%s' unmounted from '%s'\n"
 msgstr "'%s' smontato da '%s'\n"
@@ -247,4 +247,3 @@ msgstr "impostazione della velocità del CD-Rom a '%dX\n"
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr "impossibile eseguire il comando (stato CDIO sconosciuto: %d)\n"
-
