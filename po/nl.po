@@ -1,0 +1,244 @@
+# translation of unieject to Dutch (nl.po)
+# Copyright (C) 2006 Tony Vroon
+# This file is distributed under the same license as the unieject package.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: unieject 5.2\n"
+"Report-Msgid-Bugs-To: chainsaw@gentoo.org\n"
+"POT-Creation-Date: 2006-06-05 07:33+0200\n"
+"PO-Revision-Date: 2006-06-08 21:41+0100\n"
+"Last-Translator: Tony 'Chainsaw' Vroon <chainsaw@gentoo.org>\n"
+"Language-Team: (inactive)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: unieject.c:121 unieject.c:130
+#, c-format
+msgid "Error parsing configuration file %s\n"
+msgstr "Kan configuratiebestand %s niet verwerken\n"
+
+#: unieject.c:149
+msgid "Close CD-Rom tray."
+msgstr "Sluit CD-ROM lade."
+
+#: unieject.c:151
+msgid "Set CD-Rom max speed."
+msgstr "Stel CD-ROM maximumsnelheid in."
+
+#: unieject.c:154
+msgid "Switch discs on a CD-ROM changer."
+msgstr "Wissel schijven op een CD-wisselaar."
+
+#: unieject.c:157
+msgid "Lock the CD-Rom drive."
+msgstr "Vergrendel het CD-ROM station."
+
+#: unieject.c:159
+msgid "Unlock the CD-Rom drive."
+msgstr "Ontgrendel het CD-ROM station."
+
+#: unieject.c:162
+msgid "Don't eject, just show device found."
+msgstr "Niet uitwerpen, alleen gedetecteerde apparaten tonen."
+
+#: unieject.c:164
+msgid "Display default device."
+msgstr "Toon standaardapparaat."
+
+#: unieject.c:167
+msgid "Enable verbose output."
+msgstr "Schakel gedetailleerde uitvoer in."
+
+#: unieject.c:169
+msgid "Disable output of error messages."
+msgstr "Schakel het tonen van foutberichten uit."
+
+#: unieject.c:172
+msgid "Do not umount device even if it is mounted."
+msgstr "Voer geen unmount uit, zelfs als het apparaat momenteel in gebruik is."
+
+#: unieject.c:174
+msgid "Unmount device if mounted (default behavior)."
+msgstr "Voer een unmount uit als dit noodzakelijk is (standaard gedrag)."
+
+#: unieject.c:177
+msgid "Force unmount of device."
+msgstr "Forceer unmount van apparaat."
+
+#: unieject.c:179
+msgid "Don't force unmount of device (default behavior)."
+msgstr "Unmount niet forceren (standaard gedrag)."
+
+#: unieject.c:182
+msgid "Ignore capabilities as reported by device."
+msgstr "Negeer de eigenschappen die het apparaat meld te hebben."
+
+#: unieject.c:184
+msgid "Don't ignore capabilities reported by device (default behavior)."
+msgstr "Gebruik de door het apparaat vermelde eigenschappen (standaard gedrag)."
+
+#: unieject.c:187
+msgid "Use an umount wrapper to unmount."
+msgstr "Gebruik een wrapper om de unmount uit te voeren."
+
+#: unieject.c:191
+msgid "Select the access method for libcdio."
+msgstr "Selecteert de toegangsmethode voor libcdio."
+
+#: unieject.c:194
+msgid "Set debugging level for libcdio."
+msgstr "Stelt het debugging-niveau in voor libcdio."
+
+#: unieject.c:198
+msgid "Display version and copyright information and exit."
+msgstr "Toon versie & copyright-informatie en sluit af."
+
+#: unieject.c:201
+msgid "Ignored (classic eject compatibility)."
+msgstr "Wordt genegeerd (om compatibel te zijn met het klassieke eject-commando)."
+
+#: unieject.c:216
+msgid "you can use just one of -x, -c, -l, -L and -d options\n"
+msgstr "u kunt slechts een van de volgende opties gebruiken: -x, -c, -l, -L e -d\n"
+
+#: unieject.c:237
+msgid "further non-option arguments ignored.\n"
+msgstr "verdere argumenten (geen opties) zijn genegeerd.\n"
+
+#: unieject.c:264
+msgid "default to closing tray instead of eject.\n"
+msgstr "sluit standaard de lade in plaats van uitwerpen.\n"
+
+#: unieject.c:273
+#, c-format
+msgid "%s: default device: `%s'\n"
+msgstr "%s: standaard-apparaat: `%s'\n"
+
+#: unieject.c:278
+#, c-format
+msgid "unieject version %s\n"
+msgstr "unieject versie %s\n"
+
+#: unieject.c:279
+#, c-format
+msgid "Copyright (c) 2005-2006 Diego Pettenò\n"
+msgstr "Copyright (c) 2005-2006 Diego Pettenò\n"
+
+#: unieject.c:287
+#, c-format
+msgid "unable to unmount device '%s'.\n"
+msgstr "unmount van apparaat '%s' is niet geslaagd.\n"
+
+#: lib/eject.c:51
+msgid "the selected device doesn't have eject capabilities.\n"
+msgstr "het geselecteerde apparaat heeft geen uitwerp-mogelijkheden.\n"
+
+#: lib/eject.c:57
+msgid "the selected device doesn't have tray close capabilities.\n"
+msgstr "het geselecteerde apparaat heeft geen lade.\n"
+
+#: lib/eject.c:72 lib/lock.c:76
+#, c-format
+msgid "unable to open device descriptor [%s].\n"
+msgstr "kan apparaatbeschrijving [%s] niet openen.\n"
+
+#: lib/eject.c:78 lib/lock.c:82
+#, c-format
+msgid "error in ioctl [%s].\n"
+msgstr "fout in ioctl [%s].\n"
+
+#: lib/freebsd.c:38
+#, c-format
+msgid "error receiving mount information: %s\n"
+msgstr "mount-informatie niet juist ontvangen: %s\n"
+
+#: lib/freebsd.c:53 lib/linux.c:46
+#, c-format
+msgid "'%s' is mounted as '%s'\n"
+msgstr "'%s' is ge-mount als '%s'\n"
+
+#: lib/freebsd.c:62 lib/linux.c:55
+#, c-format
+msgid "'%s' is the mount point of '%s'\n"
+msgstr "'%s' is het mount-punt van '%s'\n"
+
+#: lib/freebsd.c:85
+#, c-format
+msgid "unable to unmount '%s' [%s]\n"
+msgstr "unmount van '%s' is niet mogelijk: [%s]\n"
+
+#: lib/freebsd.c:89
+#, c-format
+msgid "'%s' unmounted from '%s'\n"
+msgstr "'%s' smontato da '%s'\n"
+
+#: lib/lock.c:56
+msgid "the selected device doesn't have locking capabilities.\n"
+msgstr "het geselecteerde apparaat is niet vergrendelbaar.\n"
+
+#: lib/mounts.c:48
+#, c-format
+msgid "using value of EJECT variable '%s'\n"
+msgstr "de waarde van de EJECT-variabele wordt gebruikt: '%s'\n"
+
+#: lib/mounts.c:56
+msgid "using FreeBSD default: 'cd0'\n"
+msgstr "de FreeBSD-standaardwaarde wordt gebruikt: 'cd0'\n"
+
+#: lib/mounts.c:63
+#, c-format
+msgid "using default device '%s'\n"
+msgstr "standaardapparaat '%s' wordt gebruikt\n"
+
+#: lib/mounts.c:66
+#, c-format
+msgid "device name is '%s'\n"
+msgstr "apparaatnaam is '%s'\n"
+
+#: lib/mounts.c:77
+#, c-format
+msgid "expanded name is '%s'\n"
+msgstr "uitgebreide naam is '%s'\n"
+
+#: lib/mounts.c:82
+#, c-format
+msgid "'%s' is a link to '%s'\n"
+msgstr "'%s' is een link naar '%s'\n"
+
+#: lib/mounts.c:97
+#, c-format
+msgid "device is '%s'\n"
+msgstr "apparaat is '%s'\n"
+
+#: lib/mounts.c:109
+#, c-format
+msgid "executing '%s' as umount wrapper.\n"
+msgstr "'%s' wordt uitgevoerd als umount-wrapper.\n"
+
+#: lib/mounts.c:115
+msgid "error executing umount wrapper, ignoring.\n"
+msgstr "fout bij uitvoering van umount-wrapper (genegeerd).\n"
+
+#: lib/open.c:45
+msgid "cannot find CD-Rom driver.\n"
+msgstr "kan geen CD-ROM stuurprogramma vinden.\n"
+
+#: lib/slotchanger.c:42
+msgid "the selected device doesn't have capability to select disc.\n"
+msgstr "het geselecteerde apparaat is geen wisselaar.\n"
+
+#: lib/speed.c:42
+msgid "the selected device doesn't have capability to select speed.\n"
+msgstr "het geselecteerde apparaat ondersteunt geen snelheidsinstelling.\n"
+
+#: lib/speed.c:47
+#, c-format
+msgid "setting CD-ROM speed to %dX\n"
+msgstr "CD-ROM snelheid wordt ingesteld op %dX\n"
+
+#: lib/utils.c:127
+#, c-format
+msgid "unable to execute command (unknown CDIO status: %d)\n"
+msgstr "kan opdracht niet uitvoeren (onbekende CDIO status: %d)\n"
