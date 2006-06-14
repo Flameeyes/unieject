@@ -33,30 +33,18 @@
 
 int libunieject_eject(struct unieject_opts *opts)
 {
-	if ( opts->caps )
+	if ( opts->eject )
 	{
-		// TODO: tell libcdio author about this
-		cdio_drive_misc_cap_t unused, misc_cap;
-		cdio_get_drive_cap((CdIo_t*)opts->cdio, &unused, &unused, &misc_cap);
-
-#ifdef FREEBSD_DRIVER
-		if ( strncmp("/dev/cd", opts->device, 7) != 0 )
-			misc_cap = 0xFFFFFFFF;
-#endif
-
-		if ( opts->eject )
+		if ( ! (unieject_get_misccaps(*opts) & CDIO_DRIVE_CAP_MISC_EJECT) )
 		{
-			if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_EJECT) )
-			{
-				unieject_error(*opts, _("the selected device doesn't have eject capabilities.\n"));
-				return -2;
-			}
-		} else {
-			if ( ! (misc_cap & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
-			{
-				unieject_error(*opts, _("the selected device doesn't have tray close capabilities.\n"));
-				return -2;
-			}
+			unieject_error(*opts, _("the selected device doesn't have eject capabilities.\n"));
+			return -2;
+		}
+	} else {
+		if ( ! (unieject_get_misccaps(*opts) & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
+		{
+			unieject_error(*opts, _("the selected device doesn't have tray close capabilities.\n"));
+			return -2;
 		}
 	}
 	

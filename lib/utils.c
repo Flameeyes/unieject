@@ -25,8 +25,11 @@
 #include <stdlib.h>
 
 #ifdef HAVE_LIBGEN_H
-#	include <libgen.h>
+# include <libgen.h>
 #endif
+
+#include <cdio/device.h>
+
 
 char *simplifylink(const char *orig)
 {
@@ -128,4 +131,39 @@ int unieject_status(const struct unieject_opts opts, int sts)
 	}
 	
 	return -3;
+}
+
+/**
+ * @brief Returns the (workaround'ed) capabilities of a drive
+ *
+ * This function is a wrapper around cdio_get_drive_cap() function from libcdio
+ * that tries to work around situations like FreeBSD's broken capabilities or
+ * USB flash drives passed directly to libcdio.
+ */
+cdio_drive_misc_cap_t unieject_get_misccaps(const struct unieject_opts opts)
+{
+	if ( opts.caps )
+	{
+		cdio_drive_misc_cap_t read_cap, write_cap, misc_cap;
+		cdio_get_drive_cap((CdIo_t*)opts.cdio, &read_cap, &write_cap, &misc_cap);
+		
+		/* In case there's an error reading capabilities or they are
+		   not loaded, then return the full caps (act as we were ignoring
+		   capabilities.
+		   
+		   Also return full capabilities if it can't read CD-R, as we
+		   assume that every CD-Rom drive reads them, and if it doesn't
+		   report it, it might be an USB/SCSI device. */
+		if ( misc_cap & (CDIO_DRIVE_CAP_UNKNOWN|CDIO_DRIVE_CAP_ERROR) ||
+		     ! (read_cap & CDIO_DRIVE_CAP_READ_CD_R) )
+			return 0xFFFFFFFF;
+		
+#ifdef FREEBSD_DRIVER
+		if ( strncmp("/dev/cd", opts.device, 7) != 0 )
+			return 0xFFFFFFFF;
+#endif
+		return misc_cap;
+	}
+	
+	return 0xFFFFFFFF;
 }
