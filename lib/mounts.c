@@ -61,7 +61,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	{
 		normalized = libunieject_defaultdevice();
 		if ( ! normalized )
-			unieject_error(opts, _("no default device identified, exiting."));
+			unieject_error(opts, _("no default device identified, exiting.\n"));
 		else
 			unieject_verbose(opts, _("using default device '%s'\n"), normalized);
 	}
