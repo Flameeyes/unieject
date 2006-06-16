@@ -40,7 +40,7 @@
 
 int libunieject_togglelock(struct unieject_opts *opts, int lock)
 {
-	if ( ! (unieject_get_misccaps(opts) & CDIO_DRIVE_CAP_MISC_LOCK) )
+	if ( ! (unieject_get_misccaps(*opts) & CDIO_DRIVE_CAP_MISC_LOCK) )
 	{
 		unieject_error(*opts, _("the selected device doesn't have locking capabilities.\n"));
 		return -2;
