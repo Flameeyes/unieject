@@ -1,3 +1,16 @@
+16 June 2006: Release 5.3
+-------------------------
+This version adds improved NLS support, with more translations: Dutch, German,
+Brazilian Portuguese, Argentine Spanish. It also fixes a segmentation fault, and
+make ejection of USB flash drives work out of the box (before it asked a bit of
+toying around).
+
+05 June 2006: Release 5.2
+-------------------------
+Fix ejection failure on almost all cases, added support for translations and add
+Italian translation. Let the return code of the umount wrapper to fall ignored
+as it might return error when it's not mounted at all.
+
 30 December 2005: Release 5.1
 -----------------------------
 First service release, mainly replace the old man pages with new ones written in
