@@ -66,7 +66,7 @@ cdio_drive_misc_cap_t INTERNAL unieject_get_misccaps(const struct unieject_opts 
 /* Gettext stuff */
 #include <gettext.h>
 #ifdef ENABLE_NLS
-#	define _(x) gettext(x)
+#	define _(x) dgettext("unieject", x)
 #else
 #	define _(x) x
 #endif
