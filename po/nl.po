@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unieject 5.2\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-05 07:33+0200\n"
+"POT-Creation-Date: 2006-06-16 14:02+0200\n"
 "PO-Revision-Date: 2006-06-08 21:41+0100\n"
 "Last-Translator: Tony 'Chainsaw' Vroon <chainsaw@gentoo.org>\n"
 "Language-Team: (inactive)\n"
@@ -133,20 +133,20 @@ msgstr "Copyright (c) 2005-2006 Diego Pettenò\n"
 msgid "unable to unmount device '%s'.\n"
 msgstr "unmount van apparaat '%s' is niet geslaagd.\n"
 
-#: lib/eject.c:51
+#: lib/eject.c:40
 msgid "the selected device doesn't have eject capabilities.\n"
 msgstr "het geselecteerde apparaat heeft geen uitwerp-mogelijkheden.\n"
 
-#: lib/eject.c:57
+#: lib/eject.c:46
 msgid "the selected device doesn't have tray close capabilities.\n"
 msgstr "het geselecteerde apparaat heeft geen lade.\n"
 
-#: lib/eject.c:72 lib/lock.c:76
+#: lib/eject.c:60 lib/lock.c:64
 #, c-format
 msgid "unable to open device descriptor [%s].\n"
 msgstr "kan apparaatbeschrijving [%s] niet openen.\n"
 
-#: lib/eject.c:78 lib/lock.c:82
+#: lib/eject.c:66 lib/lock.c:70
 #, c-format
 msgid "error in ioctl [%s].\n"
 msgstr "fout in ioctl [%s].\n"
@@ -176,7 +176,7 @@ msgstr "unmount van '%s' is niet mogelijk: [%s]\n"
 msgid "'%s' unmounted from '%s'\n"
 msgstr "'%s' smontato da '%s'\n"
 
-#: lib/lock.c:56
+#: lib/lock.c:45
 msgid "the selected device doesn't have locking capabilities.\n"
 msgstr "het geselecteerde apparaat is niet vergrendelbaar.\n"
 
@@ -189,37 +189,41 @@ msgstr "de waarde van de EJECT-variabele wordt gebruikt: '%s'\n"
 msgid "using FreeBSD default: 'cd0'\n"
 msgstr "de FreeBSD-standaardwaarde wordt gebruikt: 'cd0'\n"
 
-#: lib/mounts.c:63
+#: lib/mounts.c:64
+msgid "no default device identified, exiting.\n"
+msgstr ""
+
+#: lib/mounts.c:66
 #, c-format
 msgid "using default device '%s'\n"
 msgstr "standaardapparaat '%s' wordt gebruikt\n"
 
-#: lib/mounts.c:66
+#: lib/mounts.c:69
 #, c-format
 msgid "device name is '%s'\n"
 msgstr "apparaatnaam is '%s'\n"
 
-#: lib/mounts.c:77
+#: lib/mounts.c:80
 #, c-format
 msgid "expanded name is '%s'\n"
 msgstr "uitgebreide naam is '%s'\n"
 
-#: lib/mounts.c:82
+#: lib/mounts.c:85
 #, c-format
 msgid "'%s' is a link to '%s'\n"
 msgstr "'%s' is een link naar '%s'\n"
 
-#: lib/mounts.c:97
+#: lib/mounts.c:100
 #, c-format
 msgid "device is '%s'\n"
 msgstr "apparaat is '%s'\n"
 
-#: lib/mounts.c:109
+#: lib/mounts.c:112
 #, c-format
 msgid "executing '%s' as umount wrapper.\n"
 msgstr "'%s' wordt uitgevoerd als umount-wrapper.\n"
 
-#: lib/mounts.c:115
+#: lib/mounts.c:118
 msgid "error executing umount wrapper, ignoring.\n"
 msgstr "fout bij uitvoering van umount-wrapper (genegeerd).\n"
 
@@ -227,20 +231,20 @@ msgstr "fout bij uitvoering van umount-wrapper (genegeerd).\n"
 msgid "cannot find CD-Rom driver.\n"
 msgstr "kan geen CD-ROM stuurprogramma vinden.\n"
 
-#: lib/slotchanger.c:42
+#: lib/slotchanger.c:31
 msgid "the selected device doesn't have capability to select disc.\n"
 msgstr "het geselecteerde apparaat is geen wisselaar.\n"
 
-#: lib/speed.c:42
+#: lib/speed.c:31
 msgid "the selected device doesn't have capability to select speed.\n"
 msgstr "het geselecteerde apparaat ondersteunt geen snelheidsinstelling.\n"
 
-#: lib/speed.c:47
+#: lib/speed.c:35
 #, c-format
 msgid "setting CD-ROM speed to %dX\n"
 msgstr "CD-ROM snelheid wordt ingesteld op %dX\n"
 
-#: lib/utils.c:127
+#: lib/utils.c:130
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr "kan opdracht niet uitvoeren (onbekende CDIO status: %d)\n"

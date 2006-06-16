@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-05 07:33+0200\n"
-"PO-Revision-Date: 2006-06-05 07:11+0200\n"
+"POT-Creation-Date: 2006-06-16 14:02+0200\n"
+"PO-Revision-Date: 2006-06-16 14:04+0200\n"
 "Last-Translator: Diego 'Flameeyes' Pettenò <flameeyes@gentoo.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -136,20 +136,20 @@ msgstr "Copyright (c) 2005-2006 Diego Pettenò\n"
 msgid "unable to unmount device '%s'.\n"
 msgstr "impossibile smontare il device '%s'.\n"
 
-#: lib/eject.c:51
+#: lib/eject.c:40
 msgid "the selected device doesn't have eject capabilities.\n"
 msgstr "il dispositivo selezionato non ha capacità di espulsione.\n"
 
-#: lib/eject.c:57
+#: lib/eject.c:46
 msgid "the selected device doesn't have tray close capabilities.\n"
 msgstr "il dispositivo selezionato non ha capacità di chiusura del cassetto.\n"
 
-#: lib/eject.c:72 lib/lock.c:76
+#: lib/eject.c:60 lib/lock.c:64
 #, c-format
 msgid "unable to open device descriptor [%s].\n"
 msgstr "impossibile aprire il descrittore del dispositivo [%s].\n"
 
-#: lib/eject.c:78 lib/lock.c:82
+#: lib/eject.c:66 lib/lock.c:70
 #, c-format
 msgid "error in ioctl [%s].\n"
 msgstr "errore nella ioctl [%s].\n"
@@ -179,7 +179,7 @@ msgstr "impossibile smontare '%s' [%s]\n"
 msgid "'%s' unmounted from '%s'\n"
 msgstr "'%s' smontato da '%s'\n"
 
-#: lib/lock.c:56
+#: lib/lock.c:45
 msgid "the selected device doesn't have locking capabilities.\n"
 msgstr "il dispositivo selezionato non ha capacità di bloccaggio.\n"
 
@@ -192,37 +192,41 @@ msgstr "utilizzando il valore della variabile EJECT '%s'\n"
 msgid "using FreeBSD default: 'cd0'\n"
 msgstr "usando il valore predfinito per FreeBSD: 'cd0'\n"
 
-#: lib/mounts.c:63
+#: lib/mounts.c:64
+msgid "no default device identified, exiting.\n"
+msgstr "nessun dispositivo predefinito identificato, interruzione del programma.\n"
+
+#: lib/mounts.c:66
 #, c-format
 msgid "using default device '%s'\n"
 msgstr "utilizzando il dispositivo predefinito '%s'\n"
 
-#: lib/mounts.c:66
+#: lib/mounts.c:69
 #, c-format
 msgid "device name is '%s'\n"
 msgstr "il nome del dispositivo è '%s'\n"
 
-#: lib/mounts.c:77
+#: lib/mounts.c:80
 #, c-format
 msgid "expanded name is '%s'\n"
 msgstr "il nome espanso è '%s'\n"
 
-#: lib/mounts.c:82
+#: lib/mounts.c:85
 #, c-format
 msgid "'%s' is a link to '%s'\n"
 msgstr "'%s' è un collegamento a '%s'\n"
 
-#: lib/mounts.c:97
+#: lib/mounts.c:100
 #, c-format
 msgid "device is '%s'\n"
 msgstr "il dispositivo è '%s'\n"
 
-#: lib/mounts.c:109
+#: lib/mounts.c:112
 #, c-format
 msgid "executing '%s' as umount wrapper.\n"
 msgstr "esecuzione di '%s' come wrapper di smontaggio.\n"
 
-#: lib/mounts.c:115
+#: lib/mounts.c:118
 msgid "error executing umount wrapper, ignoring.\n"
 msgstr "errore nell'esecuzione del wrapper di smontaggio (ignorato).\n"
 
@@ -230,20 +234,21 @@ msgstr "errore nell'esecuzione del wrapper di smontaggio (ignorato).\n"
 msgid "cannot find CD-Rom driver.\n"
 msgstr "impossibile trovare il driver CD-Rom.\n"
 
-#: lib/slotchanger.c:42
+#: lib/slotchanger.c:31
 msgid "the selected device doesn't have capability to select disc.\n"
 msgstr "il dispositivo selezionato non ha capacità di selezione disco.\n"
 
-#: lib/speed.c:42
+#: lib/speed.c:31
 msgid "the selected device doesn't have capability to select speed.\n"
 msgstr "il dispositivo selezionato non ha capacità di selezione velocità.\n"
 
-#: lib/speed.c:47
+#: lib/speed.c:35
 #, c-format
 msgid "setting CD-ROM speed to %dX\n"
 msgstr "impostazione della velocità del CD-Rom a '%dX\n"
 
-#: lib/utils.c:127
+#: lib/utils.c:130
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr "impossibile eseguire il comando (stato CDIO sconosciuto: %d)\n"
+

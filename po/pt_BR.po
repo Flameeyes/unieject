@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 5.2\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-05 07:33+0200\n"
+"POT-Creation-Date: 2006-06-16 14:02+0200\n"
 "PO-Revision-Date: 2006-06-10 20:18-0300\n"
 "Last-Translator: Benigno B. Junior <bbj@gentoo.org>\n"
 "Language-Team: Português do Brasil\n"
@@ -132,20 +132,20 @@ msgstr ""
 msgid "unable to unmount device '%s'.\n"
 msgstr ""
 
-#: lib/eject.c:51
+#: lib/eject.c:40
 msgid "the selected device doesn't have eject capabilities.\n"
 msgstr ""
 
-#: lib/eject.c:57
+#: lib/eject.c:46
 msgid "the selected device doesn't have tray close capabilities.\n"
 msgstr ""
 
-#: lib/eject.c:72 lib/lock.c:76
+#: lib/eject.c:60 lib/lock.c:64
 #, c-format
 msgid "unable to open device descriptor [%s].\n"
 msgstr ""
 
-#: lib/eject.c:78 lib/lock.c:82
+#: lib/eject.c:66 lib/lock.c:70
 #, c-format
 msgid "error in ioctl [%s].\n"
 msgstr ""
@@ -175,7 +175,7 @@ msgstr ""
 msgid "'%s' unmounted from '%s'\n"
 msgstr ""
 
-#: lib/lock.c:56
+#: lib/lock.c:45
 msgid "the selected device doesn't have locking capabilities.\n"
 msgstr ""
 
@@ -188,37 +188,41 @@ msgstr ""
 msgid "using FreeBSD default: 'cd0'\n"
 msgstr ""
 
-#: lib/mounts.c:63
-#, c-format
-msgid "using default device '%s'\n"
+#: lib/mounts.c:64
+msgid "no default device identified, exiting.\n"
 msgstr ""
 
 #: lib/mounts.c:66
 #, c-format
+msgid "using default device '%s'\n"
+msgstr ""
+
+#: lib/mounts.c:69
+#, c-format
 msgid "device name is '%s'\n"
 msgstr ""
 
-#: lib/mounts.c:77
+#: lib/mounts.c:80
 #, c-format
 msgid "expanded name is '%s'\n"
 msgstr ""
 
-#: lib/mounts.c:82
+#: lib/mounts.c:85
 #, c-format
 msgid "'%s' is a link to '%s'\n"
 msgstr ""
 
-#: lib/mounts.c:97
+#: lib/mounts.c:100
 #, c-format
 msgid "device is '%s'\n"
 msgstr ""
 
-#: lib/mounts.c:109
+#: lib/mounts.c:112
 #, c-format
 msgid "executing '%s' as umount wrapper.\n"
 msgstr ""
 
-#: lib/mounts.c:115
+#: lib/mounts.c:118
 msgid "error executing umount wrapper, ignoring.\n"
 msgstr ""
 
@@ -226,20 +230,20 @@ msgstr ""
 msgid "cannot find CD-Rom driver.\n"
 msgstr ""
 
-#: lib/slotchanger.c:42
+#: lib/slotchanger.c:31
 msgid "the selected device doesn't have capability to select disc.\n"
 msgstr ""
 
-#: lib/speed.c:42
+#: lib/speed.c:31
 msgid "the selected device doesn't have capability to select speed.\n"
 msgstr ""
 
-#: lib/speed.c:47
+#: lib/speed.c:35
 #, c-format
 msgid "setting CD-ROM speed to %dX\n"
 msgstr ""
 
-#: lib/utils.c:127
+#: lib/utils.c:130
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr ""
