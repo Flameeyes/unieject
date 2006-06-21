@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-16 14:02+0200\n"
+"POT-Creation-Date: 2006-06-21 21:44+0200\n"
 "PO-Revision-Date: 2006-06-16 14:04+0200\n"
 "Last-Translator: Diego 'Flameeyes' Pettenò <flameeyes@gentoo.org>\n"
 "Language-Team: Italian\n"
@@ -194,39 +194,40 @@ msgstr "usando il valore predfinito per FreeBSD: 'cd0'\n"
 
 #: lib/mounts.c:64
 msgid "no default device identified, exiting.\n"
-msgstr "nessun dispositivo predefinito identificato, interruzione del programma.\n"
+msgstr ""
+"nessun dispositivo predefinito identificato, interruzione del programma.\n"
 
-#: lib/mounts.c:66
+#: lib/mounts.c:67
 #, c-format
 msgid "using default device '%s'\n"
 msgstr "utilizzando il dispositivo predefinito '%s'\n"
 
-#: lib/mounts.c:69
+#: lib/mounts.c:70
 #, c-format
 msgid "device name is '%s'\n"
 msgstr "il nome del dispositivo è '%s'\n"
 
-#: lib/mounts.c:80
+#: lib/mounts.c:81
 #, c-format
 msgid "expanded name is '%s'\n"
 msgstr "il nome espanso è '%s'\n"
 
-#: lib/mounts.c:85
+#: lib/mounts.c:86
 #, c-format
 msgid "'%s' is a link to '%s'\n"
 msgstr "'%s' è un collegamento a '%s'\n"
 
-#: lib/mounts.c:100
+#: lib/mounts.c:101
 #, c-format
 msgid "device is '%s'\n"
 msgstr "il dispositivo è '%s'\n"
 
-#: lib/mounts.c:112
+#: lib/mounts.c:113
 #, c-format
 msgid "executing '%s' as umount wrapper.\n"
 msgstr "esecuzione di '%s' come wrapper di smontaggio.\n"
 
-#: lib/mounts.c:118
+#: lib/mounts.c:119
 msgid "error executing umount wrapper, ignoring.\n"
 msgstr "errore nell'esecuzione del wrapper di smontaggio (ignorato).\n"
 
@@ -251,4 +252,3 @@ msgstr "impostazione della velocità del CD-Rom a '%dX\n"
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr "impossibile eseguire il comando (stato CDIO sconosciuto: %d)\n"
-

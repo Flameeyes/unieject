@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es_AR\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-16 14:02+0200\n"
+"POT-Creation-Date: 2006-06-21 21:44+0200\n"
 "PO-Revision-Date: 2006-06-09 18:50-0300\n"
 "Last-Translator: Javier Villavicencio <javier.paya@gmail.com>\n"
 "Language-Team: Spanish Argentina\n"
@@ -194,37 +194,37 @@ msgstr "usando el predeterminado de FreeBSD: 'cd0'\n"
 msgid "no default device identified, exiting.\n"
 msgstr ""
 
-#: lib/mounts.c:66
+#: lib/mounts.c:67
 #, c-format
 msgid "using default device '%s'\n"
 msgstr "usando el dispositivo predeterminado '%s'\n"
 
-#: lib/mounts.c:69
+#: lib/mounts.c:70
 #, c-format
 msgid "device name is '%s'\n"
 msgstr "el nombre del dispositivo es '%s'\n"
 
-#: lib/mounts.c:80
+#: lib/mounts.c:81
 #, c-format
 msgid "expanded name is '%s'\n"
 msgstr "nombre expandido es '%s'\n"
 
-#: lib/mounts.c:85
+#: lib/mounts.c:86
 #, c-format
 msgid "'%s' is a link to '%s'\n"
 msgstr "'%s' es un enlace a '%s'\n"
 
-#: lib/mounts.c:100
+#: lib/mounts.c:101
 #, c-format
 msgid "device is '%s'\n"
 msgstr "dispositivo es '%s'\n"
 
-#: lib/mounts.c:112
+#: lib/mounts.c:113
 #, c-format
 msgid "executing '%s' as umount wrapper.\n"
 msgstr "ejecutando '%s' como intermediario de umount.\n"
 
-#: lib/mounts.c:118
+#: lib/mounts.c:119
 msgid "error executing umount wrapper, ignoring.\n"
 msgstr "error ejecutando el wrapper de umount, ignorando.\n"
 
