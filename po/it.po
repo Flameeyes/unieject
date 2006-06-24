@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-24 03:59+0200\n"
-"PO-Revision-Date: 2006-06-16 14:04+0200\n"
+"POT-Creation-Date: 2006-06-24 06:52+0200\n"
+"PO-Revision-Date: 2006-06-24 06:51+0200\n"
 "Last-Translator: Diego 'Flameeyes' Pettenò <flameeyes@gentoo.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -27,129 +27,151 @@ msgid "Close CD-Rom tray."
 msgstr "Chiude il cassetto del CD-Rom."
 
 #: unieject.c:151
+msgid "Toggle tray open/close."
+msgstr "Scambia apertura/chiusura cassetto."
+
+#: unieject.c:153
 msgid "Set CD-Rom max speed."
 msgstr "Imposta la velocità massima del CD-Rom."
 
-#: unieject.c:154
+#: unieject.c:156
 msgid "Switch discs on a CD-ROM changer."
 msgstr "Scambia dischi su un CD-Rom changer."
 
-#: unieject.c:157
+#: unieject.c:159
 msgid "Lock the CD-Rom drive."
 msgstr "Blocca il drive CD-Rom."
 
-#: unieject.c:159
+#: unieject.c:161
 msgid "Unlock the CD-Rom drive."
 msgstr "Sblocca il drive CD-Rom."
 
-#: unieject.c:162
+#: unieject.c:164
 msgid "Don't eject, just show device found."
 msgstr "Non espellere, mostra solo il dispositivo trovato."
 
-#: unieject.c:164
+#: unieject.c:166
 msgid "Display default device."
 msgstr "Mostra il dispositivo di default."
 
-#: unieject.c:167
+#: unieject.c:169
 msgid "Enable verbose output."
 msgstr "Abilita output dettagliato."
 
-#: unieject.c:169
+#: unieject.c:171
 msgid "Disable output of error messages."
 msgstr "Disattiva l'output dei messaggi di errore."
 
-#: unieject.c:172
+#: unieject.c:174
 msgid "Do not umount device even if it is mounted."
 msgstr "Non smontare il dispositivo anche se è montato."
 
-#: unieject.c:174
+#: unieject.c:176
 msgid "Unmount device if mounted (default behavior)."
 msgstr "Smonta il device se è montato (comportamento predefinito)."
 
-#: unieject.c:177
+#: unieject.c:179
 msgid "Force unmount of device."
 msgstr "Forza lo smontaggio del dispositivo."
 
-#: unieject.c:179
+#: unieject.c:181
 msgid "Don't force unmount of device (default behavior)."
 msgstr "Non forzare lo smontaggio del dispositivo (comportamento predefinito)."
 
-#: unieject.c:182
+#: unieject.c:184
 msgid "Ignore capabilities as reported by device."
 msgstr "Ignora le capacità riportate dal dispositivo."
 
-#: unieject.c:184
+#: unieject.c:186
 msgid "Don't ignore capabilities reported by device (default behavior)."
 msgstr ""
 "Non ignorare le capacità riportate dal dispositivo (comportamento "
 "predefinito)."
 
-#: unieject.c:187
+#: unieject.c:189
 msgid "Use an umount wrapper to unmount."
 msgstr "Usa un wrapper per smontare."
 
-#: unieject.c:191
+#: unieject.c:193
 msgid "Select the access method for libcdio."
 msgstr "Seleziona il metodo di accesso per libcdio."
 
-#: unieject.c:194
+#: unieject.c:196
 msgid "Set debugging level for libcdio."
 msgstr "Imposta il livello di messaggi di debug per libcdio."
 
-#: unieject.c:198
+#: unieject.c:200
 msgid "Display version and copyright information and exit."
 msgstr "Visualizza la versione e le informazioni di copyright ed esci."
 
-#: unieject.c:201 unieject.c:203
+#: unieject.c:203
 msgid "Ignored (classic eject compatibility)."
 msgstr "Ignorato (compatibilità con eject classico)."
 
-#: unieject.c:218
+#: unieject.c:205 unieject.c:207 unieject.c:209 unieject.c:211 unieject.c:213
+msgid "Ignored"
+msgstr "Ignorato"
+
+#: unieject.c:228
 msgid "you can use just one of -x, -c, -l, -L and -d options\n"
 msgstr "puoi usare una sola tra le opzioni -x, -c, -l, -L e -d\n"
 
-#: unieject.c:239
+#: unieject.c:249
 msgid "further non-option arguments ignored.\n"
 msgstr "ulteriori argomenti (non opzioni) ignorati.\n"
 
-#: unieject.c:266
+#: unieject.c:276
 msgid "default to closing tray instead of eject.\n"
 msgstr "predefinisci la chiusura del cassetto anziché l'espulsione.\n"
 
-#: unieject.c:275
+#: unieject.c:285
 #, c-format
 msgid "%s: default device: `%s'\n"
 msgstr "%s: dispositivo di default: `%s'\n"
 
-#: unieject.c:280
+#: unieject.c:290
 #, c-format
 msgid "unieject version %s\n"
 msgstr "unieject versione %s\n"
 
-#: unieject.c:281
+#: unieject.c:291
 #, c-format
 msgid "Copyright (c) 2005-2006 Diego Pettenò\n"
 msgstr "Copyright (c) 2005-2006 Diego Pettenò\n"
 
-#: unieject.c:289
+#: unieject.c:300
 #, c-format
 msgid "unable to unmount device '%s'.\n"
 msgstr "impossibile smontare il device '%s'.\n"
 
-#: lib/eject.c:40
+#: lib/eject.c:52
+msgid "unable to get the status of the tray.\n"
+msgstr "impossibile ricevere lo stato del cassetto.\n"
+
+#: lib/eject.c:60
+#, c-format
+msgid "%s: closing tray.\n"
+msgstr "%s: chisura cassetto.\n"
+
+#: lib/eject.c:63
+#, c-format
+msgid "%s: ejecting.\n"
+msgstr "%s: espulsione.\n"
+
+#: lib/eject.c:76
 msgid "the selected device doesn't have eject capabilities.\n"
 msgstr "il dispositivo selezionato non ha capacità di espulsione.\n"
 
-#: lib/eject.c:46
+#: lib/eject.c:82
 msgid "the selected device doesn't have tray close capabilities.\n"
 msgstr "il dispositivo selezionato non ha capacità di chiusura del cassetto.\n"
 
-#: lib/eject.c:60 lib/lock.c:64
+#: lib/eject.c:96 lib/lock.c:64
 #, c-format
 msgid "unable to open device descriptor [%s].\n"
 msgstr "impossibile aprire il descrittore del dispositivo [%s].\n"
 
-#: lib/eject.c:66 lib/lock.c:70
+#: lib/eject.c:102 lib/lock.c:70
 #, c-format
 msgid "error in ioctl [%s].\n"
 msgstr "errore nella ioctl [%s].\n"
