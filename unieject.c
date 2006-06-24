@@ -209,6 +209,8 @@ static int parse_options (int argc, const char *argv[])
 		  gettext_noop("Ignored"), NULL },
 		{ "scsi",		's', POPT_ARG_NONE, NULL, OP_IGNORE,
 		  gettext_noop("Ignored"), NULL },
+		{ "auto",		'a', POPT_ARG_NONE, NULL, OP_IGNORE,
+		  gettext_noop("Ignored"), NULL },
 		POPT_AUTOHELP {NULL, 0, 0, NULL, 0, NULL, NULL}
 	};
 
