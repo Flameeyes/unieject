@@ -93,6 +93,20 @@ bool libunieject_open(struct unieject_opts *opts);
 int libunieject_eject(struct unieject_opts *opts);
 
 /**
+ * @brief Toggle the tray between closed and open
+ * @param opts Pointer to options to apply
+ *
+ * @retval 0 Eject successful
+ * @retval -2 Drive doesn't has the capabilities required
+ * @retval -3 Error during ejection
+ *
+ * @note This function is simply a wrapper to @ref libunieject_eject() function,
+ *       that checks if a sector can be read or not to decide whether to open or
+ *       close the tray.
+ */
+int libunieject_traytoggle(struct unieject_opts *opts);
+
+/**
  * @brief Sets the speed of the given CD-ROM device
  * @param opts Options to apply
  *

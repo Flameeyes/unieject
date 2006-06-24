@@ -48,12 +48,11 @@
   eject [-vn] -c <slot> [<name>]        -- switch discs on a CD-ROM changer
 Options:
 *  -r    -- eject CD-ROM
-*  -s    -- eject SCSI device
 *  -f    -- eject floppy
 *  -q    -- eject tape
 Long options:
   -a --auto   -c --changerslot
-  -r --cdrom  -s --scsi  -f --floppy
+  -r --cdrom  -f --floppy
   -q --tape   -V --version
 
 By default tries -r, -s, -f, and -q in order until success.
@@ -70,6 +69,7 @@ enum {
 	OP_VERSION,
 	OP_LOCK,
 	OP_UNLOCK,
+	OP_TOGGLE,
 	OP_ERROR
 };
 
@@ -147,6 +147,8 @@ static int parse_options (int argc, const char *argv[])
 	struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
 		  gettext_noop("Close CD-Rom tray."), NULL },
+		{ "traytoggle",		'T', POPT_ARG_NONE, NULL, OP_TOGGLE,
+		  gettext_noop("Toggle tray open/close."), NULL },
 		{ "speed",		'x', POPT_ARG_INT, &opts.speed, OP_SPEED,
 		  gettext_noop("Set CD-Rom max speed."),
 		  "max_speed" },
@@ -283,6 +285,7 @@ int main(int argc, const char *argv[])
 			return 0;
 		}
 	case OP_CHANGER:
+	case OP_TOGGLE:
 	case OP_IGNORE:
 		if ( ! libunieject_umountdev(opts, opts.device) )
 		{
@@ -312,6 +315,8 @@ int main(int argc, const char *argv[])
 		case OP_UNLOCK:
 			retval = libunieject_togglelock(&opts, 0);
 			break;
+		case OP_TOGGLE:
+			retval = libunieject_traytoggle(&opts);
 		default:
 			retval = libunieject_eject(&opts);
 	}

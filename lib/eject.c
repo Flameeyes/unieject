@@ -31,6 +31,26 @@
 #	include <sys/cdio.h>
 #endif
 
+int libunieject_traytoggle(struct unieject_opts *opts)
+{
+	static char wastebuffer[10]; /* This is just discarded, so static is safe */
+	driver_return_code_t sts = mmc_read_cd((CdIo_t*)opts->cdio, wastebuffer,
+		0, 0, false, false, 0, false, false, false, false, 
+		sizeof(wastebuffer), 1);
+	fprintf(stderr, "mmc_read_cd returned %d\n", sts);
+	
+	if ( sts != DRIVER_OP_SUCCESS )
+	{
+		unieject_verbose(*opts, _("%s: closing tray.\n"), "traytoggle");
+		opts->eject = 0;
+	} else {
+		unieject_verbose(*opts, _("%s: ejecting.\n"), "traytoggle");
+		opts->eject = 1;
+	}
+	
+	return libunieject_eject(opts);
+}
+
 int libunieject_eject(struct unieject_opts *opts)
 {
 	if ( opts->eject )
