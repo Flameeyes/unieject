@@ -1,3 +1,11 @@
+24 June 2006: Release 5.3.1
+---------------------------
+Simple enhancement version, that improves NLS support once again, by removing
+the faulty Brazilian translation, and adding a working Portugues translation,
+and a Spanish translation. It fixes the segmentation fault entirely, and finally
+fixes the segmentation fault. Also, this version ignores --scsi/-s parameters
+to be more compatible with classic eject command.
+
 16 June 2006: Release 5.3
 -------------------------
 This version adds improved NLS support, with more translations: Dutch, German,
