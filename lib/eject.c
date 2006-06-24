@@ -33,13 +33,29 @@
 
 int libunieject_traytoggle(struct unieject_opts *opts)
 {
-	static char wastebuffer[10]; /* This is just discarded, so static is safe */
-	driver_return_code_t sts = mmc_read_cd((CdIo_t*)opts->cdio, wastebuffer,
-		0, 0, false, false, 0, false, false, false, false, 
-		sizeof(wastebuffer), 1);
-	fprintf(stderr, "mmc_read_cd returned %d\n", sts);
+	mmc_cdb_t cdb = { {0, } };
+	uint8_t buffer[8] = { 0, };
 	
-	if ( sts != DRIVER_OP_SUCCESS )
+	CDIO_MMC_SET_COMMAND(cdb.field, CDIO_MMC_GPCMD_GET_EVENT_STATUS);
+	
+	/* Setup to read header, to get length of data */
+	CDIO_MMC_SET_READ_LENGTH16(cdb.field, sizeof(buffer));
+	
+	cdb.field[1] = 1;	/* Information */
+	cdb.field[4] = 1 << 4;	/* Media/tray events */
+	
+	int status = mmc_run_cmd((CdIo_t*)opts->cdio, mmc_timeout_ms, &cdb,
+		SCSI_MMC_DATA_READ, sizeof(buffer), buffer);
+	
+	if ( status != 0 )
+	{
+		unieject_error(*opts, _("unable to get the status of the tray.\n"));
+		return -1;
+	}
+	
+	/* The first bit of the fifth byte in the read buffer represents the
+	 * status of the tray: 1 is open, 0 is closed. */
+	if ( buffer[5] & 0x1 )
 	{
 		unieject_verbose(*opts, _("%s: closing tray.\n"), "traytoggle");
 		opts->eject = 0;

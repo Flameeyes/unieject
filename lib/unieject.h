@@ -101,8 +101,9 @@ int libunieject_eject(struct unieject_opts *opts);
  * @retval -3 Error during ejection
  *
  * @note This function is simply a wrapper to @ref libunieject_eject() function,
- *       that checks if a sector can be read or not to decide whether to open or
- *       close the tray.
+ *       that checks if the tray is open or closed before actually calling the
+ *       close or open function. This relies on the hardware being able to
+ *       provide those information (MMC-2).
  */
 int libunieject_traytoggle(struct unieject_opts *opts);
 
