@@ -163,6 +163,36 @@
           </arg>
           
           <arg choice="plain">
+            <option>--traytoggle</option>
+          </arg>
+          <arg choice="opt">
+            <replaceable>device or mountpoint</replaceable>
+          </arg>
+        </cmdsynopsis>
+        
+        <cmdsynopsis>
+          <command>unieject</command>
+          <arg choice="opt">
+            <option>--noop</option>
+          </arg>
+          <arg choice="opt">
+            <option>--verbose</option>
+            <option>--quiet</option>
+          </arg>
+          <arg choice="opt">
+            <option>--ignore-caps</option>
+            <option>--no-ignore-caps</option>
+          </arg>
+          <arg choice="opt">
+            <option>--accessmode</option>
+            <replaceable>mode</replaceable>
+          </arg>
+          <arg choice="opt">
+            <option>--debugcdio</option>
+            <replaceable>level</replaceable>
+          </arg>
+          
+          <arg choice="plain">
             <option>--speed</option>
             <replaceable>speed</replaceable>
           </arg>
@@ -199,6 +229,18 @@
             <listitem>
               <para>
                 Close the tray of the drive instead of ejecting the CD in it.
+              </para>
+            </listitem>
+          </varlistentry>
+        
+          <varlistentry>
+            <term><option>--traytoggle</option></term>
+            <term><option>-T</option></term>
+            <listitem>
+              <para>
+                If the tray is closed, eject, if it's open, close the tray. This
+                function relies on the drive being able to provide the tray
+                information.
               </para>
             </listitem>
           </varlistentry>
