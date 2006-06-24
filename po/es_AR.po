@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Javier Villavicencio <javier.paya@gmail.com>
 #
-#, fuzzy
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: es_AR\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
 "POT-Creation-Date: 2006-06-24 03:59+0200\n"
-"PO-Revision-Date: 2006-06-09 18:50-0300\n"
+"PO-Revision-Date: 2006-06-24 04:07+0200\n"
 "Last-Translator: Javier Villavicencio <javier.paya@gmail.com>\n"
 "Language-Team: Spanish Argentina\n"
 "MIME-Version: 1.0\n"
@@ -192,7 +192,7 @@ msgstr "usando el predeterminado de FreeBSD: 'cd0'\n"
 
 #: lib/mounts.c:64
 msgid "no default device identified, exiting.\n"
-msgstr ""
+msgstr "no se ha identificado ningún dispositivo predeterminado, saliendo.\n"
 
 #: lib/mounts.c:67
 #, c-format
