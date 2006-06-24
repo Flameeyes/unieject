@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-06-21 21:44+0200\n"
+"POT-Creation-Date: 2006-06-24 03:59+0200\n"
 "PO-Revision-Date: 2006-06-24 03:37+0200\n"
 "Last-Translator: Luis Medinas <metalgod@gentoo.org>\n"
 "Language-Team: Portugues\n"
@@ -97,38 +97,38 @@ msgstr "Colocar o nível de debugging para a libcdio"
 msgid "Display version and copyright information and exit."
 msgstr "Mostrar a versão, informação dos direitos de cópia e sair"
 
-#: unieject.c:201
+#: unieject.c:201 unieject.c:203
 msgid "Ignored (classic eject compatibility)."
 msgstr "Ignorado (compatibilidade classica de eject)"
 
-#: unieject.c:216
+#: unieject.c:218
 msgid "you can use just one of -x, -c, -l, -L and -d options\n"
 msgstr "pode usar uma das opções -x, -c, -l, -L e -d\n"
 
-#: unieject.c:237
+#: unieject.c:239
 msgid "further non-option arguments ignored.\n"
 msgstr "alguns argumentos não opcionais ignorados. \n"
 
-#: unieject.c:264
+#: unieject.c:266
 msgid "default to closing tray instead of eject.\n"
 msgstr "fechar o prato por omissão em vez de ejectar.\n"
 
-#: unieject.c:273
+#: unieject.c:275
 #, c-format
 msgid "%s: default device: `%s'\n"
 msgstr "%s: device por omissão: `%s'\n"
 
-#: unieject.c:278
+#: unieject.c:280
 #, c-format
 msgid "unieject version %s\n"
 msgstr "unieject versão %s\n"
 
-#: unieject.c:279
+#: unieject.c:281
 #, c-format
 msgid "Copyright (c) 2005-2006 Diego Pettenò\n"
 msgstr "Copyright (c) 2005-2006 Diego Pettenò\n"
 
-#: unieject.c:287
+#: unieject.c:289
 #, c-format
 msgid "unable to unmount device '%s'.\n"
 msgstr "não pode fazer unmount do device '%s'.\n"
