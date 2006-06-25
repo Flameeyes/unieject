@@ -287,8 +287,11 @@ int main(int argc, const char *argv[])
 		}
 	case OP_VERSION: {
 			printf(_("unieject version %s\n"), PACKAGE_VERSION);
-			printf(_("Copyright (c) 2005-2006 Diego Pettenò\n"));
-			
+			printf("Copyright (C) 2005-2006 Diego Pettenò\n");
+			printf("This is free software.  You may redistribute copies of it under the terms of\n"
+				"the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
+				"There is NO WARRANTY, to the extent permitted by law.\n");
+
 			return 0;
 		}
 	case OP_CHANGER:
