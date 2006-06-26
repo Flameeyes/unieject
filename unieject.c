@@ -140,8 +140,8 @@ static void parse_configuration()
 /* Parse a all options. */
 static int parse_options (int argc, const char *argv[])
 {
-	char tmpopt;
-	char opt = OP_IGNORE; /* used for argument parsing */
+	int8_t tmpopt;
+	int8_t opt = OP_IGNORE; /* used for argument parsing */
 	
 	struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
