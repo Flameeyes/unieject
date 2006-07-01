@@ -25,9 +25,6 @@ esac
 
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([LIBCDIO], [libcdio >= $libcdiomin])
-AC_SUBST(LIBCDIO_CFLAGS)
-AC_SUBST(LIBCDIO_LDFLAGS)
-AC_SUBST(LIBCDIO_LIBS)
 
 AC_ARG_WITH([libconfuse], [AS_HELP_STRING([--without-libconfuse],
 	[Don't use libconfuse for configuration file])])
@@ -36,14 +33,8 @@ if test "x$with_libconfuse" != "xno"; then
 	PKG_CHECK_MODULES([CONFUSE], [libconfuse >= 2.5])
 	AC_DEFINE([HAVE_LIBCONFUSE], 1, [Define if building with libconfuse])
 fi
-AC_SUBST(CONFUSE_CFLAGS)
-AC_SUBST(CONFUSE_LDFLAGS)
-AC_SUBST(CONFUSE_LIBS)
 
 AM_PATH_LIBPOPT(, [AC_MSG_ERROR([libpopt is needed to build unieject])])
-AC_SUBST(LIBPOPT_CFLAGS)
-AC_SUBST(LIBPOPT_LDFLAGS)
-AC_SUBST(LIBPOPT_LIBS)
 
 dnl Mandatory functions and headers
 AC_CHECK_HEADERS([stdlib.h unistd.h stdio.h string.h unistd.h])
