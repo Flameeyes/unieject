@@ -1,13 +1,47 @@
-SUBDIRS = po lib manpages m4
+SUBDIRS = po manpages m4
 
 localedir = $(datadir)/locale
-
-bin_PROGRAMS = unieject
 
 INCLUDES = $(all_includes) -I$(top_srcdir)/lib
 DEFS = -DLOCALEDIR=\"$(localedir)\" \
 	-DSYSCONFDIR=\"$(sysconfdir)\"
 
+libincludedir = $(includedir)/unieject
+libinclude_HEADERS = lib/unieject.h
+
+noinst_HEADERS = lib/unieject_internal.h lib/gettext.h
+
+if LINUX
+platformsrcs = lib/linux.c
+endif
+if FREEBSD
+platformsrcs = lib/freebsd.c
+endif
+
+lib_LTLIBRARIES = libunieject.la
+libunieject_la_SOURCES = \
+	lib/eject.c \
+	lib/mounts.c \
+	lib/utils.c \
+	lib/speed.c \
+	lib/open.c \
+	lib/slotchanger.c \
+	lib/lock.c \
+	$(platformsrcs)
+
+libunieject_la_CURRENT := 3
+libunieject_la_REVISION := 0
+libunieject_la_AGE := 0
+
+libunieject_la_CFLAGS = $(C99FLAGS) $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
+libunieject_la_LDFLAGS = $(AM_LDFLAGS) $(EXP_LDFLAGS) $(LIBCDIO_LDFLAGS) --no-undefined \
+	-version-info $(libunieject_la_CURRENT):$(libunieject_la_REVISION):$(libunieject_la_AGE) \
+libunieject_la_LIBADD = $(AM_LDADD) $(LIBCDIO_LIBS) $(LTLIBINTL)
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = lib/libunieject.pc
+
+bin_PROGRAMS = unieject
 unieject_SOURCES = unieject.c lib/utils.c
 unieject_CFLAGS = $(AM_CFLAGS) \
 	$(LIBCDIO_CFLAGS) \
@@ -26,7 +60,7 @@ unieject_LDADD = $(AM_LDADD) \
 	$(LIBPOPT_LIBS) \
 	$(CONFUSE_LIBS) \
 	$(LTLIBINTL) \
-	$(top_builddir)/lib/libunieject.la
+	libunieject.la
 
 loadcd: unieject
 	rm -f loadcd

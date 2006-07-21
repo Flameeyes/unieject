@@ -107,7 +107,6 @@ AC_SUBST(EXP_LDFLAGS)
 
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([Makefile
-	lib/Makefile
 	manpages/Makefile
 	m4/Makefile
 	lib/libunieject.pc])
