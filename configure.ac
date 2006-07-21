@@ -44,7 +44,7 @@ AC_CHECK_FUNCS([perror strerror readlink dirname strdup],, [
 
 dnl Optional functions
 AC_CHECK_HEADERS([libgen.h])
-AC_CHECK_FUNCS([getenv umount2])
+AC_CHECK_FUNCS([getenv umount2 setlocale])
 
 AC_ARG_ENABLE([lock-workaround],
 	AS_HELP_STRING([--enable-lock-workaround], [Enable Linux CD-Rom lock workaround]))

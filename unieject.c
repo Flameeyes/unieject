@@ -253,8 +253,11 @@ static int parse_options (int argc, const char *argv[])
 
 int main(int argc, const char *argv[])
 {
-#ifdef ENABLE_NLS
+#ifdef HAVE_SETLOCALE
 	setlocale (LC_ALL, "");
+#endif
+
+#ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, LOCALEDIR);
 	textdomain (PACKAGE);
 #endif
