@@ -41,22 +41,6 @@
 #include <locale.h>
 #endif
 
-/*
-  eject -V                              -- display program version and exit
-  eject [-vn] -a on|off|1|0 [<name>]    -- turn auto-eject feature on or off
-  eject [-vn] -c <slot> [<name>]        -- switch discs on a CD-ROM changer
-Options:
-*  -r    -- eject CD-ROM
-*  -f    -- eject floppy
-*  -q    -- eject tape
-Long options:
-  -a --auto   -c --changerslot
-  -r --cdrom  -f --floppy
-  -q --tape   -V --version
-
-By default tries -r, -s, -f, and -q in order until success.
-*/
-
 struct unieject_opts opts;
 static poptContext optCon = NULL;
 
