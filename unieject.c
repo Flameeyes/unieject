@@ -76,8 +76,8 @@ void init_opts()
 
 void cleanup()
 {
-	if ( opts.progname ) free(opts.progname);
-	if ( opts.device ) free(opts.device);
+	free(opts.progname);
+	free(opts.device);
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
 	if ( optCon ) poptFreeContext(optCon);
 }
