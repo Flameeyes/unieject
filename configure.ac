@@ -1,4 +1,4 @@
-AC_PREREQ(2.59)
+AC_PREREQ(2.60)
 AC_INIT([unieject], [5.3.1], [flameeyes@gentoo.org])
 AC_SUBST(PACKAGE_TARNAME)
 
