@@ -1,3 +1,11 @@
+21 July 2006: Release 5.3.2
+-------------------------
+Implementation of --traytoggle option, as for latest eject releases. Fix for
+running on PowerPC and other platforms where chars are unsigned. Fix a few
+bashisms in the configure script, and make gsed now optional. Add XHTML
+documentation of unieject(1) and unieject.conf(5). Build system reorganisation
+to build faster with parallel make.
+
 24 June 2006: Release 5.3.1
 ---------------------------
 Simple enhancement version, that improves NLS support once again, by removing

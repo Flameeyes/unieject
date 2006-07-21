@@ -1,8 +1,8 @@
 AC_PREREQ(2.60)
-AC_INIT([unieject], [5.3.1], [flameeyes@gentoo.org])
+AC_INIT([unieject], [5.3.2], [flameeyes@gentoo.org])
 AC_SUBST(PACKAGE_TARNAME)
 
-AM_INIT_AUTOMAKE([unieject], [5.3.1])
+AM_INIT_AUTOMAKE([unieject], [5.3.2])
 AM_CONFIG_HEADER([config.h])
 
 AC_GNU_SOURCE
