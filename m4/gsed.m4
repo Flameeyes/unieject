@@ -11,7 +11,7 @@ AC_DEFUN([GNU_PROG_SED], [
 		 done
 		])
 	
-	if test "x$gnu_cv_prog_sed" == "xno"; then
+	if test "x$gnu_cv_prog_sed" = "xno"; then
 		true
 		$2
 	else

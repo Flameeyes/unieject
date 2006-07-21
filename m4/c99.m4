@@ -41,7 +41,7 @@ AC_DEFUN([LANG_C99], [
 		CFLAGS="$save_CFLAGS"
 		])
 
-	if test "x$c99_cv_support" == "xno"; then
+	if test "x$c99_cv_support" = "xno"; then
 		true
 		$2
 	else
