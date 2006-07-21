@@ -37,7 +37,7 @@
 #endif
 
 #include <gettext.h>
-#ifdef ENABLE_NLS
+#ifdef HAVE_SETLOCALE
 #include <locale.h>
 #endif
 
