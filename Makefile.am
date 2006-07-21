@@ -45,6 +45,7 @@ DISTCLEANFILES = ChangeLog
 cltimestamp:
 	touch cltimestamp
 
+if REGEN_CHANGELOG
 ChangeLog: cltimestamp
 	@if test -d $(top_srcdir)/.svn; then \
 		svn up $(top_srcdir); \
@@ -56,6 +57,10 @@ ChangeLog: cltimestamp
 		touch ChangeLog; \
 	fi
 	rm cltimestamp
+else
+ChangeLog:
+	echo "Unable to regenerate" > ChangeLog
+endif
 
 install-exec-hook: loadcd
 	rm -f $(DESTDIR)$(bindir)/loadcd

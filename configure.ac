@@ -79,8 +79,11 @@ CC_ATTRIBUTE_VISIBILITY
 CC_FLAG_VISIBILITY([CFLAGS="$CFLAGS -fvisibility=hidden"])
 
 dnl Checking for support programs
-GNU_PROG_SED(, [AC_MSG_FAILURE([GNU sed is needed to build unieject.])])
+GNU_PROG_SED([], [changelog=no])
 AC_SUBST([GSED])
+
+dnl Make sure pre-requisites for ChangeLog regeneration are satisfied
+AM_CONDITIONAL([REGEN_CHANGELOG], [test "x$changelog" != "xno"])
 
 LANG_C99(, [AC_MSG_FAILURE([C99 support is required to build unieject.])])
 
