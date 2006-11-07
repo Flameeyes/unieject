@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unieject 5.2\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2006-07-01 04:31+0200\n"
+"POT-Creation-Date: 2006-07-21 08:44+0200\n"
 "PO-Revision-Date: 2006-06-08 21:41+0100\n"
 "Last-Translator: Tony 'Chainsaw' Vroon <chainsaw@gentoo.org>\n"
 "Language-Team: (inactive)\n"
@@ -13,125 +13,125 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: unieject.c:120 unieject.c:129
+#: unieject.c:104 unieject.c:113
 #, c-format
 msgid "Error parsing configuration file %s\n"
 msgstr "Kan configuratiebestand %s niet verwerken\n"
 
-#: unieject.c:147
+#: unieject.c:131
 msgid "Close CD-Rom tray."
 msgstr "Sluit CD-ROM lade."
 
-#: unieject.c:149
+#: unieject.c:133
 msgid "Toggle tray open/close."
 msgstr ""
 
-#: unieject.c:151
+#: unieject.c:135
 msgid "Set CD-Rom max speed."
 msgstr "Stel CD-ROM maximumsnelheid in."
 
-#: unieject.c:154
+#: unieject.c:138
 msgid "Switch discs on a CD-ROM changer."
 msgstr "Wissel schijven op een CD-wisselaar."
 
-#: unieject.c:157
+#: unieject.c:141
 msgid "Lock the CD-Rom drive."
 msgstr "Vergrendel het CD-ROM station."
 
-#: unieject.c:159
+#: unieject.c:143
 msgid "Unlock the CD-Rom drive."
 msgstr "Ontgrendel het CD-ROM station."
 
-#: unieject.c:162
+#: unieject.c:146
 msgid "Don't eject, just show device found."
 msgstr "Niet uitwerpen, alleen gedetecteerde apparaten tonen."
 
-#: unieject.c:164
+#: unieject.c:148
 msgid "Display default device."
 msgstr "Toon standaardapparaat."
 
-#: unieject.c:167
+#: unieject.c:151
 msgid "Enable verbose output."
 msgstr "Schakel gedetailleerde uitvoer in."
 
-#: unieject.c:169
+#: unieject.c:153
 msgid "Disable output of error messages."
 msgstr "Schakel het tonen van foutberichten uit."
 
-#: unieject.c:172
+#: unieject.c:156
 msgid "Do not umount device even if it is mounted."
 msgstr "Voer geen unmount uit, zelfs als het apparaat momenteel in gebruik is."
 
-#: unieject.c:174
+#: unieject.c:158
 msgid "Unmount device if mounted (default behavior)."
 msgstr "Voer een unmount uit als dit noodzakelijk is (standaard gedrag)."
 
-#: unieject.c:177
+#: unieject.c:161
 msgid "Force unmount of device."
 msgstr "Forceer unmount van apparaat."
 
-#: unieject.c:179
+#: unieject.c:163
 msgid "Don't force unmount of device (default behavior)."
 msgstr "Unmount niet forceren (standaard gedrag)."
 
-#: unieject.c:182
+#: unieject.c:166
 msgid "Ignore capabilities as reported by device."
 msgstr "Negeer de eigenschappen die het apparaat meld te hebben."
 
-#: unieject.c:184
+#: unieject.c:168
 msgid "Don't ignore capabilities reported by device (default behavior)."
 msgstr ""
 "Gebruik de door het apparaat vermelde eigenschappen (standaard gedrag)."
 
-#: unieject.c:187
+#: unieject.c:171
 msgid "Use an umount wrapper to unmount."
 msgstr "Gebruik een wrapper om de unmount uit te voeren."
 
-#: unieject.c:191
+#: unieject.c:175
 msgid "Select the access method for libcdio."
 msgstr "Selecteert de toegangsmethode voor libcdio."
 
-#: unieject.c:194
+#: unieject.c:178
 msgid "Set debugging level for libcdio."
 msgstr "Stelt het debugging-niveau in voor libcdio."
 
-#: unieject.c:198
+#: unieject.c:182
 msgid "Display version and copyright information and exit."
 msgstr "Toon versie & copyright-informatie en sluit af."
 
-#: unieject.c:201
+#: unieject.c:185
 msgid "Ignored (classic eject compatibility)."
 msgstr ""
 "Wordt genegeerd (om compatibel te zijn met het klassieke eject-commando)."
 
-#: unieject.c:203 unieject.c:205 unieject.c:207 unieject.c:209 unieject.c:211
+#: unieject.c:187 unieject.c:189 unieject.c:191 unieject.c:193 unieject.c:195
 msgid "Ignored"
 msgstr ""
 
-#: unieject.c:226
+#: unieject.c:210
 msgid "you can use just one of -x, -c, -l, -L and -d options\n"
 msgstr ""
 "u kunt slechts een van de volgende opties gebruiken: -x, -c, -l, -L e -d\n"
 
-#: unieject.c:247
+#: unieject.c:231
 msgid "further non-option arguments ignored.\n"
 msgstr "verdere argumenten (geen opties) zijn genegeerd.\n"
 
-#: unieject.c:274
+#: unieject.c:261
 msgid "default to closing tray instead of eject.\n"
 msgstr "sluit standaard de lade in plaats van uitwerpen.\n"
 
-#: unieject.c:283
+#: unieject.c:270
 #, c-format
 msgid "%s: default device: `%s'\n"
 msgstr "%s: standaard-apparaat: `%s'\n"
 
-#: unieject.c:288
+#: unieject.c:275
 #, c-format
 msgid "unieject version %s\n"
 msgstr "unieject versie %s\n"
 
-#: unieject.c:301
+#: unieject.c:288
 #, c-format
 msgid "unable to unmount device '%s'.\n"
 msgstr "unmount van apparaat '%s' is niet geslaagd.\n"
