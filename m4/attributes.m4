@@ -207,3 +207,26 @@ AC_DEFUN([CC_ATTRIBUTE_SENTINEL], [
 		$2
 	fi
 ])
+
+AC_DEFUN([CC_ATTRIBUTE_ALIAS], [
+	ac_save_CFLAGS="$CFLAGS"
+	CFLAGS="$CFLAGS -Werror"
+	AC_CACHE_CHECK([if compiler supports __attribute__((weak, alias))],
+		[cc_cv_attribute_alias],
+		[AC_COMPILE_IFELSE([
+			void other_function(void *foo);
+			void some_function(void *foo) __attribute__((weak, alias("other_function")));
+			],
+			[cc_cv_attribute_alias=yes],
+			[cc_cv_attribute_alias=no])
+		])
+	CFLAGS="$ac_save_CFLAGS"
+	
+	if test "x$cc_cv_attribute_alias" = "xyes"; then
+		AC_DEFINE([SUPPORT_ATTRIBUTE_ALIAS], 1, [Define this if the compiler supports the alias attribute])
+		$1
+	else
+		true
+		$2
+	fi
+])
