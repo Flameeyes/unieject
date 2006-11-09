@@ -214,7 +214,7 @@ AC_DEFUN([CC_ATTRIBUTE_ALIAS], [
 	AC_CACHE_CHECK([if compiler supports __attribute__((weak, alias))],
 		[cc_cv_attribute_alias],
 		[AC_COMPILE_IFELSE([
-			void other_function(void *foo);
+			void other_function(void *foo) { }
 			void some_function(void *foo) __attribute__((weak, alias("other_function")));
 			],
 			[cc_cv_attribute_alias=yes],
