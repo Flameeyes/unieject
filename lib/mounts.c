@@ -95,7 +95,17 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	char *mnt = checkmount(opts, &normalized);
 	free(mnt);
 	
-	// TODO: check for mountpoints, devices
+	/* Now check if the device is a partition or a device itself */
+	tmp = rootdevice(opts, normalized);
+	if ( tmp ) /* If the device is a partition rather than a root device */
+	{
+		if ( tmp == (void*)-1 ) return NULL;
+	
+		unieject_verbose(opts, _("'%s' is a partition of device '%s'\n"), normalized, tmp);
+		free(normalized);
+		normalized = tmp;
+		tmp = NULL;
+	}
 	
 	unieject_verbose(opts, _("device is '%s'\n"), normalized);
 	return normalized;

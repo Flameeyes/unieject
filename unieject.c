@@ -231,6 +231,7 @@ static int parse_options (int argc, const char *argv[])
 		unieject_verbose(opts, _("further non-option arguments ignored.\n"));
 	
 	opts.device = libunieject_getdevice(opts, arg_device);
+	if ( ! opts.device ) return OP_ERROR;
 	
 	return opt;
 }

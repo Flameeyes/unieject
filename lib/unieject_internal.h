@@ -57,6 +57,13 @@ char INTERNAL *simplifylink(const char *link) NONNULL();
 char INTERNAL *checkmount(struct unieject_opts opts, char **device) NONNULL();
 bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNULL();
 
+/**
+ * @brief Returns the root device, if the given device is actually a partition
+ * @param opts Options to apply.
+ * @param device Device to check
+ */
+char INTERNAL *rootdev(struct unieject_opts opts, char *device) NONNULL();
+
 void INTERNAL unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 void INTERNAL unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 int INTERNAL unieject_status(const struct unieject_opts opts, int sts);

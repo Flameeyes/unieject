@@ -90,3 +90,9 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 
 	return true;
 }
+
+char *rootdevice(struct unieject_opts opts, char *device)
+{
+	struct stat devstat;
+	int r = stat(device, &devstat);
+}
