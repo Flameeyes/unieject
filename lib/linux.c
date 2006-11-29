@@ -73,7 +73,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 	return ret;
 }
 
-bool internal_umountdev(struct unieject_opts opts, char *device)
+bool internal_umount_partition(struct unieject_opts opts, char *device)
 {
 	char *mnt = NULL;
 	
@@ -93,6 +93,16 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	}
 
 	return true;
+}
+
+/* Implement this as a bypass, to unmount all the partitions */
+bool internal_umountdev(struct unieject_opts opts, char *device)
+{
+	char *rootdev = rootdevice(opts, device);
+	if ( ! rootdev )
+		return internal_umount_partition(opts, device);
+	
+	return false;
 }
 
 char *rootdevice(struct unieject_opts opts, char *device)
