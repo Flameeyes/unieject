@@ -77,12 +77,18 @@ bool internal_umount_partition(struct unieject_opts opts, char *device)
 {
 	char *mnt = NULL;
 	
+	if ( opts.fake )
+	{
+		unieject_verbose(opts, _("unmount '%s'\n"), device);
+		return true;
+	}
+	
 	while ( ( mnt = checkmount(opts, &device) ) )
 	{
 #ifdef HAVE_UMOUNT2
-		if ( ! opts.fake && UNLIKELY(umount2(mnt, opts.force ? MNT_FORCE : 0) == -1) )
+		if ( UNLIKELY(umount2(mnt, opts.force ? MNT_FORCE : 0) == -1) )
 #else
-		if ( ! opts.fake && UNLIKELY(umount(mnt) == -1) )
+		if ( UNLIKELY(umount(mnt) == -1) )
 #endif
 		{
 			unieject_error(opts, "unable to unmount '%s' [%s]\n", mnt, strerror(errno));
