@@ -122,12 +122,11 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 		{
 			char *directory = partitions.gl_pathv[i] + glob_target_len;
 			
-			if ( ! strcmp("holders", directory) )
-				continue;
-			if ( ! strcmp("queue", directory) )
-				continue;
-			if ( ! strcmp("slaves", directory) )
-				continue;
+			if ( ! strcmp("holders", directory) ) continue;
+			if ( ! strcmp("queue", directory) ) continue;
+			if ( ! strcmp("slaves", directory) ) continue;
+			if ( ! strcmp("device", directory) ) continue;
+			if ( ! strcmp("subsystem", directory) ) continue;
 			
 			char *partition = NULL;
 			asprintf(&partition, "/dev/%s", directory );
