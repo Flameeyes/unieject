@@ -98,9 +98,10 @@ bool internal_umount_partition(struct unieject_opts opts, char *device)
 /* Implement this as a bypass, to unmount all the partitions */
 bool internal_umountdev(struct unieject_opts opts, char *device)
 {
+	if ( ! internal_umount_partition(opts, device) ) return false;
+	
 	char *rootdev = rootdevice(opts, device);
-	if ( ! rootdev )
-		return internal_umount_partition(opts, device);
+	if ( ! rootdev ) rootdev = device;
 	
 	char *glob_target = NULL;
 	asprintf(&glob_target, "/sys/block/%s/*", rootdev + (sizeof("/dev/")-1));
@@ -130,6 +131,8 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	}
 	free(glob_target);
 	globfree(&partitions);
+	
+	if ( rootdev != device ) free(rootdev);
 	
 	return true;
 }
