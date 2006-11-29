@@ -114,7 +114,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 
 bool libunieject_umountdev(struct unieject_opts opts, char *device)
 {
-	if ( opts.fake || ! opts.unmount ) return true;
+	if ( ! opts.unmount ) return true;
 	
 	if ( opts.umount_wrapper )
 	{
@@ -123,7 +123,7 @@ bool libunieject_umountdev(struct unieject_opts opts, char *device)
 		unieject_verbose(opts, _("executing '%s' as umount wrapper.\n"), opts.umount_wrapper);
 		asprintf(&cmd, "%s %s", opts.umount_wrapper, device);
 		
-		res = system(cmd);
+		res = ( ! opts.fake ) ? system(cmd) : 0;
 		
 		if ( res != 0 )
 			unieject_verbose(opts, _("error executing umount wrapper, ignoring.\n"));
