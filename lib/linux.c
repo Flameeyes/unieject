@@ -105,24 +105,26 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	
 	char *glob_target = NULL;
 	asprintf(&glob_target, "/sys/block/%s/*", rootdev + (sizeof("/dev/")-1));
+	const size_t glob_target_len = strlen(glob_target)-1; /* -1 is for the * character for the glob */
 	
 	glob_t partitions;
 	int r = glob(glob_target, GLOB_NOESCAPE|GLOB_ONLYDIR, NULL, &partitions);
-	if ( r )
+	if ( r == 0)
 	{
 		unieject_verbose(opts, _("unmounting partitions of '%s'.\n"), rootdev);
 		for(int i = 0; i < partitions.gl_pathc; i++)
 		{
-			if ( ! strcmp("holders", partitions.gl_pathv[i]) )
+			char *directory = partitions.gl_pathv[i] + glob_target_len;
+			
+			if ( ! strcmp("holders", directory) )
 				continue;
-			if ( ! strcmp("queue", partitions.gl_pathv[i]) )
+			if ( ! strcmp("queue", directory) )
 				continue;
-			if ( ! strcmp("slaves", partitions.gl_pathv[i]) )
+			if ( ! strcmp("slaves", directory) )
 				continue;
 			
 			char *partition = NULL;
-			asprintf(&partition, "/dev/%s", partitions.gl_pathv[i] + (strlen(glob_target)-1) );
-			/* -1 is for the * character for the glob */
+			asprintf(&partition, "/dev/%s", directory );
 			
 			if ( ! internal_umount_partition(opts, partition) )
 			{
