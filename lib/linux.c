@@ -179,10 +179,12 @@ char *rootdevice(struct unieject_opts opts, char *device)
 	/* This code is for Linux 2.6 only... */
 	glob_t block_devices;
 	r = glob("/sys/block/*", GLOB_NOESCAPE|GLOB_ONLYDIR, NULL, &block_devices);
-	if ( r == 0 ) {
+	if ( r == 0 )
+	{
 		unieject_verbose(opts, _("using sysfs to identify the root device for '%s'.\n"), device);
 		
-		for(int i = 0; i < block_devices.gl_pathc; i++) {
+		for(int i = 0; i < block_devices.gl_pathc; i++)
+		{
 			char sysfs_file_dev[ strlen(block_devices.gl_pathv[i]) + 4 + 1 ];
 			
 			sprintf(sysfs_file_dev, "%s/dev", block_devices.gl_pathv[i]);
@@ -195,7 +197,8 @@ char *rootdevice(struct unieject_opts opts, char *device)
 			
 			fclose(dev_fd);
 
-			if ( major == major(devstat.st_rdev) && minor == rootminor ) {
+			if ( major == major(devstat.st_rdev) && minor == rootminor )
+			{
 				char *rootdev = malloc( strlen(block_devices.gl_pathv[i]) - (sizeof("/sys/block/")-1) + sizeof("/dev/") );
 				sprintf(rootdev, "/dev/%s", block_devices.gl_pathv[i] + (sizeof("/sys/block/") -1));
 				globfree(&block_devices);
