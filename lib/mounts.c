@@ -86,7 +86,8 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 		free(normalized);
 		normalized = tmp;
 		tmp = NULL;
-	}
+	} else
+		free(tmp);
 	
 	int len = strlen(normalized);
 	if ( normalized[len-1] == '/' )
