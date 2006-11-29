@@ -124,7 +124,11 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 			asprintf(&partition, "/dev/%s", partitions.gl_pathv[i] + (strlen(glob_target)-1) );
 			/* -1 is for the * character for the glob */
 			
-			internal_umount_partition(opts, partition);
+			if ( ! internal_umount_partition(opts, partition) )
+			{
+				free(partition);
+				return false;
+			}
 			
 			free(partition);
 		}
