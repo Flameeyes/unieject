@@ -26,6 +26,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <ctype.h>
+#include <glob.h>
 
 char *checkmount(struct unieject_opts opts, char **device)
 {
@@ -135,6 +136,37 @@ char *rootdevice(struct unieject_opts opts, char *device)
 	}
 	
 	unieject_error(opts, _("'%s' is a partition of %u,%u not a device.\n"), device, major(devstat.st_rdev), rootminor);
+	
+	/* This code is for Linux 2.6 only... */
+	glob_t block_devices;
+	r = glob("/sys/block/*", GLOB_NOESCAPE|GLOB_ONLYDIR, NULL, &block_devices);
+	if ( r == 0 ) {
+		unieject_verbose(opts, _("using sysfs to identify the root device for '%s'.\n"), device);
+		
+		for(int i = 0; i < block_devices.gl_pathc; i++) {
+			char sysfs_file_dev[ strlen(block_devices.gl_pathv[i]) + 4 + 1 ];
+			
+			sprintf(sysfs_file_dev, "%s/dev", block_devices.gl_pathv[i]);
+			
+			FILE *dev_fd = fopen(sysfs_file_dev, "r");
+			if ( ! dev_fd ) continue;
+			
+			unsigned int major, minor;
+			fscanf(dev_fd, "%u:%u\n", &major, &minor);
+			
+			fclose(dev_fd);
+
+			if ( major == major(devstat.st_rdev) && minor == rootminor ) {
+				char *rootdev = malloc( strlen(block_devices.gl_pathv[i]) - (sizeof("/sys/block/")-1) + sizeof("/dev/") );
+				sprintf(rootdev, "/dev/%s", block_devices.gl_pathv[i] + (sizeof("/sys/block/") -1));
+				globfree(&block_devices);
+				
+				return rootdev;
+			}
+
+		}
+	}
+	globfree(&block_devices);
 	
 	if ( isdigit(device[strlen(device)-1]) )
 	{
