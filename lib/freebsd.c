@@ -90,3 +90,9 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 
 	return true;
 }
+
+char *rootdevice(struct unieject_opts opts, char *device)
+{
+	unieject_error(opts, _("rootdevice(): function not implemented for FreeBSD driver.\n"));
+	return NULL;
+}

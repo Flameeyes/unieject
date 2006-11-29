@@ -22,7 +22,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/mount.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <errno.h>
+#include <ctype.h>
 
 char *checkmount(struct unieject_opts opts, char **device)
 {
@@ -95,4 +98,64 @@ char *rootdevice(struct unieject_opts opts, char *device)
 {
 	struct stat devstat;
 	int r = stat(device, &devstat);
+	
+	if ( r != 0 )
+	{
+		unieject_error(opts, _("unable to stat '%s' [%s]\n"), device, strerror(errno));
+		return (void*)-1;
+	}
+	
+	if ( ! S_ISBLK(devstat.st_mode) )
+	{
+		unieject_error(opts, _("'%s' is not a block device.\n"), device);
+		return (void*)-1;
+	}
+	
+	int rootminor = -1;
+	switch( major(devstat.st_rdev) )
+	{
+	case 3:  /* IDE Devices: every 64 minors there's a new device */
+		rootminor = minor(devstat.st_rdev) & ~63;
+		break;
+	case 8:  /* SCSI Disk devices: every 16 minors there's a new device */
+		rootminor = minor(devstat.st_rdev) & ~15;
+		break;
+	case 9:  /* SCSI Tape devices */
+	case 11: /* SCSI CD-ROM devices */
+		return NULL;
+	default:
+		unieject_error(opts, _("'%s' is neither an IDE nor a SCSI device or partition, unable to eject.\n"), device);
+		return (void*)-1;
+	}
+	
+	if ( minor(devstat.st_rdev) == rootminor )
+	{
+		unieject_verbose(opts, _("'%s' is a proper device (%u,%u).\n"), device, major(devstat.st_rdev), minor(devstat.st_rdev));
+		return NULL;
+	}
+	
+	unieject_error(opts, _("'%s' is a partition of %u,%u not a device.\n"), device, major(devstat.st_rdev), rootminor);
+	
+	if ( isdigit(device[strlen(device)-1]) )
+	{
+		unieject_verbose(opts, _("trying empirical way to find root device for '%s'.\n"), device);
+		
+		char *rootdev = sstrdup(device);
+		while ( isdigit(rootdev[strlen(rootdev)-1]) )
+			rootdev[strlen(rootdev)-1] = '\0';
+	
+		struct stat rootstat;
+		r = stat(rootdev, &rootstat);
+		
+		/* Don't consider all the possible ways this might fail, just
+		   check if it worked or not. */
+		if ( r == 0 &&
+		     S_ISBLK(rootstat.st_mode) &&
+		     major(rootstat.st_rdev) == major(devstat.st_rdev) &&
+		     minor(rootstat.st_rdev) == rootminor
+		   )
+			return rootdev;
+	}
+	
+	return (void*)-1;
 }
