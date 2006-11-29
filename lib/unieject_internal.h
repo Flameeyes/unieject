@@ -62,7 +62,7 @@ bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNUL
  * @param opts Options to apply.
  * @param device Device to check
  */
-char INTERNAL *rootdev(struct unieject_opts opts, char *device) NONNULL();
+char INTERNAL *rootdevice(struct unieject_opts opts, char *device) NONNULL();
 
 void INTERNAL unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 void INTERNAL unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
