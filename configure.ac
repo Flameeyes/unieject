@@ -1,9 +1,14 @@
-AC_PREREQ(2.60)
+AC_PREREQ([2.61])
 AC_INIT([unieject], [5.3.2], [flameeyes@gentoo.org])
 AC_SUBST(PACKAGE_TARNAME)
 
 AM_INIT_AUTOMAKE([unieject], [5.3.2])
 AM_CONFIG_HEADER([config.h])
+
+AC_PROG_CC_C99
+if test "x$ac_cv_prog_cc_c99" = "xno"; then
+   AC_MSG_ERROR([no C99 compiler found, unieject requires a C99 compiler.])
+fi
 
 AC_GNU_SOURCE
 
@@ -84,8 +89,6 @@ AC_SUBST([GSED])
 
 dnl Make sure pre-requisites for ChangeLog regeneration are satisfied
 AM_CONDITIONAL([REGEN_CHANGELOG], [test "x$changelog" != "xno"])
-
-LANG_C99(, [AC_MSG_FAILURE([C99 support is required to build unieject.])])
 
 DOXYGEN_DOC([Doxyfile])
 

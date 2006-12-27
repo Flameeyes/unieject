@@ -33,7 +33,7 @@ libunieject_la_CURRENT := 3
 libunieject_la_REVISION := 0
 libunieject_la_AGE := 0
 
-libunieject_la_CFLAGS = $(C99FLAGS) $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
+libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS)
 libunieject_la_LDFLAGS = $(AM_LDFLAGS) $(EXP_LDFLAGS) $(LIBCDIO_LDFLAGS) -Wl,--no-undefined \
 	-version-info $(libunieject_la_CURRENT):$(libunieject_la_REVISION):$(libunieject_la_AGE) \
 libunieject_la_LIBADD = $(AM_LDADD) $(LIBCDIO_LIBS) $(LTLIBINTL)
@@ -46,8 +46,7 @@ unieject_SOURCES = unieject.c lib/utils.c
 unieject_CFLAGS = $(AM_CFLAGS) \
 	$(LIBCDIO_CFLAGS) \
 	$(LIBPOPT_CFLAGS) \
-	$(CONFUSE_CFLAGS) \
-	$(C99FLAGS)
+	$(CONFUSE_CFLAGS)
 
 unieject_LDFLAGS = $(AM_LDFLAGS) \
 	$(LIBCDIO_LDFLAGS) \
