@@ -2,7 +2,7 @@ AC_PREREQ([2.61])
 AC_INIT([unieject], [5.3.2], [flameeyes@gentoo.org])
 AC_SUBST(PACKAGE_TARNAME)
 
-AM_INIT_AUTOMAKE([unieject], [5.3.2])
+AM_INIT_AUTOMAKE([1.10])
 AM_CONFIG_HEADER([config.h])
 
 AC_PROG_CC_C99
