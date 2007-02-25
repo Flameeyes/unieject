@@ -41,7 +41,7 @@
 #include <locale.h>
 #endif
 
-struct unieject_opts opts;
+static struct unieject_opts opts;
 static poptContext optCon = NULL;
 
 enum {
@@ -85,7 +85,7 @@ void cleanup()
 #ifdef HAVE_LIBCONFUSE
 static void parse_configuration()
 {
-	cfg_opt_t cfgopts[] =
+	static cfg_opt_t cfgopts[] =
 	{
 		CFG_SIMPLE_STR("device", &opts.device),
 		CFG_SIMPLE_INT("verbosity", &opts.verbose),
@@ -126,7 +126,7 @@ static int parse_options (int argc, const char *argv[])
 {
 	int8_t tmpopt, opt = OP_IGNORE; /* used for argument parsing */
 	
-	struct poptOption optionsTable[] = {
+	static const struct poptOption optionsTable[] = {
 		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
 		  gettext_noop("Close CD-Rom tray."), NULL },
 		{ "traytoggle",		'T', POPT_ARG_NONE, NULL, OP_TOGGLE,
