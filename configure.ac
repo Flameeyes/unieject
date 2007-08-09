@@ -102,6 +102,12 @@ if test "x$enable_experimental_ldflags" = "xyes"; then
 	EXP_LDFLAGS="-Wl,--as-needed"
 fi
 
+ac_save_LDFLAGS=$LDFLAGS
+LDFLAGS="$LDFLAGS -Wl,--no-undefined"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
+	       [EXP_LDFLAGS="$EXP_LDFLAGS -Wl,--no-undefined"], [])
+LDFLAGS=$ac_save_LDFLAGS
+
 AC_ARG_ENABLE([maintainer-flags],
 	AS_HELP_STRING([--enable-maintainer-flags], [Enable extra CFLAGS for maintainers (don't use as user)]))
 
