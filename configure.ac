@@ -47,6 +47,9 @@ AC_CHECK_FUNCS([perror strerror readlink dirname strdup],, [
 	AC_MSG_FAILURE([Unable to find needed functions.])
 	])
 
+dnl This is needed for libcdio to work as intended
+AC_CHECK_HEADERS([sys/types.h])
+
 dnl Optional functions
 AC_CHECK_HEADERS([libgen.h])
 AC_CHECK_FUNCS([getenv umount2 setlocale])
