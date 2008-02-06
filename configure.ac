@@ -105,7 +105,7 @@ fi
 ac_save_LDFLAGS=$LDFLAGS
 LDFLAGS="$LDFLAGS -Wl,--no-undefined"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
-	       [EXP_LDFLAGS="$EXP_LDFLAGS -Wl,--no-undefined"], [])
+	       [EXP_LDFLAGS="$EXP_LDFLAGS -Wl,-z,-defs"], [])
 LDFLAGS=$ac_save_LDFLAGS
 
 AC_ARG_ENABLE([maintainer-flags],
