@@ -103,7 +103,7 @@ if test "x$enable_experimental_ldflags" = "xyes"; then
 fi
 
 ac_save_LDFLAGS=$LDFLAGS
-LDFLAGS="$LDFLAGS -Wl,--no-undefined"
+LDFLAGS="$LDFLAGS -Wl,-z,defs"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
 	       [EXP_LDFLAGS="$EXP_LDFLAGS -Wl,-z,-defs"], [])
 LDFLAGS=$ac_save_LDFLAGS
