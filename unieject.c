@@ -41,7 +41,18 @@
 #include <locale.h>
 #endif
 
-static struct unieject_opts opts;
+static struct unieject_opts opts = {
+	.eject = 1,
+	.fake = 0,
+	.verbose = 0,
+	.unmount = 1,
+	.speed = 0,
+	.force = 0,
+	.caps = 1,
+	.device = NULL,
+	.umount_wrapper = NULL,
+	.accessmethod = NULL
+};
 static poptContext optCon = NULL;
 
 enum {
@@ -56,23 +67,7 @@ enum {
 	OP_ERROR
 };
 
-void init_opts() __attribute__((constructor));
 void cleanup() __attribute__((destructor));
-
-/* Initialize the default options (set as constructor) */
-void init_opts()
-{
-	opts.eject = 1;
-	opts.fake = 0;
-	opts.verbose = 0;
-	opts.unmount = 1;
-	opts.speed = 0;
-	opts.force = 0;
-	opts.caps = 1;
-	opts.device = NULL;
-	opts.umount_wrapper = NULL;
-	opts.accessmethod = NULL;
-}
 
 void cleanup()
 {
