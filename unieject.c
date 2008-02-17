@@ -1,5 +1,5 @@
 /* unieject - Universal eject command
-   Copyright (C) 2005-2006, Diego Pettenò
+   Copyright (C) 2005-2008, Diego Pettenò
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #include <cdio/mmc.h>
 #include <cdio/logging.h>
 
-#include <popt.h>
+#include <glib.h>
 
 #ifdef HAVE_LIBCONFUSE
 #include <confuse.h>
@@ -53,7 +53,6 @@ static struct unieject_opts opts = {
 	.umount_wrapper = NULL,
 	.accessmethod = NULL
 };
-static poptContext optCon = NULL;
 
 enum {
 	OP_IGNORE,
@@ -74,7 +73,6 @@ void cleanup()
 	free(opts.progname);
 	free(opts.device);
 	if ( opts.cdio ) cdio_destroy((CdIo_t*)opts.cdio);
-	if ( optCon ) poptFreeContext(optCon);
 }
 
 #ifdef HAVE_LIBCONFUSE
@@ -117,121 +115,132 @@ static void parse_configuration()
 #endif
 
 /* Parse a all options. */
-static int parse_options (int argc, const char *argv[])
+static int parse_options (int argc, char *argv[])
 {
-	int8_t tmpopt, opt = OP_IGNORE; /* used for argument parsing */
+	gboolean toggle = 0, changer = 0, lock = 0, unlock = 0,
+	  display_device = 0, verbose = 0, quiet = 0, version = 0;
+	gchar **remaining_options = NULL;
 	
-	static const struct poptOption optionsTable[] = {
-		{ "trayclose",		't', POPT_ARG_VAL, &opts.eject, 0,
-		  gettext_noop("Close CD-Rom tray."), NULL },
-		{ "traytoggle",		'T', POPT_ARG_NONE, NULL, OP_TOGGLE,
-		  gettext_noop("Toggle tray open/close."), NULL },
-		{ "speed",		'x', POPT_ARG_INT, &opts.speed, OP_SPEED,
-		  gettext_noop("Set CD-Rom max speed."),
-		  "max_speed" },
-		{ "changerslot",	'c', POPT_ARG_NONE, NULL, OP_CHANGER,
-		  gettext_noop("Switch discs on a CD-ROM changer."),
-		  "changer" },
-		{ "lock",		'l', POPT_ARG_NONE, NULL, OP_LOCK,
-		  gettext_noop("Lock the CD-Rom drive."), NULL },
-		{ "unlock",		'L', POPT_ARG_NONE, NULL, OP_UNLOCK,
-		  gettext_noop("Unlock the CD-Rom drive."), NULL },
+        GOptionEntry optionsTable[] = {
+	  { "trayclose",		't', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &opts.eject,
+	    gettext_noop("Close CD-Rom tray."), NULL },
+	  { "traytoggle",		'T', 0, G_OPTION_ARG_NONE, &toggle,
+	    gettext_noop("Toggle tray open/close."), NULL },
+	  { "speed",		'x', 0, G_OPTION_ARG_INT, &opts.speed,
+	    gettext_noop("Set CD-Rom max speed."), "max_speed" },
+	  { "changerslot",	'c', 0, G_OPTION_ARG_NONE, &changer,
+	    gettext_noop("Switch discs on a CD-ROM changer."), NULL },
+	  { "lock",		'l', 0, G_OPTION_ARG_NONE, &lock,
+	    gettext_noop("Lock the CD-Rom drive."), NULL },
+	  { "unlock",		'L', 0, G_OPTION_ARG_NONE, &unlock,
+	    gettext_noop("Unlock the CD-Rom drive."), NULL },
 		
-		{ "noop", 		'n', POPT_ARG_VAL, &opts.fake, 1,
-		  gettext_noop("Don't eject, just show device found."), NULL },
-		{ "default",		'd', POPT_ARG_NONE, NULL, OP_DEFAULT,
-		  gettext_noop("Display default device."), NULL },
+	  { "noop", 		'n', 0, G_OPTION_ARG_NONE, &opts.fake,
+	    gettext_noop("Don't eject, just show device found."), NULL },
+	  { "default",		'd', 0, G_OPTION_ARG_NONE, &display_device,
+	    gettext_noop("Display default device."), NULL },
 		
-		{ "verbose",		'v', POPT_ARG_VAL, &opts.verbose, 1,
-		  gettext_noop("Enable verbose output."), NULL },
-		{ "quiet",		'Q', POPT_ARG_VAL, &opts.verbose, -1,
-		  gettext_noop("Disable output of error messages."), NULL },
+	  { "verbose",		'v', 0, G_OPTION_ARG_NONE, &verbose,
+	    gettext_noop("Enable verbose output."), NULL },
+	  { "quiet",		'Q', 0, G_OPTION_ARG_NONE, &quiet,
+	    gettext_noop("Disable output of error messages."), NULL },
 		
-		{ "no-unmount",		'm', POPT_ARG_VAL, &opts.unmount, 0,
-		  gettext_noop("Do not umount device even if it is mounted."), NULL },
-		{ "unmount",		'u', POPT_ARG_VAL, &opts.unmount, 1,
-		  gettext_noop("Unmount device if mounted (default behavior)."), NULL },
+	  { "no-unmount",	'm', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &opts.unmount,
+	    gettext_noop("Do not umount device even if it is mounted."), NULL },
+	  { "unmount",		'u', 0, G_OPTION_ARG_NONE, &opts.unmount,
+	    gettext_noop("Unmount device if mounted (default behavior)."), NULL },
 		
-		{ "force",		'f', POPT_ARG_VAL, &opts.force, 1,
-		  gettext_noop("Force unmount of device."), NULL },
-		{ "no-force",		0, POPT_ARG_VAL, &opts.force, 0,
-		  gettext_noop("Don't force unmount of device (default behavior)."), NULL },
+	  { "force",		'f', 0, G_OPTION_ARG_NONE, &opts.force,
+	    gettext_noop("Force unmount of device."), NULL },
+	  { "no-force",		0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &opts.force,
+	    gettext_noop("Don't force unmount of device (default behavior)."), NULL },
 		
-		{ "ignore-caps",	0, POPT_ARG_VAL, &opts.caps, 0,
-		  gettext_noop("Ignore capabilities as reported by device."), NULL },
-		{ "no-ignore-caps",	0, POPT_ARG_VAL, &opts.caps, 1,
-		  gettext_noop("Don't ignore capabilities reported by device (default behavior)."), NULL },
+	  { "ignore-caps",	0, G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &opts.caps,
+	    gettext_noop("Ignore capabilities as reported by device."), NULL },
+	  { "no-ignore-caps",	0, 0, G_OPTION_ARG_NONE, &opts.caps,
+	    gettext_noop("Don't ignore capabilities reported by device (default behavior)."), NULL },
 		
-		{ "umount-wrapper",	'W', POPT_ARG_STRING, &opts.umount_wrapper, OP_IGNORE,
-		  gettext_noop("Use an umount wrapper to unmount."),
-		  "wrapper" },
+	  { "umount-wrapper",	'W', 0, G_OPTION_ARG_STRING, &opts.umount_wrapper,
+	    gettext_noop("Use an umount wrapper to unmount."),
+	    "wrapper" },
 		
-		{ "accessmethod", 	'A', POPT_ARG_STRING, &opts.accessmethod, OP_IGNORE,
-		  gettext_noop("Select the access method for libcdio."),
-		  "method" },
-		{ "debugcdio",		'D', POPT_ARG_INT, &cdio_loglevel_default, OP_IGNORE,
-		  gettext_noop("Set debugging level for libcdio."),
-		  "level" },
+	  { "accessmethod", 	'A', 0, G_OPTION_ARG_STRING, &opts.accessmethod,
+	    gettext_noop("Select the access method for libcdio."),
+	    "method" },
+	  { "debugcdio",	 'D', 0, G_OPTION_ARG_INT, &cdio_loglevel_default,
+	    gettext_noop("Set debugging level for libcdio."),
+	    "level" },
 		
-		{ "version",		'V', POPT_ARG_NONE, NULL, OP_VERSION,
-		  gettext_noop("Display version and copyright information and exit."), NULL },
+	  { "version",		'V', 0, G_OPTION_ARG_NONE, &version,
+	    gettext_noop("Display version and copyright information and exit."), NULL },
 		
-		{ "proc",		'p', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  gettext_noop("Ignored (classic eject compatibility)."), NULL },
-		{ "tape",		'q', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  gettext_noop("Ignored"), NULL },
-		{ "floppy",		'f', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  gettext_noop("Ignored"), NULL },
-		{ "cdrom",		'r', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  gettext_noop("Ignored"), NULL },
-		{ "scsi",		's', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  gettext_noop("Ignored"), NULL },
-		{ "auto",		'a', POPT_ARG_NONE, NULL, OP_IGNORE,
-		  gettext_noop("Ignored"), NULL },
-		POPT_AUTOHELP {NULL, 0, 0, NULL, 0, NULL, NULL}
+	  { "proc",		'p', 0, G_OPTION_ARG_NONE, NULL,
+	    gettext_noop("Ignored (classic eject compatibility)."), NULL },
+	  { "tape",		'q', 0, G_OPTION_ARG_NONE, NULL,
+	    gettext_noop("Ignored"), NULL },
+	  { "floppy",		'f', 0, G_OPTION_ARG_NONE, NULL,
+	    gettext_noop("Ignored"), NULL },
+	  { "cdrom",		'r', 0, G_OPTION_ARG_NONE, NULL,
+	    gettext_noop("Ignored"), NULL },
+	  { "scsi",		's', 0, G_OPTION_ARG_NONE, NULL,
+	    gettext_noop("Ignored"), NULL },
+	  { "auto",		'a', 0, G_OPTION_ARG_NONE, NULL,
+	    gettext_noop("Ignored"), NULL },
+	  { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining_options,
+	    NULL, NULL },
+	  { NULL }
 	};
 
-	optCon = poptGetContext (NULL, argc, argv, optionsTable, 0);
-	
-	opts.progname = strrchr(argv[0],'/');
-	opts.progname = opts.progname ? strdup(opts.progname+1) : strdup(argv[0]);
-	
-	while ((tmpopt = poptGetNextOpt (optCon)) >= 0)
-	{
-		if ( tmpopt == OP_IGNORE ) continue;
-		
-		if ( opt != OP_IGNORE )
-		{
-			unieject_error(opts, _("you can use just one of -x, -c, -l, -L and -d options\n"));
-			return OP_ERROR;
-		} else
-			opt = tmpopt;
+	GError *error = NULL;
+	GOptionContext *context = g_option_context_new("");
+	g_option_context_add_main_entries(context, optionsTable, PACKAGE_TARNAME);
+
+	g_option_context_parse(context, &argc, &argv, &error);
+
+	if ( error != NULL ) {
+	  fprintf(stderr, "%s\n", error->message);
+	  fprintf(stderr, _("Run '%s --help' to see a full list of available command line options.\n"), argv[0]);
+	  exit(-1);
+	}
+
+	int opt = OP_IGNORE;
+
+#define UNIEJECT_CHECK_SINGLE_OPT(testval, optval)		\
+	if ( testval ) opt = (opt == OP_IGNORE) ? optval : OP_ERROR;
+
+	UNIEJECT_CHECK_SINGLE_OPT(opts.speed, OP_SPEED);
+	UNIEJECT_CHECK_SINGLE_OPT(changer, OP_CHANGER);
+	UNIEJECT_CHECK_SINGLE_OPT(version, OP_VERSION);
+	UNIEJECT_CHECK_SINGLE_OPT(lock, OP_LOCK);
+	UNIEJECT_CHECK_SINGLE_OPT(unlock, OP_UNLOCK);
+	UNIEJECT_CHECK_SINGLE_OPT(toggle, OP_TOGGLE);
+
+	if ( opt == OP_ERROR ) {
+	  fprintf(stderr, _("%s: you can use just one of -x, -c, -l, -L and -d options\n"), argv[0]);
+	  return opt;
+	}
+
+	if ( quiet && verbose ) {
+	  opt = OP_ERROR;
+
+	  fprintf(stderr, _("you can use just one of -v and -q options\n"), argv[0]);
+	  return opt;
 	}
 	
-	if (opt < -1)
-	{
-		/* an error occurred during option processing */
-		fprintf(stderr, "%s: %s\n",
-			poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
-			poptStrerror(opt));
-		
-		exit(-1);
-	}
-	
-	const char *arg_device = poptGetArg(optCon);
-	if ( ! arg_device )
-		arg_device = opts.device;
-	
-	if ( poptGetArg(optCon) )
+	const char *arg_device = opts.device;
+	if ( remaining_options && *remaining_options ) {
+	  opts.device = *remaining_options;
+	  if ( *(remaining_options+1) )
 		unieject_verbose(opts, _("further non-option arguments ignored.\n"));
-	
+	}
+
 	opts.device = libunieject_getdevice(opts, arg_device);
 	if ( ! opts.device ) return OP_ERROR;
 	
 	return opt;
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, char *argv[])
 {
 #ifdef HAVE_SETLOCALE
 	setlocale (LC_ALL, "");
@@ -252,7 +261,7 @@ int main(int argc, const char *argv[])
 	 * provide a "loadcd" symlink or alias that defaults to trayclose
 	 * instead of eject.
 	 */
-	if ( strcmp("loadcd", opts.progname) == 0 )
+	if ( strcmp("loadcd", argv[0]) == 0 )
 	{
 		unieject_verbose(opts, _("default to closing tray instead of eject.\n"));
 		opts.eject = 0;
@@ -269,7 +278,7 @@ int main(int argc, const char *argv[])
 		}
 	case OP_VERSION: {
 			printf(_("unieject version %s\n"), PACKAGE_VERSION);
-			printf("Copyright (C) 2005-2006 Diego Pettenò\n");
+			printf("Copyright (C) 2005-2008 Diego Pettenò\n");
 			printf("This is free software.  You may redistribute copies of it under the terms of\n"
 				"the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 				"There is NO WARRANTY, to the extent permitted by law.\n");

@@ -20,6 +20,7 @@
 #define __UNIEJECT_H__
 
 #include <cdio/cdio.h>
+#include <glib.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,13 +37,13 @@ extern "C" {
  * @brief Defines the options used to influence libunieject functions
  */
 struct unieject_opts {
-	int eject;		/**< Will eject or close the tray? */
-	int fake;		/**< Don't eject, just show device found. */
+	gboolean eject;		/**< Will eject or close the tray? */
+	gboolean fake;		/**< Don't eject, just show device found. */
 	int verbose;		/**< Enable verbose output. */
-	int unmount;		/**< Unmount device if occupied. */
+	gboolean unmount;	/**< Unmount device if occupied. */
 	int speed;		/**< Maximum speed to set the device to. */
-	int force;		/**< Force device unmount. */
-	int caps;		/**< Follow capabilities reported by device */
+	gboolean force;		/**< Force device unmount. */
+	gboolean caps;		/**< Follow capabilities reported by device */
 	int slot;		/**< Slot to set the changer to. */
 	
 	char *device;		/**< Path of the device to open. */
