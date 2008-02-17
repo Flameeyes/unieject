@@ -7,5 +7,6 @@ Name: @PACKAGE_NAME@
 Description: Portable CD-ROM eject library
 Version: @PACKAGE_VERSION@
 Requires: libcdio-0.74
+Requires.private: glib-2.0 >= 2.6
 Libs: -L${libdir} -lunieject
 Cflags: -I${includedir}
