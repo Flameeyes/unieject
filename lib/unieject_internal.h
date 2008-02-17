@@ -64,8 +64,6 @@ bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNUL
  */
 char INTERNAL *rootdevice(struct unieject_opts opts, char *device) NONNULL();
 
-void INTERNAL unieject_error(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
-void INTERNAL unieject_verbose(const struct unieject_opts opts, const char *format, ...) PRINTF_LIKE(2, 3);
 int INTERNAL unieject_status(const struct unieject_opts opts, int sts);
 cdio_drive_misc_cap_t INTERNAL unieject_get_misccaps(const struct unieject_opts opts);
 

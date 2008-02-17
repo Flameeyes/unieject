@@ -44,7 +44,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	{
 		normalized = sstrdup(getenv("EJECT"));
 		if ( normalized )
-			unieject_verbose(opts, _("using value of EJECT variable '%s'\n"), normalized);
+			g_message(_("using value of EJECT variable '%s'\n"), normalized);
 	}
 #endif
 
@@ -52,7 +52,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	if ( ! normalized )
 	{
 		normalized = strdup("cd0");
-		unieject_verbose(opts, _("using FreeBSD default: 'cd0'\n"));
+		g_message(_("using FreeBSD default: 'cd0'\n"));
 	}
 #endif
 
@@ -60,13 +60,13 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	{
 		normalized = libunieject_defaultdevice();
 		if ( ! normalized ) {
-			unieject_error(opts, _("no default device identified, exiting.\n"));
+			g_critical(_("no default device identified, exiting.\n"));
 			return NULL;
 		} else
-			unieject_verbose(opts, _("using default device '%s'\n"), normalized);
+			g_message(_("using default device '%s'\n"), normalized);
 	}
 
-	unieject_verbose(opts, _("device name is '%s'\n"), normalized);
+	g_message(_("device name is '%s'\n"), normalized);
 	
 	if ( normalized[0] != '/' )
 	{
@@ -77,12 +77,12 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 		free(tmp); tmp = NULL;
 	}
 	
-	unieject_verbose(opts, _("expanded name is '%s'\n"), normalized);
+	g_message(_("expanded name is '%s'\n"), normalized);
 	
 	tmp = simplifylink(normalized);
 	if ( strcmp(tmp, normalized) )
 	{
-		unieject_verbose(opts, _("'%s' is a link to '%s'\n"), normalized, tmp);
+		g_message(_("'%s' is a link to '%s'\n"), normalized, tmp);
 		free(normalized);
 		normalized = tmp;
 		tmp = NULL;
@@ -102,13 +102,13 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	{
 		if ( tmp == (void*)-1 ) return NULL;
 	
-		unieject_verbose(opts, _("'%s' is a partition of device '%s'\n"), normalized, tmp);
+		g_message(_("'%s' is a partition of device '%s'\n"), normalized, tmp);
 		free(normalized);
 		normalized = tmp;
 		tmp = NULL;
 	}
 	
-	unieject_verbose(opts, _("device is '%s'\n"), normalized);
+	g_message(_("device is '%s'\n"), normalized);
 	return normalized;
 }
 
@@ -120,13 +120,13 @@ bool libunieject_umountdev(struct unieject_opts opts, char *device)
 	{
 		char *cmd = NULL;
 		int res = 0;
-		unieject_verbose(opts, _("executing '%s' as umount wrapper.\n"), opts.umount_wrapper);
+		g_message(_("executing '%s' as umount wrapper.\n"), opts.umount_wrapper);
 		asprintf(&cmd, "%s %s", opts.umount_wrapper, device);
 		
 		res = ( ! opts.fake ) ? system(cmd) : 0;
 		
 		if ( res != 0 )
-			unieject_verbose(opts, _("error executing umount wrapper, ignoring.\n"));
+			g_message(_("error executing umount wrapper, ignoring.\n"));
 		free(cmd);
 	}
 	

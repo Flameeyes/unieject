@@ -41,7 +41,7 @@ int libunieject_togglelock(struct unieject_opts *opts, int lock)
 {
 	if ( ! (unieject_get_misccaps(*opts) & CDIO_DRIVE_CAP_MISC_LOCK) )
 	{
-		unieject_error(*opts, _("the selected device doesn't have locking capabilities.\n"));
+		g_critical(_("the selected device doesn't have locking capabilities.\n"));
 		return -2;
 	}
 	
@@ -60,13 +60,13 @@ int libunieject_togglelock(struct unieject_opts *opts, int lock)
 	int devfd = open(opts->device, O_RDONLY|O_NONBLOCK);
 	if ( UNLIKELY(devfd == -1) )
 	{
-		unieject_error(*opts, _("unable to open device descriptor [%s].\n"), strerror(errno));
+		g_critical(_("unable to open device descriptor [%s].\n"), strerror(errno));
 		return -4;
 	}
 	
 	if ( UNLIKELY(ioctl(devfd, CDROM_LOCKDOOR, lock ? 1 : 0) == -1) )
 	{
-		unieject_error(*opts, _("error in ioctl [%s].\n"), strerror(errno));
+		g_critical(_("error in ioctl [%s].\n"), strerror(errno));
 		return -5;
 	}
 	

@@ -94,7 +94,7 @@ static void parse_configuration()
 	cfg_t *cfg = cfg_init(cfgopts, CFGF_NONE);
 	if ( cfg_parse(cfg, SYSCONFDIR "/unieject.conf") == CFG_PARSE_ERROR )
 	{
-		unieject_error(opts, _("Error parsing configuration file %s\n"), SYSCONFDIR "/unieject.conf");
+		g_critical(_("Error parsing configuration file %s\n"), SYSCONFDIR "/unieject.conf");
 		cfg_free(cfg);
 		exit(-5);
 	}
@@ -103,7 +103,7 @@ static void parse_configuration()
 	asprintf(&userconf, "%s/.unieject", getenv("HOME"));
 	if ( cfg_parse(cfg, userconf) == CFG_PARSE_ERROR )
 	{
-		unieject_error(opts, _("Error parsing configuration file %s\n"), userconf);
+		g_critical(_("Error parsing configuration file %s\n"), userconf);
 		free(userconf);
 		cfg_free(cfg);
 		exit(-5);
@@ -198,7 +198,7 @@ static int parse_options (int argc, char *argv[])
 	g_option_context_parse(context, &argc, &argv, &error);
 
 	if ( error != NULL ) {
-	  fprintf(stderr, "%s\n", error->message);
+	  g_critical("%s\n", error->message);
 	  fprintf(stderr, _("Run '%s --help' to see a full list of available command line options.\n"), argv[0]);
 	  exit(-1);
 	}
@@ -216,22 +216,29 @@ static int parse_options (int argc, char *argv[])
 	UNIEJECT_CHECK_SINGLE_OPT(toggle, OP_TOGGLE);
 
 	if ( opt == OP_ERROR ) {
-	  fprintf(stderr, _("%s: you can use just one of -x, -c, -l, -L and -d options\n"), argv[0]);
+	  g_critical(_("you can use just one of -x, -c, -l, -L and -d options\n"));
 	  return opt;
 	}
 
 	if ( quiet && verbose ) {
 	  opt = OP_ERROR;
 
-	  fprintf(stderr, _("you can use just one of -v and -q options\n"), argv[0]);
+	  g_critical(_("you can use just one of -v and -q options\n"));
 	  return opt;
 	}
+
+	if ( quiet )
+	  opts.verbose = -1;
+	else if ( verbose )
+	  opts.verbose = 1;
+	else
+	  opts.verbose = 0;
 	
 	const char *arg_device = opts.device;
 	if ( remaining_options && *remaining_options ) {
 	  opts.device = *remaining_options;
 	  if ( *(remaining_options+1) )
-		unieject_verbose(opts, _("further non-option arguments ignored.\n"));
+		g_warning(_("further non-option arguments ignored.\n"));
 	}
 
 	opts.device = libunieject_getdevice(opts, arg_device);
@@ -239,6 +246,14 @@ static int parse_options (int argc, char *argv[])
 	
 	return opt;
 }
+
+/**
+ * @brief Simple function to ignore log messages from glib
+ *
+ * This function is used to implement verbose level when using glib
+ * message logging.
+ */
+void unieject_g_log_noop() { }
 
 int main(int argc, char *argv[])
 {
@@ -256,6 +271,13 @@ int main(int argc, char *argv[])
 #endif
 	int what = parse_options(argc, argv);
 	
+	switch(opts.verbose) {
+	case -1:
+	  g_log_set_handler("", G_LOG_LEVEL_CRITICAL, unieject_g_log_noop, NULL);
+	case 0:
+	  g_log_set_handler("", G_LOG_LEVEL_WARNING, unieject_g_log_noop, NULL);
+	}
+	
 	/*
 	 * To make simpler the user experience with unieject, it's possible to
 	 * provide a "loadcd" symlink or alias that defaults to trayclose
@@ -263,7 +285,7 @@ int main(int argc, char *argv[])
 	 */
 	if ( strcmp("loadcd", argv[0]) == 0 )
 	{
-		unieject_verbose(opts, _("default to closing tray instead of eject.\n"));
+		g_message(_("default to closing tray instead of eject.\n"));
 		opts.eject = 0;
 	}
 	
@@ -290,7 +312,7 @@ int main(int argc, char *argv[])
 	case OP_IGNORE:
 		if ( ! libunieject_umountdev(opts, opts.device) )
 		{
-			unieject_error(opts, _("unable to unmount device '%s'.\n"), opts.device);
+			g_critical(_("unable to unmount device '%s'.\n"), opts.device);
 			return -4;
 		}
 		break;

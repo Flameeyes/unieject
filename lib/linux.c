@@ -46,7 +46,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 		// symlinks?
 		if ( strcmp(newdev, *device) == 0 )
 		{
-			unieject_verbose(opts, _("'%s' is mounted as '%s'\n"), *device, newmnt);
+			g_message(_("'%s' is mounted as '%s'\n"), *device, newmnt);
 			ret = newmnt;
 			
 			free(newdev);
@@ -55,7 +55,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 
 		if ( strcmp(newmnt, *device) == 0 )
 		{
-			unieject_verbose(opts, _("'%s' is the mount point of '%s'\n"), *device, newdev);
+			g_message(_("'%s' is the mount point of '%s'\n"), *device, newdev);
 			ret = *device;
 			*device = newdev;
 			
@@ -79,7 +79,7 @@ bool internal_umount_partition(struct unieject_opts opts, char *device)
 	
 	if ( opts.fake )
 	{
-		unieject_verbose(opts, _("unmount '%s'\n"), device);
+		g_message(_("unmount '%s'\n"), device);
 		return true;
 	}
 	
@@ -91,11 +91,11 @@ bool internal_umount_partition(struct unieject_opts opts, char *device)
 		if ( UNLIKELY(umount(mnt) == -1) )
 #endif
 		{
-			unieject_error(opts, "unable to unmount '%s' [%s]\n", mnt, strerror(errno));
+			g_critical("unable to unmount '%s' [%s]\n", mnt, strerror(errno));
 			return false;
 		}
 		
-		unieject_verbose(opts, "'%s' unmounted from '%s'\n", device, mnt);
+		g_critical("'%s' unmounted from '%s'\n", device, mnt);
 	}
 
 	return true;
@@ -117,7 +117,7 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	int r = glob(glob_target, GLOB_NOESCAPE|GLOB_ONLYDIR, NULL, &partitions);
 	if ( r == 0)
 	{
-		unieject_verbose(opts, _("unmounting partitions of '%s'.\n"), rootdev);
+		g_message(_("unmounting partitions of '%s'.\n"), rootdev);
 		for(int i = 0; i < partitions.gl_pathc; i++)
 		{
 			char *directory = partitions.gl_pathv[i] + glob_target_len;
@@ -155,13 +155,13 @@ char *rootdevice(struct unieject_opts opts, char *device)
 	
 	if ( r != 0 )
 	{
-		unieject_error(opts, _("unable to stat '%s' [%s]\n"), device, strerror(errno));
+		g_critical(_("unable to stat '%s' [%s]\n"), device, strerror(errno));
 		return (void*)-1;
 	}
 	
 	if ( ! S_ISBLK(devstat.st_mode) )
 	{
-		unieject_error(opts, _("'%s' is not a block device.\n"), device);
+		g_critical(_("'%s' is not a block device.\n"), device);
 		return (void*)-1;
 	}
 	
@@ -178,24 +178,24 @@ char *rootdevice(struct unieject_opts opts, char *device)
 	case 11: /* SCSI CD-ROM devices */
 		return NULL;
 	default:
-		unieject_error(opts, _("'%s' is neither an IDE nor a SCSI device or partition, unable to eject.\n"), device);
+		g_critical(_("'%s' is neither an IDE nor a SCSI device or partition, unable to eject.\n"), device);
 		return (void*)-1;
 	}
 	
 	if ( minor(devstat.st_rdev) == rootminor )
 	{
-		unieject_verbose(opts, _("'%s' is a proper device (%u,%u).\n"), device, major(devstat.st_rdev), minor(devstat.st_rdev));
+		g_message(_("'%s' is a proper device (%u,%u).\n"), device, major(devstat.st_rdev), minor(devstat.st_rdev));
 		return NULL;
 	}
 	
-	unieject_error(opts, _("'%s' is a partition of %u,%u not a device.\n"), device, major(devstat.st_rdev), rootminor);
+	g_critical(_("'%s' is a partition of %u,%u not a device.\n"), device, major(devstat.st_rdev), rootminor);
 	
 	/* This code is for Linux 2.6 only... */
 	glob_t block_devices;
 	r = glob("/sys/block/*", GLOB_NOESCAPE|GLOB_ONLYDIR, NULL, &block_devices);
 	if ( r == 0 )
 	{
-		unieject_verbose(opts, _("using sysfs to identify the root device for '%s'.\n"), device);
+		g_message(_("using sysfs to identify the root device for '%s'.\n"), device);
 		
 		for(int i = 0; i < block_devices.gl_pathc; i++)
 		{
@@ -226,7 +226,7 @@ char *rootdevice(struct unieject_opts opts, char *device)
 	
 	if ( isdigit(device[strlen(device)-1]) )
 	{
-		unieject_verbose(opts, _("trying empirical way to find root device for '%s'.\n"), device);
+		g_message(_("trying empirical way to find root device for '%s'.\n"), device);
 		
 		char *rootdev = sstrdup(device);
 		while ( isdigit(rootdev[strlen(rootdev)-1]) )

@@ -43,7 +43,7 @@ bool libunieject_open(struct unieject_opts *opts)
 
 	if ( UNLIKELY(!opts->cdio) )
 	{
-		unieject_error(*opts, _("cannot find CD-Rom driver.\n"));
+		g_critical(_("cannot find CD-Rom driver.\n"));
 		return false;
 	}
 

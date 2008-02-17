@@ -34,7 +34,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 	int mnts = getmntinfo(&mntbuf, MNT_NOWAIT);
 	if (UNLIKELY(mnts == 0))
 	{
-		unieject_error(opts, _("error receiving mount information: %s\n"), strerror(errno));
+		g_critical(_("error receiving mount information: %s\n"), strerror(errno));
 		return *device;
 	}
 	
@@ -49,7 +49,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 		
 		if ( strcmp(newdev, *device) == 0 )
 		{
-			unieject_verbose(opts, _("'%s' is mounted as '%s'\n"), *device, newmnt);
+			g_message(_("'%s' is mounted as '%s'\n"), *device, newmnt);
 			ret = newmnt;
 			
 			free(newdev);
@@ -58,7 +58,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 
 		if ( strcmp(newmnt, *device) == 0 )
 		{
-			unieject_verbose(opts, _("'%s' is the mount point of '%s'\n"), *device, newdev);
+			g_message(_("'%s' is the mount point of '%s'\n"), *device, newdev);
 			ret = *device;
 			*device = newdev;
 			
@@ -81,11 +81,11 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	{
 		if ( UNLIKELY(unmount(mnt, opts.force ? MNT_FORCE : 0) == -1) )
 		{
-			unieject_error(opts, _("unable to unmount '%s' [%s]\n"), mnt, strerror(errno));
+			g_critical(_("unable to unmount '%s' [%s]\n"), mnt, strerror(errno));
 			return false;
 		}
 		
-		unieject_verbose(opts, _("'%s' unmounted from '%s'\n"), device, mnt);
+		g_message(_("'%s' unmounted from '%s'\n"), device, mnt);
 	}
 
 	return true;
@@ -93,6 +93,6 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 
 char *rootdevice(struct unieject_opts opts, char *device)
 {
-	unieject_error(opts, _("rootdevice(): function not implemented for FreeBSD driver.\n"));
+	g_critical(_("rootdevice(): function not implemented for FreeBSD driver.\n"));
 	return NULL;
 }

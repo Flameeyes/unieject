@@ -29,17 +29,17 @@ int libunieject_slotchange(struct unieject_opts opts)
 {
 	if ( ! (unieject_get_misccaps(opts) & CDIO_DRIVE_CAP_MISC_SELECT_DISC) )
 	{
-		unieject_error(opts, _("the selected device doesn't have capability to select disc.\n"));
+		g_critical(_("the selected device doesn't have capability to select disc.\n"));
 		return -2;
 	}
 
 #if 0
-	unieject_verbose(stdout, "%s: setting disc slot to %d\n", opts.progname, opts.slot);
+	g_message(_("%s: setting disc slot to %d\n"), opts.progname, opts.slot);
 	driver_return_code_t sts = cdio_set_disc((CdIo_t*)opts.cdio, opts.slot);
 	
 	return unieject_status(opts, sts);
 #else
-	unieject_error(opts, "libcdio doesn't support slot changing yet.\n");
+	g_critical("libcdio doesn't support slot changing yet.\n");
 	return -4;
 #endif
 }

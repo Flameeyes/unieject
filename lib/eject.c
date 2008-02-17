@@ -50,7 +50,7 @@ int libunieject_traytoggle(struct unieject_opts *opts)
 	
 	if ( status != 0 )
 	{
-		unieject_error(*opts, _("unable to get the status of the tray.\n"));
+		g_critical(_("unable to get the status of the tray.\n"));
 		return -1;
 	}
 	
@@ -58,10 +58,10 @@ int libunieject_traytoggle(struct unieject_opts *opts)
 	 * status of the tray: 1 is open, 0 is closed. */
 	if ( buffer[5] & 0x1 )
 	{
-		unieject_verbose(*opts, _("%s: closing tray.\n"), "traytoggle");
+		g_message(_("%s: closing tray.\n"), "traytoggle");
 		opts->eject = 0;
 	} else {
-		unieject_verbose(*opts, _("%s: ejecting.\n"), "traytoggle");
+		g_message(_("%s: ejecting.\n"), "traytoggle");
 		opts->eject = 1;
 	}
 	
@@ -74,13 +74,13 @@ int libunieject_eject(struct unieject_opts *opts)
 	{
 		if ( ! (unieject_get_misccaps(*opts) & CDIO_DRIVE_CAP_MISC_EJECT) )
 		{
-			unieject_error(*opts, _("the selected device doesn't have eject capabilities.\n"));
+			g_critical(_("the selected device doesn't have eject capabilities.\n"));
 			return -2;
 		}
 	} else {
 		if ( ! (unieject_get_misccaps(*opts) & CDIO_DRIVE_CAP_MISC_CLOSE_TRAY) )
 		{
-			unieject_error(*opts, _("the selected device doesn't have tray close capabilities.\n"));
+			g_critical(_("the selected device doesn't have tray close capabilities.\n"));
 			return -2;
 		}
 	}
@@ -94,13 +94,13 @@ int libunieject_eject(struct unieject_opts *opts)
 		int devfd = open(opts->device, O_RDONLY);
 		if ( UNLIKELY(devfd == -1) )
 		{
-			unieject_error(*opts, _("unable to open device descriptor [%s].\n"), strerror(errno));
+			g_critical(_("unable to open device descriptor [%s].\n"), strerror(errno));
 			return -4;
 		}
 		
 		if ( UNLIKELY(ioctl(devfd, CDIOCALLOW) == -1) )
 		{
-			unieject_error(*opts, _("error in ioctl [%s].\n"), strerror(errno));
+			g_critical(_("error in ioctl [%s].\n"), strerror(errno));
 			return -5;
 		}
 		

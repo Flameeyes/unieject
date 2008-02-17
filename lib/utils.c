@@ -27,6 +27,8 @@
 # include <libgen.h>
 #endif
 
+#include <glib.h>
+
 #include <cdio/device.h>
 
 
@@ -61,60 +63,6 @@ char *simplifylink(const char *orig)
 }
 
 /**
- * @brief Output an error for unieject library
- * @param opts Options to apply for the output
- * @param format Output format of the error
- * @param ... As in printf() like function
- *
- * @note Internal function
- */
-void unieject_error(const struct unieject_opts opts, const char *format, ...)
-{
-	if ( opts.verbose == -1 )
-		return;
-	
-	char *newformat = NULL;
-	if ( asprintf(&newformat, "%s: %s", opts.progname, format) == -1 )
-		return;
-	
-	va_list argptr;
-	va_start(argptr, format);
-	
-	vfprintf(stderr, newformat, argptr);
-	
-	va_end(argptr);
-	
-	free(newformat);
-}
-
-/**
- * @brief Output verbose message for unieject library
- * @param opts Options to apply for the output
- * @param format Output format of the message
- * @param ... As in printf() like function
- *
- * @note Internal function
- */
-void unieject_verbose(const struct unieject_opts opts, const char *format, ...)
-{
-	if ( opts.verbose < 1 )
-		return;
-	
-	char *newformat = NULL;
-	if ( asprintf(&newformat, "%s: %s", opts.progname, format) == -1 )
-		return;
-	
-	va_list argptr;
-	va_start(argptr, format);
-	
-	vfprintf(stdout, newformat, argptr);
-	
-	va_end(argptr);
-	
-	free(newformat);
-}
-
-/**
  * @brief Outputs a message about the given status return code
  * @param opts Options to apply for the output
  * @param sts Status return code from libcdio library
@@ -126,7 +74,7 @@ int unieject_status(const struct unieject_opts opts, int sts)
 	case DRIVER_OP_SUCCESS:
 		return 0;
 	default:
-		unieject_error(opts, _("unable to execute command (unknown CDIO status: %d)\n"), sts);
+		g_critical(_("unable to execute command (unknown CDIO status: %d)\n"), sts);
 	}
 	
 	return -3;
