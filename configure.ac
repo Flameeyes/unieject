@@ -29,6 +29,7 @@ case $host_os in
 esac
 
 PKG_PROG_PKG_CONFIG
+AC_SUBST(libcdiomin)
 PKG_CHECK_MODULES([LIBCDIO], [libcdio >= $libcdiomin])
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.6])
 
