@@ -1,5 +1,5 @@
 AC_PREREQ([2.61])
-AC_INIT([unieject], [5.3.2], [flameeyes@gentoo.org])
+AC_INIT([unieject], [6], [flameeyes@gmail.com])
 AC_SUBST(PACKAGE_TARNAME)
 
 AM_INIT_AUTOMAKE([1.10])
