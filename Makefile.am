@@ -72,7 +72,7 @@ EXTRA_DIST = config.rpath mkinstalldirs configure bootstrap.sh	\
 EXTRA_CLEAN = loadcd
 
 dist_doc_DATA = ChangeLog NEWS COPYING INSTALL README AUTHORS	\
-	ABOUT-NLS unieject.conf.sample
+	ABOUT-NLS unieject.conf.sample DONATING
 
 DISTCLEANFILES = ChangeLog
 
