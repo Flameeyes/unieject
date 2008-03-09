@@ -67,8 +67,7 @@ loadcd: unieject
 ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign no-dist-gzip dist-bzip2
 
-EXTRA_DIST = config.rpath mkinstalldirs configure bootstrap.sh	\
-	svn2cl.xsl
+EXTRA_DIST = config.rpath mkinstalldirs configure bootstrap.sh
 EXTRA_CLEAN = loadcd
 
 dist_doc_DATA = ChangeLog NEWS COPYING INSTALL README AUTHORS	\
