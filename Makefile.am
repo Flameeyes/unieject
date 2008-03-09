@@ -96,3 +96,6 @@ endif
 install-exec-hook: loadcd
 	rm -f $(DESTDIR)$(bindir)/loadcd
 	(cd $(DESTDIR)$(bindir) && $(LN_S) unieject loadcd)
+
+distcheck-hook: ChangeLog
+	( fgrep -q "Unable to regenerate" ChangeLog && exit 1 || exit 0 )
