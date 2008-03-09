@@ -87,11 +87,10 @@ CC_ATTRIBUTE_VISIBILITY
 CC_FLAG_VISIBILITY([CFLAGS="$CFLAGS -fvisibility=hidden"])
 
 dnl Checking for support programs
-GNU_PROG_SED([], [changelog=no])
-AC_SUBST([GSED])
+AC_CHECK_PROG([changelog], [git], [yes])
 
 dnl Make sure pre-requisites for ChangeLog regeneration are satisfied
-AM_CONDITIONAL([REGEN_CHANGELOG], [test "x$changelog" != "xno"])
+AM_CONDITIONAL([REGEN_CHANGELOG], [test "x$changelog" = "xyes"])
 
 DOXYGEN_DOC([Doxyfile])
 

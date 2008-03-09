@@ -81,11 +81,8 @@ cltimestamp:
 
 if REGEN_CHANGELOG
 ChangeLog: cltimestamp
-	@if test -d $(top_srcdir)/.svn; then \
-		svn up $(top_srcdir); \
-		svn log $(top_srcdir) --xml --verbose | \
-			xsltproc $(top_srcdir)/svn2cl.xsl - | \
-		$(GSED) -f $(top_srcdir)/svn2authors.sed \
+	@if test -d $(top_srcdir)/.git; then \
+		GIT_DIR="$(top_srcdir)/.git" git log --summary \
 		> ChangeLog; \
 	else \
 		touch ChangeLog; \
