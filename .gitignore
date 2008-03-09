@@ -42,6 +42,8 @@ m4/wint_t.m4
 m4/xsize.m4
 missing
 mkinstalldirs
+po/*.gmo
+po/unieject.pot
 po/Makefile.in.in
 po/Makevars.template
 po/Rules-quot
