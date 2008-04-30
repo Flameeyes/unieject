@@ -66,9 +66,9 @@ enum {
 	OP_ERROR
 };
 
-void cleanup() __attribute__((destructor));
+static void cleanup() __attribute__((destructor));
 
-void cleanup()
+static void cleanup()
 {
 	free(opts.progname);
 	free(opts.device);
@@ -253,7 +253,7 @@ static int parse_options (int argc, char *argv[])
  * This function is used to implement verbose level when using glib
  * message logging.
  */
-void unieject_g_log_noop() { }
+static void unieject_g_log_noop() { }
 
 int main(int argc, char *argv[])
 {

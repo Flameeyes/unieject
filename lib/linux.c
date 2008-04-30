@@ -73,7 +73,7 @@ char *checkmount(struct unieject_opts opts, char **device)
 	return ret;
 }
 
-bool internal_umount_partition(struct unieject_opts opts, char *device)
+static bool internal_umount_partition(struct unieject_opts opts, char *device)
 {
 	char *mnt = NULL;
 	
