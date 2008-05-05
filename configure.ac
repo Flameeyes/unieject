@@ -4,6 +4,7 @@ AC_SUBST(PACKAGE_TARNAME)
 
 AM_INIT_AUTOMAKE([1.10])
 AM_CONFIG_HEADER([config.h])
+AM_MAINTAINER_MODE
 
 AC_PROG_CC_C99
 if test "x$ac_cv_prog_cc_c99" = "xno"; then
