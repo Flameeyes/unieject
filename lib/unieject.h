@@ -26,7 +26,26 @@
 extern "C" {
 #endif
 
-#pragma GCC visibility push(default)
+/* When building the library, don't hide functions in this header as
+ * the are public.
+ *
+ * If it's available, prefer protected visibility to default
+ * visibility during library build, as that will avoid passing through
+ * the PLT for in-module calls.
+ *
+ * When using the library (rather than building), don't set visibility
+ * on symbols, they'll be undefined and thus take default visibility
+ * by themselves.
+ */
+#ifdef BUILD_LIBUNIEJECT
+# if SUPPORT_ATTRIBUTE_VISIBILITY_PROTECTED
+#  define LIBUNIEJECT_PROTECTED __attribute__( ( visibility("protected") ) )
+# else
+#  define LIBUNIEJECT_PROTECTED __attribute__( ( visibility("default") ) )
+# endif
+#else
+# define LIBUNIEJECT_PROTECTED
+#endif
 
 /**
  * @file
@@ -58,14 +77,14 @@ struct unieject_opts {
  *
  * @note This should be internal only
  */
-char *libunieject_defaultdevice();
+char *libunieject_defaultdevice() LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Gets the device name, resolving the argument or finding the default.
  * @param opts Options to apply.
  * @param basename Name of the device to canonicalize or NULL to find the default.
  */
-char *libunieject_getdevice(struct unieject_opts opts, const char *basename);
+char *libunieject_getdevice(struct unieject_opts opts, const char *basename) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Open a given device
@@ -76,7 +95,7 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename);
  * This is just a wrap-on function for cdio_open, which does a bit of tricks
  * for known-broken operating systems (like FreeBSD).
  */
-bool libunieject_open(struct unieject_opts *opts);
+bool libunieject_open(struct unieject_opts *opts) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Eject the media in the passed cdio descriptor.
@@ -90,7 +109,7 @@ bool libunieject_open(struct unieject_opts *opts);
  *       after a call to this method. This because on some OS you must close
  *       previous opened device to do an eject/trayclose.
  */
-int libunieject_eject(struct unieject_opts *opts);
+int libunieject_eject(struct unieject_opts *opts) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Toggle the tray between closed and open
@@ -105,7 +124,7 @@ int libunieject_eject(struct unieject_opts *opts);
  *       close or open function. This relies on the hardware being able to
  *       provide those information (MMC-2).
  */
-int libunieject_traytoggle(struct unieject_opts *opts);
+int libunieject_traytoggle(struct unieject_opts *opts) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Sets the speed of the given CD-ROM device
@@ -115,7 +134,7 @@ int libunieject_traytoggle(struct unieject_opts *opts);
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error suring speed setting
  */
-int libunieject_setspeed(struct unieject_opts opts);
+int libunieject_setspeed(struct unieject_opts opts) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Change the slot of a CD-ROM changer
@@ -125,7 +144,7 @@ int libunieject_setspeed(struct unieject_opts opts);
  * @retval -2 Drive doesn't has the capabilities required
  * @retval -3 Error suring slot setting
  */
-int libunieject_slotchange(struct unieject_opts opts);
+int libunieject_slotchange(struct unieject_opts opts) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Toggle locking of a CD-ROM device
@@ -142,7 +161,7 @@ int libunieject_slotchange(struct unieject_opts opts);
  *       after a call to this method. This because on some OS you must close
  *       previous opened device to do an eject/trayclose.
  */
-int libunieject_togglelock(struct unieject_opts *opts, int lock);
+int libunieject_togglelock(struct unieject_opts *opts, int lock) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Unmount a device
@@ -155,12 +174,10 @@ int libunieject_togglelock(struct unieject_opts *opts, int lock);
  * @note While @c device is not modified, passing it as const is not possible
  * as it calls an internal function using non-const char*
  */
-bool libunieject_umountdev(struct unieject_opts opts, char *device);
+bool libunieject_umountdev(struct unieject_opts opts, char *device) LIBUNIEJECT_PROTECTED;
 
 #ifdef __cplusplus
 }
 #endif
-
-#pragma GCC visibility pop
 
 #endif
