@@ -33,7 +33,8 @@ libunieject_la_CURRENT := 4
 libunieject_la_REVISION := 0
 libunieject_la_AGE := 0
 
-libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS) $(GLIB_CFLAGS) -DG_LOG_DOMAIN=\"libunieject\"
+libunieject_la_CFLAGS = $(AM_CFLAGS) $(LIBCDIO_CFLAGS) $(GLIB_CFLAGS)	\
+	-DG_LOG_DOMAIN=\"libunieject\" -DBUILD_LIBUNIEJECT
 libunieject_la_LDFLAGS = $(AM_LDFLAGS) $(EXP_LDFLAGS) $(LIBCDIO_LDFLAGS) \
 	-version-info $(libunieject_la_CURRENT):$(libunieject_la_REVISION):$(libunieject_la_AGE) \
 libunieject_la_LIBADD = $(AM_LDADD) $(LIBCDIO_LIBS) $(GLIB_LIBS) $(LTLIBINTL)
