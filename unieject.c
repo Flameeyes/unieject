@@ -188,7 +188,7 @@ static int parse_options (int argc, char *argv[])
 	    gettext_noop("Ignored"), NULL },
 	  { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining_options,
 	    NULL, NULL },
-	  { NULL }
+	  { NULL, 0, 0, 0, NULL, NULL, NULL }
 	};
 
 	GError *error = NULL;
