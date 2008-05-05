@@ -43,7 +43,7 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = lib/libunieject.pc
 
 bin_PROGRAMS = unieject
-unieject_SOURCES = unieject.c lib/utils.c
+unieject_SOURCES = unieject.c
 unieject_CFLAGS = $(AM_CFLAGS) \
 	$(LIBCDIO_CFLAGS) \
 	$(GLIB_CFLAGS) \
