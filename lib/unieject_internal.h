@@ -30,7 +30,7 @@
 #	define PRINTF_LIKE(x, y)
 #endif
 
-#ifdef SUPPORT_ATTRIBUTE_INTERNAL
+#ifdef SUPPORT_ATTRIBUTE_VISIBILITY_INTERNAL
 #	define INTERNAL			__attribute__( ( visibility("internal") ) )
 #else
 #	define INTERNAL
