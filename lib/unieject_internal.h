@@ -24,30 +24,30 @@
 
 #include <unieject.h>
 
-#ifdef SUPPORT_ATTRIBUTE_FORMAT
-#	define PRINTF_LIKE(x, y)	__attribute__( ( format(printf, x, y) ) )
+#if SUPPORT_ATTRIBUTE_FORMAT
+# define PRINTF_LIKE(x, y)	__attribute__( ( format(printf, x, y) ) )
 #else
-#	define PRINTF_LIKE(x, y)
+# define PRINTF_LIKE(x, y)
 #endif
 
-#ifdef SUPPORT_ATTRIBUTE_VISIBILITY_INTERNAL
-#	define INTERNAL			__attribute__( ( visibility("internal") ) )
+#if SUPPORT_ATTRIBUTE_VISIBILITY_INTERNAL
+# define INTERNAL		__attribute__( ( visibility("internal") ) )
 #else
-#	define INTERNAL
+# define INTERNAL
 #endif
 
-#ifdef SUPPORT_ATTRIBUTE_NONNULL
-#	define NONNULL(...)		__attribute__( ( nonnull(__VA_ARGS__) ) )
+#if SUPPORT_ATTRIBUTE_NONNULL
+# define NONNULL(...)		__attribute__( ( nonnull(__VA_ARGS__) ) )
 #else
-#	define NONNULL(...)
+# define NONNULL(...)
 #endif
 
-#ifdef SUPPORT__BUILTIN_EXPECT
-#	define LIKELY(x)		__builtin_expect(!!(x), 1)
-#	define UNLIKELY(x)		__builtin_expect(!!(x), 0)
+#if SUPPORT__BUILTIN_EXPECT
+# define LIKELY(x)		__builtin_expect(!!(x), 1)
+# define UNLIKELY(x)		__builtin_expect(!!(x), 0)
 #else
-#	define LIKELY(x)		x
-#	define UNLIKELY(x)		x
+# define LIKELY(x)		x
+# define UNLIKELY(x)		x
 #endif
 
 /* safe strdup */
