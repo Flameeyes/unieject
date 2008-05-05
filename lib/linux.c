@@ -118,7 +118,7 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	if ( r == 0)
 	{
 		g_message(_("unmounting partitions of '%s'.\n"), rootdev);
-		for(int i = 0; i < partitions.gl_pathc; i++)
+		for(size_t i = 0; i < partitions.gl_pathc; i++)
 		{
 			char *directory = partitions.gl_pathv[i] + glob_target_len;
 			
@@ -165,7 +165,7 @@ char *rootdevice(char *device)
 		return (void*)-1;
 	}
 	
-	int rootminor = -1;
+	dev_t rootminor = -1;
 	switch( major(devstat.st_rdev) )
 	{
 	case 3:  /* IDE Devices: every 64 minors there's a new device */
@@ -188,7 +188,7 @@ char *rootdevice(char *device)
 		return NULL;
 	}
 	
-	g_critical(_("'%s' is a partition of %u,%u not a device.\n"), device, major(devstat.st_rdev), rootminor);
+	g_critical(_("'%s' is a partition of %u,%lu not a device.\n"), device, major(devstat.st_rdev), rootminor);
 	
 	/* This code is for Linux 2.6 only... */
 	glob_t block_devices;
@@ -197,7 +197,7 @@ char *rootdevice(char *device)
 	{
 		g_message(_("using sysfs to identify the root device for '%s'.\n"), device);
 		
-		for(int i = 0; i < block_devices.gl_pathc; i++)
+		for(size_t i = 0; i < block_devices.gl_pathc; i++)
 		{
 			char sysfs_file_dev[ strlen(block_devices.gl_pathv[i]) + 4 + 1 ];
 			
