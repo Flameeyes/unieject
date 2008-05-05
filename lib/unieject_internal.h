@@ -32,6 +32,8 @@
 
 #if SUPPORT_ATTRIBUTE_VISIBILITY_INTERNAL
 # define INTERNAL		__attribute__( ( visibility("internal") ) )
+#elif SUPPORT_ATTRIBUTE_VISIBILITY_HIDDEN
+# define HIDDEN			__attribute__( ( visibility("hidden") ) )
 #else
 # define INTERNAL
 #endif
