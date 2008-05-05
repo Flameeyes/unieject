@@ -33,7 +33,7 @@ char *libunieject_defaultdevice()
 	return device;
 }
 
-char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
+char *libunieject_getdevice(const char *basename)
 {
 	char *normalized = sstrdup(basename);
 	char *tmp = NULL; // used to free the right pointers
@@ -93,11 +93,11 @@ char *libunieject_getdevice(struct unieject_opts opts, const char *basename)
 	if ( normalized[len-1] == '/' )
 		normalized[len-1] = '\0';
 	
-	char *mnt = checkmount(opts, &normalized);
+	char *mnt = checkmount(&normalized);
 	free(mnt);
 	
 	/* Now check if the device is a partition or a device itself */
-	tmp = rootdevice(opts, normalized);
+	tmp = rootdevice(normalized);
 	if ( tmp ) /* If the device is a partition rather than a root device */
 	{
 		if ( tmp == (void*)-1 ) return NULL;

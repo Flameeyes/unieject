@@ -36,5 +36,5 @@ int libunieject_setspeed(struct unieject_opts opts)
 	g_message(_("setting CD-ROM speed to %dX\n"), opts.speed);
 	driver_return_code_t sts = cdio_set_speed((CdIo_t*)opts.cdio, opts.speed);
 	
-	return unieject_status(opts, sts);
+	return unieject_status(sts);
 }

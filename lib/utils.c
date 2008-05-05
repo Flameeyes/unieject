@@ -64,10 +64,9 @@ char *simplifylink(const char *orig)
 
 /**
  * @brief Outputs a message about the given status return code
- * @param opts Options to apply for the output
  * @param sts Status return code from libcdio library
  */
-int unieject_status(const struct unieject_opts opts, int sts)
+int unieject_status(int sts)
 {
 	switch(sts)
 	{

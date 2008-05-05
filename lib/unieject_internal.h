@@ -56,17 +56,16 @@
 #define sstrdup(str)			str ? strdup(str) : NULL;
 
 char INTERNAL *simplifylink(const char *link) NONNULL();
-char INTERNAL *checkmount(struct unieject_opts opts, char **device) NONNULL();
+char INTERNAL *checkmount(char **device) NONNULL();
 bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNULL();
 
 /**
  * @brief Returns the root device, if the given device is actually a partition
- * @param opts Options to apply.
  * @param device Device to check
  */
-char INTERNAL *rootdevice(struct unieject_opts opts, char *device) NONNULL();
+char INTERNAL *rootdevice(char *device) NONNULL();
 
-int INTERNAL unieject_status(const struct unieject_opts opts, int sts);
+int INTERNAL unieject_status(int sts);
 cdio_drive_misc_cap_t INTERNAL unieject_get_misccaps(const struct unieject_opts opts);
 
 /* Gettext stuff */

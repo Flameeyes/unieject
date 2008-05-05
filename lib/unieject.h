@@ -80,7 +80,7 @@ char *libunieject_defaultdevice() LIBUNIEJECT_PROTECTED;
  * @param opts Options to apply.
  * @param basename Name of the device to canonicalize or NULL to find the default.
  */
-char *libunieject_getdevice(struct unieject_opts opts, const char *basename) LIBUNIEJECT_PROTECTED;
+char *libunieject_getdevice(const char *basename) LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Open a given device

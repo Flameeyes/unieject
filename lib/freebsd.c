@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-char *checkmount(struct unieject_opts opts, char **device)
+char *checkmount(char **device)
 {
 	char *ret = NULL;
 	struct statfs *mntbuf;
@@ -77,7 +77,7 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 {
 	char *mnt = NULL;
 	
-	while ( ( mnt = checkmount(opts, &device) ) )
+	while ( ( mnt = checkmount(&device) ) )
 	{
 		if ( UNLIKELY(unmount(mnt, opts.force ? MNT_FORCE : 0) == -1) )
 		{
@@ -91,7 +91,7 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	return true;
 }
 
-char *rootdevice(struct unieject_opts opts, char *device)
+char *rootdevice(char *device)
 {
 	g_critical(_("rootdevice(): function not implemented for FreeBSD driver.\n"));
 	return NULL;

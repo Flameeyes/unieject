@@ -136,5 +136,5 @@ int libunieject_eject(struct unieject_opts *opts)
 	driver_return_code_t sts = mmc_start_stop_media((CdIo_t*)opts->cdio, opts->eject, 0, 0);
 #endif
 	
-	return unieject_status(*opts, sts);
+	return unieject_status(sts);
 }

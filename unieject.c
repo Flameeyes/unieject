@@ -241,7 +241,7 @@ static int parse_options (int argc, char *argv[])
 		g_warning(_("further non-option arguments ignored.\n"));
 	}
 
-	opts.device = libunieject_getdevice(opts, arg_device);
+	opts.device = libunieject_getdevice(arg_device);
 	if ( ! opts.device ) return OP_ERROR;
 	
 	return opt;

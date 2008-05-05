@@ -28,7 +28,7 @@
 #include <ctype.h>
 #include <glob.h>
 
-char *checkmount(struct unieject_opts opts, char **device)
+char *checkmount(char **device)
 {
 	char *ret = NULL;
 	FILE *fp = fopen("/proc/mounts", "r");
@@ -83,7 +83,7 @@ static bool internal_umount_partition(struct unieject_opts opts, char *device)
 		return true;
 	}
 	
-	while ( ( mnt = checkmount(opts, &device) ) )
+	while ( ( mnt = checkmount(&device) ) )
 	{
 #ifdef HAVE_UMOUNT2
 		if ( UNLIKELY(umount2(mnt, opts.force ? MNT_FORCE : 0) == -1) )
@@ -106,7 +106,7 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 {
 	if ( ! internal_umount_partition(opts, device) ) return false;
 	
-	char *rootdev = rootdevice(opts, device);
+	char *rootdev = rootdevice(device);
 	if ( ! rootdev ) rootdev = device;
 	
 	char *glob_target = NULL;
@@ -148,7 +148,7 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 	return true;
 }
 
-char *rootdevice(struct unieject_opts opts, char *device)
+char *rootdevice(char *device)
 {
 	struct stat devstat;
 	int r = stat(device, &devstat);
