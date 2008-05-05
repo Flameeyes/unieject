@@ -29,7 +29,7 @@ libunieject_la_SOURCES = \
 	lib/lock.c \
 	$(platformsrcs)
 
-libunieject_la_CURRENT := 4
+libunieject_la_CURRENT := 5
 libunieject_la_REVISION := 0
 libunieject_la_AGE := 0
 
