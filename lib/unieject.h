@@ -22,10 +22,6 @@
 #include <cdio/cdio.h>
 #include <glib.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* When building the library, don't hide functions in this header as
  * the are public.
  *
@@ -175,9 +171,5 @@ int libunieject_togglelock(struct unieject_opts *opts, int lock) LIBUNIEJECT_PRO
  * as it calls an internal function using non-const char*
  */
 bool libunieject_umountdev(struct unieject_opts opts, char *device) LIBUNIEJECT_PROTECTED;
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
