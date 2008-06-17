@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es_AR\n"
 "Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
-"POT-Creation-Date: 2008-02-18 01:09+0100\n"
+"POT-Creation-Date: 2008-06-17 19:28+0200\n"
 "PO-Revision-Date: 2006-06-24 04:07+0200\n"
 "Last-Translator: Javier Villavicencio <javier.paya@gmail.com>\n"
 "Language-Team: Spanish Argentina\n"
@@ -240,9 +240,9 @@ msgid "'%s' is a proper device (%u,%u).\n"
 msgstr ""
 
 #: lib/linux.c:191
-#, c-format
-msgid "'%s' is a partition of %u,%u not a device.\n"
-msgstr ""
+#, fuzzy, c-format
+msgid "'%s' is a partition of %u,%lu not a device.\n"
+msgstr "'%s' es un enlace a '%s'\n"
 
 #: lib/linux.c:198
 #, fuzzy, c-format
@@ -335,7 +335,7 @@ msgstr ""
 msgid "setting CD-ROM speed to %dX\n"
 msgstr "estableciendo la velocidad del CD-ROM a %dX\n"
 
-#: lib/utils.c:77
+#: lib/utils.c:76
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr "imposible ejectuar el comando (estado CDIO desconocido: %d)\n"
