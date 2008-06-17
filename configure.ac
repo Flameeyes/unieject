@@ -1,10 +1,10 @@
-AC_PREREQ([2.62])
+AC_PREREQ(2.62)
 AC_INIT([unieject], [6], [flameeyes@gmail.com])
 AC_SUBST(PACKAGE_TARNAME)
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([1.10])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE
 
 AC_PROG_CC_C99
@@ -12,7 +12,7 @@ if test "x$ac_cv_prog_cc_c99" = "xno"; then
    AC_MSG_ERROR([no C99 compiler found, unieject requires a C99 compiler.])
 fi
 
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 
 LT_PREREQ([2.2.4])
 LT_INIT
