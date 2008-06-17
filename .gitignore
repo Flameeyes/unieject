@@ -43,7 +43,6 @@ m4/xsize.m4
 missing
 mkinstalldirs
 po/*.gmo
-po/unieject.pot
 po/Makefile.in.in
 po/Makevars.template
 po/Rules-quot
@@ -53,3 +52,4 @@ po/en@quot.header
 po/insert-header.sin
 po/quot.sed
 po/remove-potcdate.sin
+po/unieject.pot
