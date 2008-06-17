@@ -16,7 +16,7 @@ AC_GNU_SOURCE
 AC_PROG_LIBTOOL
 
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.14])
+AM_GNU_GETTEXT_VERSION([0.17])
 
 case $host_os in
 	dragonfly*)	libcdiomin="0.77" ;;
