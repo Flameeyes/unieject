@@ -7,17 +7,17 @@
 
     <authorgroup>
       <author>
-        <firstname>Diego</firstname>
+        <firstname>Diego E.</firstname>
         <surname>Pettenò</surname>
         <affiliation>
-          <address><email>flameeyes@gentoo.org</email></address>
+          <address><email>flameeyes@gmail.com</email></address>
         </affiliation>
       </author>
     </authorgroup>
 
     <copyright>
-      <year>2005-2006</year>
-      <holder>Diego Pettenò</holder>
+      <year>2005-2008</year>
+      <holder>Diego E. Pettenò</holder>
     </copyright>
 
   </articleinfo>
@@ -473,5 +473,3 @@
     </refentry>
   </section>
 </article>
-
-<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
