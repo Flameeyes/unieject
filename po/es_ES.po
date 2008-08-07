@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: es_ES\n"
-"Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
+"Report-Msgid-Bugs-To: flameeyes@gmail.com\n"
 "POT-Creation-Date: 2008-06-17 19:28+0200\n"
 "PO-Revision-Date: 2006-06-21 21:46+0200\n"
 "Last-Translator: Ioannis Aslanidis <deathwing00@gentoo.org>\n"

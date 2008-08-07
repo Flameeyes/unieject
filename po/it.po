@@ -2,14 +2,14 @@
 # Copyright (C) YEAR Diego Pettenò
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Diego 'Flameeyes' Pettenò <flameeyes@gentoo.org>, 2006.
+# Diego 'Flameeyes' Pettenò <flameeyes@gmail.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
-"Report-Msgid-Bugs-To: flameeyes@gentoo.org\n"
+"Report-Msgid-Bugs-To: flameeyes@gmail.com\n"
 "POT-Creation-Date: 2008-06-17 19:28+0200\n"
 "PO-Revision-Date: 2006-06-24 06:51+0200\n"
-"Last-Translator: Diego 'Flameeyes' Pettenò <flameeyes@gentoo.org>\n"
+"Last-Translator: Diego 'Flameeyes' Pettenò <flameeyes@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
