@@ -6,8 +6,7 @@ INCLUDES = $(all_includes) -I$(top_srcdir)/lib
 DEFS = -DLOCALEDIR=\"$(localedir)\" \
 	-DSYSCONFDIR=\"$(sysconfdir)\"
 
-libincludedir = $(includedir)/unieject
-libinclude_HEADERS = lib/unieject.h
+pkginclude_HEADERS = lib/unieject.h
 
 noinst_HEADERS = lib/unieject_internal.h lib/gettext.h
 
