@@ -2,6 +2,7 @@ AC_PREREQ(2.62)
 AC_INIT([unieject], [6], [flameeyes@gmail.com])
 AC_SUBST(PACKAGE_TARNAME)
 AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_AUX_DIR([config])
 
 AM_INIT_AUTOMAKE([1.10])
 AC_CONFIG_HEADERS([config.h])
