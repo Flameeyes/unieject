@@ -36,7 +36,7 @@
       </refmeta>
       <refnamediv>
         <refname>unieject.conf</refname>
-	<refpurpose>Configuration file for <citerefentry><refentrytitle>unieject</refentrytitle></citerefentry> tool</refpurpose>
+	<refpurpose>Configuration file for <citerefentry><refentrytitle>unieject</refentrytitle><manvolnum>1</manvolnum></citerefentry> tool</refpurpose>
       </refnamediv>
       <refsynopsisdiv>
         <cmdsynopsis><command>/etc/unieject.conf</command></cmdsynopsis>
