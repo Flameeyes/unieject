@@ -1,14 +1,14 @@
 <?xml version='1.0'?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
- "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<article>
-  <articleinfo>
+<article xmlns="http://docbook.org/ns/docbook">
+  <info>
     <title>unieject.conf</title>
 
     <authorgroup>
       <author>
-        <firstname>Diego E.</firstname>
-        <surname>Pettenò</surname>
+	<personname>
+	  <firstname>Diego E.</firstname>
+	  <surname>Pettenò</surname>
+	</personname>
         <affiliation>
           <address><email>flameeyes@gmail.com</email></address>
         </affiliation>
@@ -20,17 +20,16 @@
       <holder>Diego E. Pettenò</holder>
     </copyright>
 
-  </articleinfo>
+  </info>
 
   <section>
     <title>Reference</title>
 
     <refentry>
-      <refentryinfo>
-        <title>unieject.conf</title>
+      <info>
 	<date>December 2005</date>
 	<productname>unieject</productname>
-      </refentryinfo>
+      </info>
       <refmeta>
         <refentrytitle>unieject.conf</refentrytitle>
 	<manvolnum>5</manvolnum>
