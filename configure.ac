@@ -99,14 +99,10 @@ AC_ARG_ENABLE([experimental-ldflags],
 	AS_HELP_STRING([--enable-experimental-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
 
 if test "x$enable_experimental_ldflags" = "xyes"; then
-	EXP_LDFLAGS="-Wl,--as-needed"
+   CC_CHECK_LDFLAGS([-Wl,--as-needed], [EXP_LDFLAGS="-Wl,--as-needed"])
 fi
 
-ac_save_LDFLAGS=$LDFLAGS
-LDFLAGS="$LDFLAGS -Wl,-z,defs"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
-	       [EXP_LDFLAGS="$EXP_LDFLAGS -Wl,-z,-defs"], [])
-LDFLAGS=$ac_save_LDFLAGS
+CC_CHECK_LDFLAGS([-Wl,-z,defs], [EXP_LDFLAGS="$EXP_LDFLAGS -Wl,-z,defs"])
 
 AC_ARG_ENABLE([maintainer-flags],
 	AS_HELP_STRING([--enable-maintainer-flags], [Enable extra CFLAGS for maintainers (don't use as user)]))
