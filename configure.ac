@@ -9,9 +9,9 @@ AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE
 
 AC_PROG_CC_C99
-if test "x$ac_cv_prog_cc_c99" = "xno"; then
-   AC_MSG_ERROR([no C99 compiler found, unieject requires a C99 compiler.])
-fi
+AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
+  AC_MSG_ERROR([no C99 compiler found, unieject requires a C99 compiler.])
+])
 
 AC_USE_SYSTEM_EXTENSIONS
 
@@ -21,11 +21,10 @@ LT_INIT
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
 
-case $host_os in
-	dragonfly*)	libcdiomin="0.77" ;;
-	freebsd*)	libcdiomin="0.76" ;;
-	*)		libcdiomin="0.74" ;;
-esac
+AS_CASE([$host_os],
+  [dragonfly*], [libcdiomin="0.77"],
+  [freebsd*],   [libcdiomin="0.76"],
+                [libcdiomin="0.74"])
 
 PKG_PROG_PKG_CONFIG
 AC_SUBST(libcdiomin)
@@ -53,23 +52,23 @@ AC_CHECK_FUNCS([getenv umount2 setlocale])
 AC_ARG_ENABLE([lock-workaround],
 	AS_HELP_STRING([--enable-lock-workaround], [Enable Linux CD-Rom lock workaround]))
 
-case $host_os in
-	linux* ) os="Linux"
-		if test "x$enable_lock_workaround" != "xno"; then
-			AC_CHECK_HEADERS([linux/cdrom.h fcntl.h sys/ioctl.h errno.h], ,
-				AC_MSG_FAILURE([Unable to find needed headers]))
-			AC_DEFINE([USE_LOCK_WORKAROUND], 1, [Use Linucd CD-Rom lock workaround])
-		fi
-		;;
-	dnl DragonFly BSD uses the same interface as FreeBSD, luckily
-	freebsd*|dragonfly* ) os="FreeBSD"
-		AC_DEFINE([FREEBSD_DRIVER], [1], [Enable FreeBSD driver])
-		;;
-	
-	* ) os="Unsupported"
-		AC_MSG_ERROR([Unsupported Operating System detected, please report back.])
-		;;
-esac
+AS_CASE([$host_os],
+  [linux*], [
+    os="Linux"
+    AS_IF([test "x$enable_lock_workaround" != "xno"], [
+      AC_CHECK_HEADERS([linux/cdrom.h fcntl.h sys/ioctl.h errno.h], ,
+        AC_MSG_FAILURE([Unable to find needed headers]))
+      AC_DEFINE([USE_LOCK_WORKAROUND], 1, [Use Linucd CD-Rom lock workaround])
+    ])
+  ],
+  dnl DragonFly BSD uses the same interface as FreeBSD, luckily
+  [freebsd*|dragonfly*], [
+    os="FreeBSD"
+    AC_DEFINE([FREEBSD_DRIVER], [1], [Enable FreeBSD driver])
+  ],
+  [os="Unsupported"
+   AC_MSG_ERROR([Unsupported Operating System detected, please report back.])
+  ])
 
 AM_CONDITIONAL([LINUX], [test "x$os" = "xLinux"])
 AM_CONDITIONAL([FREEBSD], [test "x$os" = "xFreeBSD"])
@@ -95,18 +94,18 @@ DOXYGEN_DOC([Doxyfile])
 AC_ARG_ENABLE([experimental-ldflags],
 	AS_HELP_STRING([--enable-experimental-ldflags], [Enable support for extra LDFLAGS during linking (GNU ld only)]))
 
-if test "x$enable_experimental_ldflags" = "xyes"; then
-   CC_CHECK_LDFLAGS([-Wl,--as-needed], [EXP_LDFLAGS="-Wl,--as-needed"])
-fi
+AS_IF([test "x$enable_experimental_ldflags" = "xyes"], [
+  CC_CHECK_LDFLAGS([-Wl,--as-needed], [EXP_LDFLAGS="-Wl,--as-needed"])
+])
 
 CC_CHECK_LDFLAGS([-Wl,-z,defs], [EXP_LDFLAGS="$EXP_LDFLAGS -Wl,-z,defs"])
 
 AC_ARG_ENABLE([maintainer-flags],
 	AS_HELP_STRING([--enable-maintainer-flags], [Enable extra CFLAGS for maintainers (don't use as user)]))
 
-if test "x$enable_maintainer_flags" = "xyes"; then
-	CFLAGS="$CFLAGS -Wall -Wextra -pedantic -Werror -fno-common -Wstrict-aliasing=2"
-fi
+AS_IF([test "x$enable_maintainer_flags" = "xyes"], [
+  CFLAGS="$CFLAGS -Wall -Wextra -pedantic -Werror -fno-common -Wstrict-aliasing=2"
+])
 
 AC_SUBST(EXP_LDFLAGS)
 
