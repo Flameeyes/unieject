@@ -32,13 +32,10 @@ AC_SUBST(libcdiomin)
 PKG_CHECK_MODULES([LIBCDIO], [libcdio >= $libcdiomin])
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.6])
 
-AC_ARG_WITH([libconfuse], [AS_HELP_STRING([--without-libconfuse],
-	[Don't use libconfuse for configuration file])])
-
-if test "x$with_libconfuse" != "xno"; then
-	PKG_CHECK_MODULES([CONFUSE], [libconfuse >= 2.5])
-	AC_DEFINE([HAVE_LIBCONFUSE], 1, [Define if building with libconfuse])
-fi
+PKG_WITH_MODULES([CONFUSE], [libconfuse >= 2.5],
+  [AC_DEFINE([HAVE_LIBCONFUSE], 1, [Define if building with libconfuse])],
+  [],
+  [Use libconfuse for configuration file parsing], [yes])
 
 dnl Mandatory functions and headers
 AC_CHECK_HEADERS([stdlib.h unistd.h stdio.h string.h unistd.h])
