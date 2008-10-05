@@ -90,9 +90,11 @@ char *libunieject_getdevice(const char *basename)
 	} else
 		g_free(tmp);
 	
-	int len = strlen(normalized);
-	if ( normalized[len-1] == '/' )
-		normalized[len-1] = '\0';
+	{
+	  size_t len = strlen(normalized);
+	  if ( normalized[len-1] == '/' )
+	    normalized[len-1] = '\0';
+	}
 	
 	char *mnt = checkmount(&normalized);
 	free(mnt);
