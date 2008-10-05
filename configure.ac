@@ -43,6 +43,7 @@ AC_CHECK_FUNCS([perror strerror readlink dirname strdup],, [
 	])
 
 dnl This is needed for libcdio to work as intended
+dnl Remove once cdio will stop checking for HAVE_SYS_TYPES_H
 AC_CHECK_HEADERS([sys/types.h])
 
 dnl Optional functions
