@@ -106,11 +106,10 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 {
 	if ( ! internal_umount_partition(opts, device) ) return false;
 	
-	char *rootdev = rootdevice(device);
+	gchar *rootdev = rootdevice(device);
 	if ( ! rootdev ) rootdev = device;
 	
-	char *glob_target = NULL;
-	asprintf(&glob_target, "/sys/block/%s/*", rootdev + (sizeof("/dev/")-1));
+	gchar *glob_target = g_strdup_printf("/sys/block/%s/*", rootdev + (sizeof("/dev/")-1));
 	const size_t glob_target_len = strlen(glob_target)-1; /* -1 is for the * character for the glob */
 	
 	glob_t partitions;
@@ -128,27 +127,26 @@ bool internal_umountdev(struct unieject_opts opts, char *device)
 			if ( ! strcmp("device", directory) ) continue;
 			if ( ! strcmp("subsystem", directory) ) continue;
 			
-			char *partition = NULL;
-			asprintf(&partition, "/dev/%s", directory );
+			gchar *partition = g_strdup_printf("/dev/%s", directory );
 			
 			if ( ! internal_umount_partition(opts, partition) )
 			{
-				free(partition);
+				g_free(partition);
 				return false;
 			}
 			
-			free(partition);
+			g_free(partition);
 		}
 	}
-	free(glob_target);
+	g_free(glob_target);
 	globfree(&partitions);
 	
-	if ( rootdev != device ) free(rootdev);
+	if ( rootdev != device ) g_free(rootdev);
 	
 	return true;
 }
 
-char *rootdevice(char *device)
+gchar *rootdevice(char *device)
 {
 	struct stat devstat;
 	int r = stat(device, &devstat);
@@ -213,8 +211,7 @@ char *rootdevice(char *device)
 
 			if ( major == major(devstat.st_rdev) && minor == rootminor )
 			{
-				char *rootdev = malloc( strlen(block_devices.gl_pathv[i]) - (sizeof("/sys/block/")-1) + sizeof("/dev/") );
-				sprintf(rootdev, "/dev/%s", block_devices.gl_pathv[i] + (sizeof("/sys/block/") -1));
+				gchar *rootdev = g_strdup_printf("/dev/%s", block_devices.gl_pathv[i] + (sizeof("/sys/block/") -1));
 				globfree(&block_devices);
 				
 				return rootdev;
@@ -228,7 +225,7 @@ char *rootdevice(char *device)
 	{
 		g_message(_("trying empirical way to find root device for '%s'.\n"), device);
 		
-		char *rootdev = sstrdup(device);
+		gchar *rootdev = g_strdup(device);
 		while ( isdigit(rootdev[strlen(rootdev)-1]) )
 			rootdev[strlen(rootdev)-1] = '\0';
 	

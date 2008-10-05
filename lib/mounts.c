@@ -24,24 +24,27 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *libunieject_defaultdevice()
+gchar *libunieject_defaultdevice()
 {
 	CdIo_t *cdio = cdio_open(NULL, DRIVER_UNKNOWN);
-	char *device = cdio_get_default_device(cdio);
+	char *device_cdio = cdio_get_default_device(cdio);
+	/* Need to do this so that g_free() works */
+	gchar *device = g_strdup(device_cdio);
 	cdio_destroy(cdio);
+	free(device_cdio);
 	
 	return device;
 }
 
 char *libunieject_getdevice(const char *basename)
 {
-	char *normalized = sstrdup(basename);
+	char *normalized = g_strdup(basename);
 	char *tmp = NULL; // used to free the right pointers
 	
 	// compatibility with BSD's eject command
 	if ( ! normalized )
 	{
-		normalized = sstrdup(getenv("EJECT"));
+		normalized = g_strdup(getenv("EJECT"));
 		if ( normalized )
 			g_message(_("using value of EJECT variable '%s'\n"), normalized);
 	}
@@ -49,7 +52,7 @@ char *libunieject_getdevice(const char *basename)
 #ifdef FREEBSD_DRIVER
 	if ( ! normalized )
 	{
-		normalized = strdup("cd0");
+		normalized = g_strdup("cd0");
 		g_message(_("using FreeBSD default: 'cd0'\n"));
 	}
 #endif
@@ -71,8 +74,8 @@ char *libunieject_getdevice(const char *basename)
 		// TODO: this needs to check if there's a node in the relative name, before
 
 		tmp = normalized;
-		asprintf(&normalized, "/dev/%s", tmp);
-		free(tmp); tmp = NULL;
+		normalized = g_strdup_printf("/dev/%s", tmp);
+		g_free(tmp); tmp = NULL;
 	}
 	
 	g_message(_("expanded name is '%s'\n"), normalized);
@@ -81,11 +84,11 @@ char *libunieject_getdevice(const char *basename)
 	if ( strcmp(tmp, normalized) )
 	{
 		g_message(_("'%s' is a link to '%s'\n"), normalized, tmp);
-		free(normalized);
+		g_free(normalized);
 		normalized = tmp;
 		tmp = NULL;
 	} else
-		free(tmp);
+		g_free(tmp);
 	
 	int len = strlen(normalized);
 	if ( normalized[len-1] == '/' )
@@ -101,7 +104,7 @@ char *libunieject_getdevice(const char *basename)
 		if ( tmp == (void*)-1 ) return NULL;
 	
 		g_message(_("'%s' is a partition of device '%s'\n"), normalized, tmp);
-		free(normalized);
+		g_free(normalized);
 		normalized = tmp;
 		tmp = NULL;
 	}
@@ -116,16 +119,14 @@ bool libunieject_umountdev(struct unieject_opts opts, char *device)
 	
 	if ( opts.umount_wrapper )
 	{
-		char *cmd = NULL;
+		char *cmd = g_strdup_printf("%s %s", opts.umount_wrapper, device);
 		int res = 0;
 		g_message(_("executing '%s' as umount wrapper.\n"), opts.umount_wrapper);
-		asprintf(&cmd, "%s %s", opts.umount_wrapper, device);
-		
 		res = ( ! opts.fake ) ? system(cmd) : 0;
 		
 		if ( res != 0 )
 			g_message(_("error executing umount wrapper, ignoring.\n"));
-		free(cmd);
+		g_free(cmd);
 	}
 	
 	return internal_umountdev(opts, device);

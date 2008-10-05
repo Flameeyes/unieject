@@ -31,7 +31,7 @@
 
 char *simplifylink(const char *orig)
 {
-	char *tmp = (char*)malloc(1024);
+	char tmp[1024];
 	
 	int c = readlink(orig, tmp, 1023);
 	if ( c != -1)
@@ -39,22 +39,20 @@ char *simplifylink(const char *orig)
 		tmp[c] = '\0';
 		if ( tmp[0] != '/' ) // relative link
 		{
-			char *copylink = sstrdup(orig);
-			char *origdir = strdup(dirname(copylink));
-			free(copylink);
+			char *copylink = g_strdup(orig);
+			char *origdir = g_strdup(dirname(copylink));
+			g_free(copylink);
 			
-			char *newname = NULL;
-			asprintf(&newname, "%s/%s", origdir, tmp);
-			free(tmp); free(origdir);
-			
-			tmp = newname;
+			char *newname = g_strdup_printf("%s/%s", origdir, tmp);
+			g_free(origdir);
+
+			return newname;
 		}
 		
-		return tmp;
+		return g_strdup(tmp);
 	}
 	
-	free(tmp);
-	return strdup(orig);
+ 	return g_strdup(orig);
 }
 
 /**

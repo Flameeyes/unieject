@@ -73,7 +73,7 @@ struct unieject_opts {
  *
  * @note This should be internal only
  */
-char *libunieject_defaultdevice() LIBUNIEJECT_PROTECTED;
+gchar *libunieject_defaultdevice() LIBUNIEJECT_PROTECTED;
 
 /**
  * @brief Gets the device name, resolving the argument or finding the default.

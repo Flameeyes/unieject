@@ -52,9 +52,6 @@
 # define UNLIKELY(x)		x
 #endif
 
-/* safe strdup */
-#define sstrdup(str)			str ? strdup(str) : NULL;
-
 char INTERNAL *simplifylink(const char *link) NONNULL();
 char INTERNAL *checkmount(char **device) NONNULL();
 bool INTERNAL internal_umountdev(struct unieject_opts opts, char *device) NONNULL();

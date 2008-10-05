@@ -97,17 +97,16 @@ static void parse_configuration()
 		exit(-5);
 	}
 	
-	char *userconf;
-	asprintf(&userconf, "%s/.unieject", getenv("HOME"));
+	char *userconf = g_strdup_printf("%s/.unieject", getenv("HOME"));
 	if ( cfg_parse(cfg, userconf) == CFG_PARSE_ERROR )
 	{
 		g_critical(_("Error parsing configuration file %s\n"), userconf);
-		free(userconf);
+		g_free(userconf);
 		cfg_free(cfg);
 		exit(-5);
 	}
 	
-	free(userconf);
+	g_free(userconf);
 	cfg_free(cfg);
 }
 #endif
