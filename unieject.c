@@ -37,9 +37,7 @@
 #endif
 
 #include <gettext.h>
-#ifdef HAVE_SETLOCALE
 #include <locale.h>
-#endif
 
 static struct unieject_opts opts = {
 	.eject = 1,
@@ -257,9 +255,7 @@ static void unieject_g_log_noop() { }
 
 int main(int argc, char *argv[])
 {
-#ifdef HAVE_SETLOCALE
 	setlocale (LC_ALL, "");
-#endif
 
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, LOCALEDIR);

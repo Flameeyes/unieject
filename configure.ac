@@ -14,6 +14,7 @@ AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
 ])
 
 AC_USE_SYSTEM_EXTENSIONS
+CPPFLAGS="${CPPFLAGS} -D_POSIX_C_SOURCE=200112"
 
 LT_PREREQ([2.2.4])
 LT_INIT
@@ -36,19 +37,12 @@ PKG_WITH_MODULES([CONFUSE], [libconfuse >= 2.5],
   [],
   [Use libconfuse for configuration file parsing], [yes])
 
-dnl Mandatory functions and headers
-AC_CHECK_HEADERS([stdlib.h unistd.h stdio.h string.h unistd.h])
-AC_CHECK_FUNCS([perror strerror readlink dirname strdup],, [
-	AC_MSG_FAILURE([Unable to find needed functions.])
-	])
-
 dnl This is needed for libcdio to work as intended
 dnl Remove once cdio will stop checking for HAVE_SYS_TYPES_H
 AC_CHECK_HEADERS([sys/types.h])
 
 dnl Optional functions
-AC_CHECK_HEADERS([libgen.h])
-AC_CHECK_FUNCS([getenv umount2 setlocale])
+AC_CHECK_FUNCS([umount2])
 
 AC_ARG_ENABLE([lock-workaround],
 	AS_HELP_STRING([--enable-lock-workaround], [Enable Linux CD-Rom lock workaround]))

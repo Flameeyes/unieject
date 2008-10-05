@@ -22,10 +22,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#ifdef HAVE_LIBGEN_H
-# include <libgen.h>
-#endif
+#include <libgen.h>
 
 #include <glib.h>
 
@@ -34,7 +31,6 @@
 
 char *simplifylink(const char *orig)
 {
-#if defined(HAVE_READLINK) && defined(HAVE_DIRNAME)
 	char *tmp = (char*)malloc(1024);
 	
 	int c = readlink(orig, tmp, 1023);
@@ -58,7 +54,6 @@ char *simplifylink(const char *orig)
 	}
 	
 	free(tmp);
-#endif
 	return strdup(orig);
 }
 

@@ -38,7 +38,6 @@ char *libunieject_getdevice(const char *basename)
 	char *normalized = sstrdup(basename);
 	char *tmp = NULL; // used to free the right pointers
 	
-#ifdef HAVE_GETENV
 	// compatibility with BSD's eject command
 	if ( ! normalized )
 	{
@@ -46,7 +45,6 @@ char *libunieject_getdevice(const char *basename)
 		if ( normalized )
 			g_message(_("using value of EJECT variable '%s'\n"), normalized);
 	}
-#endif
 
 #ifdef FREEBSD_DRIVER
 	if ( ! normalized )
