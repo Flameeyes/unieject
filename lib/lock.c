@@ -19,10 +19,6 @@
 #include <unieject_internal.h>
 #include <unieject.h>
 
-#include <cdio/mmc.h>
-
-#include <stdio.h>
-
 #if defined(__linux__) && defined(USE_LOCK_WORKAROUND)
 # include <fcntl.h>
 # include <errno.h>
@@ -32,6 +28,8 @@
 # ifndef CDROM_LOCKDOOR
 #  error "Unable to find CDROM_LOCKDOOR definition, and lock workaround requested"
 # endif
+#else
+# include <cdio/mmc.h>
 #endif
 
 /* Set how long to wait for MMC commands to complete */

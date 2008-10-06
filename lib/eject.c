@@ -23,8 +23,6 @@
 
 #include <cdio/mmc.h>
 
-#include <stdio.h>
-
 #ifdef FREEBSD_DRIVER
 #	include <fcntl.h>
 #	include <errno.h>

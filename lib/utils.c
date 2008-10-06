@@ -18,10 +18,7 @@
 
 #include <unieject_internal.h>
 
-#include <errno.h>
 #include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <libgen.h>
 
 #include <glib.h>
