@@ -4,8 +4,9 @@ unieject: Universal Eject command
 This package consists of a library and a command line tool which uses that lib.
 
 libunieject is a library which allows the linked software to perform
-automatical ejects and unmounting the filesystems for the device you want to
-eject.
+automatic ejects and unmounting the filesystems for the device you
+want to eject.
+
 This is now API-stable, and the public API will be maintained in newer version
 by using linker scripts if needed. No non-public symbols are exported, so there
 are no chances that internal API changes will break programs linked to this.
@@ -39,29 +40,23 @@ libconfuse (2.5) http://www.nongnu.org/confuse/
   --without-libconfuse option at ./configure, in which case the configuration
   file won't be loaded and parsed at all.
 
-Subversion
+GIT
   Required to get an updated ChangeLog built during make dist phase.
   Optional when building out of the source tarball.
 
 libxslt
-  xsltproc command is used to use svn2cl script, it's only needed during
-  make dist phase, so no need for it when building out of the source
-  tarball.
-
-xmlto
-  The xmlto command is used to generate man pages starting from docbook XML
-  files containing the documentation.
-  It's not required to build unieject, as the man pages are generated at make
-  dist time, but it's needed if you want to create a working package after a
-  make distclean.
+  xsltproc command is used by the man pages regeneration together with
+  the DocBook XSL-NS stylesheets package.
+  It is only used during make dist phase, so it's not needed to
+  compile the package from the released tarballs.
 
 Compiler
-  unieject is tested with GCC 3.3, 3.4, 4.0, 4.1 and 4.2. It should
-  work fine with ICC9, too. To work it requires the destructor
-  attribute that are present in GCC since version 3, and in ICC 9 (at
-  least).  If supported, it will also make use of other attributes to
-  hide symbols from the resulting library (right now, just GCC,
-  support for ICC requires to be worked on).
+  unieject is tested with GCC 3.3 through 4.4. It should work fine
+  with ICC9, too. To work it requires the destructor attribute that
+  are present in GCC since version 3, and in ICC 9 (at least).  If
+  supported, it will also make use of other attributes to hide symbols
+  from the resulting library (right now, just GCC, support for ICC
+  requires to be worked on).
 
 OS-specific notes
 -----------------
@@ -104,9 +99,9 @@ API documentation is not being built at the moment; when it will be, it will be
 specified and will have a --enable/--disable switch on ./configure.
 
 This package is supposed to build fine with -Werror, -Wall, -Wextra and 
--pedantic CFLAGS, or at least it does so on my system. Unfortuantely, it's
+-pedantic CFLAGS, or at least it does so on my system. Unfortunately, its
 ./configure to fail when checking for strdup if -Werror is defined, I don't
-really know why. Also --as-needed LDFLAG is supposed to work.
+really know why. Also the --as-needed linker flag is supposed to work.
 
 A better way to blend in unieject with pmount is to install unieject as suid and
 in plugdev group, exactly as pmount, and then set it to use the pumount command
