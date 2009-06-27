@@ -3,7 +3,7 @@
 
 AC_DEFUN([_DOXYFORMAT], [
 	AC_MSG_CHECKING([whether to build API doc in $1 format])
-	if grep -w $1 >/dev/null <<<$DOXYFORMATS; then
+	if echo "$DOXYFORMATS" | grep -qw $1; then
 		AC_MSG_RESULT([yes])
 		AC_SUBST(DOXYFORMAT_$1, [YES])
 	else
