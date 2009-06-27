@@ -44,6 +44,12 @@
 # define NONNULL(...)
 #endif
 
+#if SUPPORT_ATTRIBUTE_UNUSED
+# define UNUSED			__attribute__( ( __unused__ ) )
+#else
+# define UNUSED
+#endif
+
 #if SUPPORT__BUILTIN_EXPECT
 # define LIKELY(x)		__builtin_expect(!!(x), 1)
 # define UNLIKELY(x)		__builtin_expect(!!(x), 0)
