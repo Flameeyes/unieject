@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: flameeyes@gmail.com\n"
-"POT-Creation-Date: 2008-06-17 19:28+0200\n"
+"POT-Creation-Date: 2009-06-27 14:45+0200\n"
 "PO-Revision-Date: 2006-06-09 14:46+0200\n"
 "Last-Translator: Christoph Brill <egore911@egore911.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -16,164 +16,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: unieject.c:97 unieject.c:106
+#: unieject.c:95 unieject.c:103
 #, c-format
 msgid "Error parsing configuration file %s\n"
 msgstr "Konnte Konfigurationsdatei %s nicht lesen\n"
 
-#: unieject.c:126
+#: unieject.c:123
 msgid "Close CD-Rom tray."
 msgstr "Schließe CD-Rom-Fach."
 
-#: unieject.c:128
+#: unieject.c:125
 msgid "Toggle tray open/close."
 msgstr ""
 
-#: unieject.c:130
+#: unieject.c:127
 msgid "Set CD-Rom max speed."
 msgstr "Setzte maximale CD-Rom Geschwindigkeit."
 
-#: unieject.c:132
+#: unieject.c:129
 msgid "Switch discs on a CD-ROM changer."
 msgstr "Wechsle Datenträgen in CD-Wechsler."
 
-#: unieject.c:134
+#: unieject.c:131
 msgid "Lock the CD-Rom drive."
 msgstr "Sperre das CD-Rom-Laufwerk."
 
-#: unieject.c:136
+#: unieject.c:133
 msgid "Unlock the CD-Rom drive."
 msgstr "Entsperre das CD-Rom-Laufwerk."
 
-#: unieject.c:139
+#: unieject.c:136
 msgid "Don't eject, just show device found."
 msgstr "Nicht auswerfen, nur gefundenes Laufwerk anzeigen."
 
-#: unieject.c:141
+#: unieject.c:138
 msgid "Display default device."
 msgstr "Zeige Standardlaufwerk."
 
-#: unieject.c:144
+#: unieject.c:141
 msgid "Enable verbose output."
 msgstr "Aktiviere detailierte Ausgabe."
 
-#: unieject.c:146
+#: unieject.c:143
 msgid "Disable output of error messages."
 msgstr "Unterdrücke die Ausgaben von Fehlermeldungen."
 
-#: unieject.c:149
+#: unieject.c:146
 msgid "Do not umount device even if it is mounted."
 msgstr "Hänge das Laufwerk nicht aus auch wenn eingehängt."
 
-#: unieject.c:151
+#: unieject.c:148
 msgid "Unmount device if mounted (default behavior)."
 msgstr "Hänge das Laufwerk aus, wenn es eingehängt ist (Standard)."
 
-#: unieject.c:154
+#: unieject.c:151
 msgid "Force unmount of device."
 msgstr "Erzwinge das Aushängen des Laufwerks."
 
-#: unieject.c:156
+#: unieject.c:153
 msgid "Don't force unmount of device (default behavior)."
 msgstr "Erzwinge nicht das Aushängen des Laufwerks (Standard)."
 
-#: unieject.c:159
+#: unieject.c:156
 msgid "Ignore capabilities as reported by device."
 msgstr "Ignoriere Fähigkeiten wie vom Laufwerk ermittelt."
 
-#: unieject.c:161
+#: unieject.c:158
 msgid "Don't ignore capabilities reported by device (default behavior)."
 msgstr "Nutze Fähigkeiten wie vom Laufwerk ermittelt."
 
-#: unieject.c:164
+#: unieject.c:161
 msgid "Use an umount wrapper to unmount."
 msgstr "Benutze einen unmount-Wrapper zum Auswerfen."
 
-#: unieject.c:168
+#: unieject.c:165
 msgid "Select the access method for libcdio."
 msgstr "Wähle die Zugriffsmethode für libcdio."
 
-#: unieject.c:171
+#: unieject.c:168
 msgid "Set debugging level for libcdio."
 msgstr "Setze Debug-Level für libcdio."
 
-#: unieject.c:175
+#: unieject.c:172
 msgid "Display version and copyright information and exit."
 msgstr "Zeige Versionsnummer und Copyright-Information und beende."
 
-#: unieject.c:178
+#: unieject.c:175
 msgid "Ignored (classic eject compatibility)."
 msgstr "Ignoriert (nur für Kompatibilität mit eject)."
 
-#: unieject.c:180 unieject.c:182 unieject.c:184 unieject.c:186 unieject.c:188
+#: unieject.c:177 unieject.c:179 unieject.c:181 unieject.c:183 unieject.c:185
 msgid "Ignored"
 msgstr ""
 
-#: unieject.c:202
+#: unieject.c:199
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 
-#: unieject.c:219
+#: unieject.c:216
 msgid "you can use just one of -x, -c, -l, -L and -d options\n"
 msgstr "es kann nur eine der Optionen -x, -c, -l, -L oder -d benutzt werden.\n"
 
-#: unieject.c:226
+#: unieject.c:223
 #, fuzzy
 msgid "you can use just one of -v and -q options\n"
 msgstr "es kann nur eine der Optionen -x, -c, -l, -L oder -d benutzt werden.\n"
 
-#: unieject.c:241
+#: unieject.c:238
 msgid "further non-option arguments ignored.\n"
 msgstr "ignoriere weitere Argumente, die keine Optionen sind.\n"
 
-#: unieject.c:288
+#: unieject.c:283
 msgid "default to closing tray instead of eject.\n"
 msgstr "wähle das Schließen als Standard anstelle vom Auswerfen.\n"
 
-#: unieject.c:297
+#: unieject.c:292
 #, c-format
 msgid "%s: default device: `%s'\n"
 msgstr "%s: Standardlaufwerk: `%s'\n"
 
-#: unieject.c:302
+#: unieject.c:297
 #, c-format
 msgid "unieject version %s\n"
 msgstr "unieject Version %s\n"
 
-#: unieject.c:315
+#: unieject.c:310
 #, c-format
 msgid "unable to unmount device '%s'.\n"
 msgstr "konnte Laufwerk '%s' nicht aushängen.\n"
 
-#: lib/eject.c:53
+#: lib/eject.c:50
 msgid "unable to get the status of the tray.\n"
 msgstr ""
 
-#: lib/eject.c:61
+#: lib/eject.c:57
 #, c-format
 msgid "%s: closing tray.\n"
 msgstr ""
 
-#: lib/eject.c:64
+#: lib/eject.c:60
 #, c-format
 msgid "%s: ejecting.\n"
 msgstr ""
 
-#: lib/eject.c:77
+#: lib/eject.c:71
 msgid "the selected device doesn't have eject capabilities.\n"
 msgstr "das gewählte Laufwerk unterstützt das Auswerfen nicht.\n"
 
-#: lib/eject.c:83
+#: lib/eject.c:76
 msgid "the selected device doesn't have tray close capabilities.\n"
 msgstr "das gewählte Laufwerk unterstützt das Schließen nicht.\n"
 
-#: lib/eject.c:97 lib/lock.c:63
+#: lib/eject.c:88 lib/lock.c:61
 #, c-format
 msgid "unable to open device descriptor [%s].\n"
 msgstr "konnte Laufwerks-Bezeichner nicht öffnen [%s].\n"
 
-#: lib/eject.c:103 lib/lock.c:69
+#: lib/eject.c:93 lib/lock.c:67
 #, c-format
 msgid "error in ioctl [%s].\n"
 msgstr "Fehler in ioctl [%s].\n"
@@ -183,12 +183,12 @@ msgstr "Fehler in ioctl [%s].\n"
 msgid "error receiving mount information: %s\n"
 msgstr "Fehler beim Ermitteln des Einhänge-Status : %s\n"
 
-#: lib/freebsd.c:52 lib/linux.c:49
+#: lib/freebsd.c:52 lib/linux.c:47
 #, c-format
 msgid "'%s' is mounted as '%s'\n"
 msgstr "'%s' is als '%s' eingehängt\n"
 
-#: lib/freebsd.c:61 lib/linux.c:58
+#: lib/freebsd.c:61 lib/linux.c:55
 #, c-format
 msgid "'%s' is the mount point of '%s'\n"
 msgstr "'%s' is Einhängepunkt von '%s'\n"
@@ -207,105 +207,110 @@ msgstr "'%s' ausgehängt von '%s'\n"
 msgid "rootdevice(): function not implemented for FreeBSD driver.\n"
 msgstr ""
 
-#: lib/linux.c:82
+#: lib/linux.c:78
 #, fuzzy, c-format
 msgid "unmount '%s'\n"
 msgstr "'%s' ausgehängt von '%s'\n"
 
-#: lib/linux.c:120
+#: lib/linux.c:114
 #, c-format
 msgid "unmounting partitions of '%s'.\n"
 msgstr ""
 
-#: lib/linux.c:158
+#: lib/linux.c:149
 #, fuzzy, c-format
 msgid "unable to stat '%s' [%s]\n"
 msgstr "konnte '%s' nicht aushängen[%s]\n"
 
-#: lib/linux.c:164
+#: lib/linux.c:154
 #, c-format
 msgid "'%s' is not a block device.\n"
 msgstr ""
 
-#: lib/linux.c:181
+#: lib/linux.c:170
 #, c-format
 msgid ""
 "'%s' is neither an IDE nor a SCSI device or partition, unable to eject.\n"
 msgstr ""
 
-#: lib/linux.c:187
+#: lib/linux.c:175
 #, c-format
 msgid "'%s' is a proper device (%u,%u).\n"
 msgstr ""
 
-#: lib/linux.c:191
+#: lib/linux.c:179
 #, fuzzy, c-format
 msgid "'%s' is a partition of %u,%lu not a device.\n"
 msgstr "'%s' ist eine Verknüpfung auf '%s'\n"
 
-#: lib/linux.c:198
+#: lib/linux.c:185
 #, fuzzy, c-format
 msgid "using sysfs to identify the root device for '%s'.\n"
 msgstr "benutze Standardlaufwerk '%s'\n"
 
-#: lib/linux.c:229
+#: lib/linux.c:200
+#, c-format
+msgid "unable to read major and minor numbers from '%s'.\n"
+msgstr ""
+
+#: lib/linux.c:212
 #, c-format
 msgid "trying empirical way to find root device for '%s'.\n"
 msgstr ""
 
-#: lib/lock.c:44
+#: lib/lock.c:42
 msgid "the selected device doesn't have locking capabilities.\n"
 msgstr "das gewählte Laufwerk unterstützt das Sperren nicht.\n"
 
-#: lib/mounts.c:47
+#: lib/mounts.c:49
 #, c-format
 msgid "using value of EJECT variable '%s'\n"
 msgstr "benutze Wert der Variable EJECT '%s'\n"
 
-#: lib/mounts.c:55
+#: lib/mounts.c:56
 msgid "using FreeBSD default: 'cd0'\n"
 msgstr "benutze FreeBSD-Standard: 'cd0'\n"
 
-#: lib/mounts.c:63
+#: lib/mounts.c:64
 msgid "no default device identified, exiting.\n"
 msgstr ""
 
-#: lib/mounts.c:66
+#: lib/mounts.c:67
 #, c-format
 msgid "using default device '%s'\n"
 msgstr "benutze Standardlaufwerk '%s'\n"
 
-#: lib/mounts.c:69
+#: lib/mounts.c:70
 #, c-format
 msgid "device name is '%s'\n"
 msgstr "Laufwerkname ist '%s'\n"
 
-#: lib/mounts.c:80
+#: lib/mounts.c:81
 #, c-format
 msgid "expanded name is '%s'\n"
 msgstr "erweiterter Name ist '%s'\n"
 
-#: lib/mounts.c:85
+#: lib/mounts.c:86
 #, c-format
 msgid "'%s' is a link to '%s'\n"
 msgstr "'%s' ist eine Verknüpfung auf '%s'\n"
 
-#: lib/mounts.c:105
+#: lib/mounts.c:108
 #, fuzzy, c-format
 msgid "'%s' is a partition of device '%s'\n"
 msgstr "'%s' ist eine Verknüpfung auf '%s'\n"
 
-#: lib/mounts.c:111
+#: lib/mounts.c:114
 #, c-format
 msgid "device is '%s'\n"
 msgstr "Laufwerk ist '%s'\n"
 
-#: lib/mounts.c:123
+#: lib/mounts.c:126
 #, c-format
 msgid "executing '%s' as umount wrapper.\n"
 msgstr "starte '%s' als unmount-Wrapper.\n"
 
-#: lib/mounts.c:129
+#: lib/mounts.c:130
 msgid "error executing umount wrapper, ignoring.\n"
 msgstr ""
 "Fehler beim ausführen des unmount-Wrappers, ignoriere es und fahre fort.\n"
@@ -323,17 +328,17 @@ msgstr "das gewählte Laufwerk unterstützt das Wählen der CD nicht.\n"
 msgid "%s: setting disc slot to %d\n"
 msgstr "setze CD-Rom-Geschwindigkeit auf %dX\n"
 
-#: lib/speed.c:32
+#: lib/speed.c:31
 msgid "the selected device doesn't have capability to select speed.\n"
 msgstr ""
 "das gewählte Laufwerk unterstützt das Wählen der Geschwindigkeit nicht.\n"
 
-#: lib/speed.c:36
+#: lib/speed.c:35
 #, c-format
 msgid "setting CD-ROM speed to %dX\n"
 msgstr "setze CD-Rom-Geschwindigkeit auf %dX\n"
 
-#: lib/utils.c:76
+#: lib/utils.c:66
 #, c-format
 msgid "unable to execute command (unknown CDIO status: %d)\n"
 msgstr "konnte das Kommando nicht ausführen (unbekannter CDIO status: %d)\n"
