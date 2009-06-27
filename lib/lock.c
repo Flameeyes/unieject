@@ -88,6 +88,6 @@ int libunieject_togglelock(struct unieject_opts *opts, int lock)
 		buf
 		);
 	
-	return unieject_status(*opts, sts);
+	return unieject_status(sts);
 #endif
 }
