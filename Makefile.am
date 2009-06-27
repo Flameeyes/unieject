@@ -1,4 +1,4 @@
-SUBDIRS = po manpages
+SUBDIRS = po
 
 localedir = $(datadir)/locale
 
@@ -95,6 +95,21 @@ else
 ChangeLog:
 	echo "Unable to regenerate" > ChangeLog
 endif
+
+EXTRA_DIST += \
+	manpages/unieject.conf.5.xml \
+	manpages/unieject.1.xml
+
+manpages/%: manpages/%.xml
+	xsltproc http://docbook.sourceforge.net/release/xsl-ns/current/manpages/docbook.xsl $<
+
+manpages/%.html: manpages/%.xml
+	xsltproc http://docbook.sourceforge.net/release/xsl-ns/current/xhtml/docbook.xsl $< > $@
+
+dist_html_DATA = manpages/unieject.1.html manpages/unieject.conf.5.html
+dist_man_MANS = manpages/unieject.1 manpages/unieject.conf.5
+
+MAINTAINERCLEANFILES = $(dist_man_MANS) $(dist_html_DATA)
 
 install-exec-hook: loadcd
 	rm -f $(DESTDIR)$(bindir)/loadcd

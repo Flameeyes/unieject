@@ -108,7 +108,6 @@ AC_SUBST(EXP_LDFLAGS)
 
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([Makefile
-	manpages/Makefile
 	lib/libunieject.pc])
 
 AC_OUTPUT
