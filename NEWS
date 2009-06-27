@@ -1,3 +1,11 @@
+27 June 2009: Release 6
+-----------------------
+After a few undocumented releases, a new major release from
+scratch. This includes an improved autotools based build system (with
+even faster parallel build), GIT as a SCM, glib replacing popt for
+command line parsing, and a few more changes under the hood to improve
+quality.
+
 21 July 2006: Release 5.3.2
 -------------------------
 Implementation of --traytoggle option, as for latest eject releases. Fix for
