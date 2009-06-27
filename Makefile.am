@@ -74,8 +74,8 @@ EXTRA_DIST = bootstrap.sh \
 	m4/with_pkg.m4
 EXTRA_CLEAN = loadcd
 
-dist_doc_DATA = ChangeLog NEWS COPYING INSTALL README AUTHORS	\
-	ABOUT-NLS unieject.conf.sample DONATING
+dist_doc_DATA = ChangeLog NEWS COPYING README AUTHORS \
+	unieject.conf.sample DONATING
 
 DISTCLEANFILES = ChangeLog
 
