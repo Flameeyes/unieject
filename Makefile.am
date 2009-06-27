@@ -1,4 +1,4 @@
-SUBDIRS = po manpages m4
+SUBDIRS = po manpages
 
 localedir = $(datadir)/locale
 
@@ -67,7 +67,11 @@ loadcd: unieject
 ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign no-dist-gzip dist-bzip2
 
-EXTRA_DIST = bootstrap.sh
+EXTRA_DIST = bootstrap.sh \
+	m4/attributes.m4 \
+	m4/doxygen.m4 \
+	m4/pkg.m4 \
+	m4/with_pkg.m4
 EXTRA_CLEAN = loadcd
 
 dist_doc_DATA = ChangeLog NEWS COPYING INSTALL README AUTHORS	\
