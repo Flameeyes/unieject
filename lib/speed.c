@@ -27,7 +27,7 @@
 
 int libunieject_setspeed(struct unieject_opts opts)
 {
-  if ( ! unieject_get_misccaps(opts) & CDIO_DRIVE_CAP_MISC_SELECT_SPEED ) {
+  if ( ! (unieject_get_misccaps(opts) & CDIO_DRIVE_CAP_MISC_SELECT_SPEED) ) {
     g_critical(_("the selected device doesn't have capability to select speed.\n"));
     return -2;
   }

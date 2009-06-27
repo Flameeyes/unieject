@@ -101,9 +101,10 @@ int libunieject_eject(struct unieject_opts *opts)
 #ifdef FREEBSD_DRIVER
   driver_return_code_t sts;
   if ( strncmp("/dev/cd", opts->device, 7) != 0 ) {
-    if ( opts->eject )
-      sts = cdio_eject_media((CdIo_t**)&opts->cdio);
-    else {
+    if ( opts->eject ) {
+      CdIo_t *cdio = opts->cdio;
+      sts = cdio_eject_media(&cdio);
+    } else {
       cdio_destroy(opts->cdio);
       opts->cdio = NULL;
       sts = cdio_close_tray(opts->device, NULL);

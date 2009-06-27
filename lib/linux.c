@@ -192,18 +192,18 @@ gchar *rootdevice(char *device)
       FILE *dev_fd = fopen(sysfs_file_dev, "r");
       if ( ! dev_fd ) continue;
 
-      unsigned int major, minor;
-      fscanf(dev_fd, "%u:%u\n", &major, &minor);
-
+      unsigned int major, minor, ret;
+      ret = fscanf(dev_fd, "%u:%u\n", &major, &minor);
       fclose(dev_fd);
 
-      if ( major == major(devstat.st_rdev) && minor == rootminor ) {
+      if ( ret != 2 ) {
+	g_critical(_("unable to read major and minor numbers from '%s'.\n"), sysfs_file_dev);
+      } else if ( major == major(devstat.st_rdev) && minor == rootminor ) {
 	gchar *rootdev = g_strdup_printf("/dev/%s", block_devices.gl_pathv[i] + (sizeof("/sys/block/") -1));
 	globfree(&block_devices);
 
 	return rootdev;
       }
-
     }
   }
   globfree(&block_devices);
